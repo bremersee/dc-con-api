@@ -1,0 +1,23 @@
+{
+  "importMappings": {
+    "BooleanWrapper": "org.bremersee.smbcon.model.BooleanWrapper",
+    "Common": "org.bremersee.smbcon.model.Common",
+    "DnsDwDpZoneFlag": "org.bremersee.smbcon.model.DnsDwDpZoneFlag",
+    "DnsEntry": "org.bremersee.smbcon.model.DnsEntry",
+    "DnsRecord": "org.bremersee.smbcon.model.DnsRecord",
+    "DnsRecordRequest": "org.bremersee.smbcon.model.DnsRecordRequest",
+    "DnsRecordType": "org.bremersee.smbcon.model.DnsRecordType",
+    "DnsRecordUpdateRequest": "org.bremersee.smbcon.model.DnsRecordUpdateRequest",
+    "DnsZone": "org.bremersee.smbcon.model.DnsZone",
+    "DnsZoneCreateRequest": "org.bremersee.smbcon.model.DnsZoneCreateRequest",
+    "DnsZoneFlag": "org.bremersee.smbcon.model.DnsZoneFlag",
+    "Info": "org.bremersee.smbcon.model.Info",
+    "Name": "org.bremersee.smbcon.model.Name",
+    "Names": "org.bremersee.smbcon.model.Names",
+    "Password": "org.bremersee.smbcon.model.Password",
+    "SambaGroup": "org.bremersee.smbcon.model.SambaGroup",
+    "SambaGroupItem": "org.bremersee.smbcon.model.SambaGroupItem",
+    "SambaUser": "org.bremersee.smbcon.model.SambaUser",
+    "SambaUserAddRequest": "org.bremersee.smbcon.model.SambaUserAddRequest"
+  }
+}
