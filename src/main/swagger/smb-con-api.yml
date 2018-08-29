@@ -55,6 +55,10 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/SambaGroupItem"
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -79,7 +83,17 @@ paths:
           schema:
             $ref: "#/definitions/SambaGroup"
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        406:
+          description: "Already exists"
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -102,8 +116,18 @@ paths:
           description: "The samba group with the specified name."
           schema:
             $ref: "#/definitions/SambaGroup"
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
         404:
           description: "Not found"
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -121,8 +145,16 @@ paths:
       produces:
         - "application/json"
       responses:
+        200:
+          description: "Group does not exist or was successfully deleted."
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -154,7 +186,17 @@ paths:
           schema:
             $ref: "#/definitions/SambaGroup"
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        404:
+          description: "Group not found."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -181,7 +223,13 @@ paths:
           schema:
             $ref: "#/definitions/SambaUser"
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -204,8 +252,18 @@ paths:
           description: "The samba user with the specified name."
           schema:
             $ref: "#/definitions/SambaUser"
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
         404:
-          description: "User not found"
+          description: "User not found."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -236,9 +294,17 @@ paths:
           schema:
             $ref: "#/definitions/SambaUser"
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
         404:
-          description: "User not found"
+          description: "User not found."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -256,10 +322,20 @@ paths:
       produces:
         - "application/json"
       responses:
+        200:
+          description: "User does not exist or was successfully deleted."
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
         404:
-          description: "User not found"
+          description: "User not found."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -282,6 +358,10 @@ paths:
           description: "True if the user exists otherwise false."
           schema:
             $ref: "#/definitions/BooleanWrapper"
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -313,9 +393,17 @@ paths:
           schema:
             $ref: "#/definitions/SambaUser"
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
         404:
-          description: "User not found"
+          description: "User not found."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -345,9 +433,17 @@ paths:
         200:
           description: "The password was successfully changed."
         400:
-          description: "Bad request"
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
         404:
-          description: "User not found"
+          description: "User not found."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -355,26 +451,34 @@ paths:
     get:
       tags:
         - "samba-connector-controller"
-      summary: "Get all nameserver zones."
-      description: "Get all nameserver zones."
+      summary: "Get all name server zones."
+      description: "Get all name server zones."
       operationId: "getDnsZones"
       produces:
         - "application/json"
       responses:
         200:
-          description: "A list with nameserver zones."
+          description: "A list with name server zones."
           schema:
             type: "array"
             items:
               $ref: "#/definitions/DnsZone"
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
     post:
       tags:
         - "samba-connector-controller"
-      summary: "Create new nameserver zone."
-      description: "Create new nameserver zone."
+      summary: "Create new name server zone."
+      description: "Create new name server zone."
       operationId: "createDnsZone"
       parameters:
         - name: "request"
@@ -388,14 +492,18 @@ paths:
       responses:
         200:
           description: "The zone was successfully created."
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
     delete:
       tags:
         - "samba-connector-controller"
-      summary: "Delete nameserver zone."
-      description: "Delete nameserver zone."
+      summary: "Delete names server zone."
+      description: "Delete name server zone."
       operationId: "deleteDnsZone"
       parameters:
         - name: "zoneName"
@@ -407,6 +515,14 @@ paths:
       responses:
         200:
           description: "The zone was successfully created."
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -414,12 +530,12 @@ paths:
     get:
       tags:
         - "samba-connector-controller"
-      summary: "Get all nameserver records of a zone."
-      description: "Get all nameserver records of a zone."
+      summary: "Get all name server records of a zone."
+      description: "Get all name server records of a zone."
       operationId: "getDnsRecords"
       parameters:
         - name: "zoneName"
-          description: "The nameserver zone name."
+          description: "The name server zone name."
           type: "string"
           required: true
           in: "query"
@@ -427,19 +543,27 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "A list with nameserver records."
+          description: "A list with name server records."
           schema:
             type: "array"
             items:
               $ref: "#/definitions/DnsEntry"
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
     post:
       tags:
         - "samba-connector-controller"
-      summary: "Create or delete nameserver record."
-      description: "Create or delete nameserver record."
+      summary: "Create or delete name server record."
+      description: "Create or delete name server record."
       operationId: "createOrDeleteDnsRecord"
       parameters:
         - name: "action"
@@ -459,15 +583,23 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "The nameserver record was successfully created."
+          description: "The name server record was successfully created."
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
     put:
       tags:
         - "samba-connector-controller"
-      summary: "Update nameserver record."
-      description: "Update nameserver record."
+      summary: "Update name server record."
+      description: "Update name server record."
       operationId: "updateDnsRecord"
       parameters:
         - name: "request"
@@ -480,7 +612,15 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "The nameserver record was successfully created."
+          description: "The name server record was successfully created."
+        400:
+          description: "Bad request."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+        500:
+          description: "Fatal server error."
+          schema:
+            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
       security:
         - bremersee_auth:
           - "samba:admin"
@@ -762,19 +902,19 @@ definitions:
     properties:
       recordType:
         type: "string"
-        description: "The nameserver record type."
+        description: "The name server record type."
       recordValue:
         type: "string"
-        description: "The nameserver record value."
+        description: "The name server record value."
       flags:
         type: "string"
-        description: "The nameserver record flags."
+        description: "The name server record flags."
       serial:
         type: "string"
-        description: "The nameserver record serial."
+        description: "The name server record serial."
       ttl:
         type: "string"
-        description: "The nameserver record ttl."
+        description: "The name server record ttl."
   DnsEntry:
     type: "object"
     description: "DNS Entry"
@@ -786,4 +926,4 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/DnsRecord"
-        description: "The nameserver records."
+        description: "The name server records."
