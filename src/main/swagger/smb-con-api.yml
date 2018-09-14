@@ -36,9 +36,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/groups:
     get:
       tags:
@@ -59,9 +56,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     post:
       tags:
         - "samba-connector-controller"
@@ -94,9 +88,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/groups/{groupName}:
     get:
       tags:
@@ -128,9 +119,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     delete:
       tags:
         - "samba-connector-controller"
@@ -155,9 +143,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/groups/{groupName}/members:
     put:
       tags:
@@ -197,9 +182,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/users:
     post:
       tags:
@@ -230,9 +212,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/users/{userName}:
     get:
       tags:
@@ -264,9 +243,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     patch:
       tags:
         - "samba-connector-controller"
@@ -305,9 +281,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     delete:
       tags:
         - "samba-connector-controller"
@@ -336,9 +309,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/users/{userName}/f/exists:
     get:
       tags:
@@ -362,9 +332,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/users/{userName}/groups:
     put:
       tags:
@@ -404,9 +371,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/users/{userName}/password:
     put:
       tags:
@@ -444,9 +408,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/dns/zones:
     get:
       tags:
@@ -471,9 +432,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     post:
       tags:
         - "samba-connector-controller"
@@ -496,9 +454,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     delete:
       tags:
         - "samba-connector-controller"
@@ -523,9 +478,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
   /api/v1/dns/zones/records:
     get:
       tags:
@@ -556,9 +508,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     post:
       tags:
         - "samba-connector-controller"
@@ -592,9 +541,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
     put:
       tags:
         - "samba-connector-controller"
@@ -621,17 +567,17 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-      security:
-        - bremersee_auth:
-          - "samba:admin"
-securityDefinitions:
-  bremersee_auth:
-    type: "oauth2"
-    authorizationUrl: "http://localhost:8080/authman/oauth/authorize"
-    tokenUrl: "http://localhost:8080/authman/oauth/token"
-    flow: "password"
-    scopes:
-      samba:admin: "Administer the Samba AD."
+#      security:
+#        - bremersee_auth:
+#          - "samba:admin"
+#securityDefinitions:
+#  bremersee_auth:
+#    type: "oauth2"
+#    authorizationUrl: "http://localhost:8080/authman/oauth/authorize"
+#    tokenUrl: "http://localhost:8080/authman/oauth/token"
+#    flow: "password"
+#    scopes:
+#      samba:admin: "Administer the Samba AD."
 definitions:
   BooleanWrapper:
     description: "Wrapper of a boolean value."
