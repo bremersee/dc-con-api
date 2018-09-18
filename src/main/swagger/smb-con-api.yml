@@ -18,7 +18,7 @@ schemes:
   - "http"
   - "https"
 paths:
-  /api/v1/info:
+  /api/info:
     get:
       tags:
         - "samba-connector-controller"
@@ -36,7 +36,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/groups:
+  /api/groups:
     get:
       tags:
         - "samba-connector-controller"
@@ -88,7 +88,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/groups/{groupName}:
+  /api/groups/{groupName}:
     get:
       tags:
       - "samba-connector-controller"
@@ -143,7 +143,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/groups/{groupName}/members:
+  /api/groups/{groupName}/members:
     put:
       tags:
         - "samba-connector-controller"
@@ -182,7 +182,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/users:
+  /api/users:
     post:
       tags:
         - "samba-connector-controller"
@@ -212,7 +212,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/users/{userName}:
+  /api/users/{userName}:
     get:
       tags:
         - "samba-connector-controller"
@@ -309,7 +309,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/users/{userName}/f/exists:
+  /api/users/{userName}/f/exists:
     get:
       tags:
         - "samba-connector-controller"
@@ -332,7 +332,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/users/{userName}/groups:
+  /api/users/{userName}/groups:
     put:
       tags:
         - "samba-connector-controller"
@@ -371,7 +371,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/users/{userName}/password:
+  /api/users/{userName}/password:
     put:
       tags:
         - "samba-connector-controller"
@@ -408,7 +408,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/dns/zones:
+  /api/dns/zones:
     get:
       tags:
         - "samba-connector-controller"
@@ -478,7 +478,7 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-  /api/v1/dns/zones/records:
+  /api/dns/zones/records:
     get:
       tags:
         - "samba-connector-controller"
@@ -567,17 +567,6 @@ paths:
           description: "Fatal server error."
           schema:
             $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
-#      security:
-#        - bremersee_auth:
-#          - "samba:admin"
-#securityDefinitions:
-#  bremersee_auth:
-#    type: "oauth2"
-#    authorizationUrl: "http://localhost:8080/authman/oauth/authorize"
-#    tokenUrl: "http://localhost:8080/authman/oauth/token"
-#    flow: "password"
-#    scopes:
-#      samba:admin: "Administer the Samba AD."
 definitions:
   BooleanWrapper:
     description: "Wrapper of a boolean value."
