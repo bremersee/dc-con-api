@@ -6,75 +6,40 @@
 
   <groupId>org.bremersee</groupId>
   <artifactId>smb-con-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <modules>
+    <module>smb-con-model-spring</module>
+    <module>smb-con-api-spring</module>
+    <module>smb-con-api-spring-reactive</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>smb-con-api</name>
   <description>Samba Connector API</description>
 
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.4.RELEASE</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-
   <properties>
+    <github.global.server>github</github.global.server>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
-    <spring-cloud.version>Finchley.SR1</spring-cloud.version>
+    <product.vendor>bremersee.org</product.vendor>
+    <inceptionYear>2019</inceptionYear>
 
-    <buildnumber-maven-plugin.version>1.4</buildnumber-maven-plugin.version>
-    <checkstyle.version>8.7</checkstyle.version>
-    <dependency.locations.enabled>false</dependency.locations.enabled>
-    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-    <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
-    <!--<maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>-->
-    <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
-    <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
-    <maven-surefire-report-plugin.version>2.20.1</maven-surefire-report-plugin.version>
-    <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
-    <jacoco.files>/target/coverage-reports/jacoco-unit.exec</jacoco.files>
-    <jdepend-maven-plugin.version>2.0</jdepend-maven-plugin.version>
-    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
-    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-    <sonar.jacoco.reportPath>
-      ${project.basedir}/target/coverage-reports/jacoco-unit.exec
-    </sonar.jacoco.reportPath>
-    <sonar.language>java</sonar.language>
-    <sonar.jacoco.reportMissing.force.zero>true</sonar.jacoco.reportMissing.force.zero>
     <swagger-annotations.version>1.5.18</swagger-annotations.version>
-    <swagger-base-package>org.bremersee.smbcon</swagger-base-package>
     <swagger-codegen-maven-plugin.version>2.3.1</swagger-codegen-maven-plugin.version>
+
+    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+
+    <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+    <maven-surefire-report-plugin.version>3.0.0-M3</maven-surefire-report-plugin.version>
+
+    <plantuml.version>1.2018.11</plantuml.version>
     <wagon-webdav-jackrabbit.version>3.0.0</wagon-webdav-jackrabbit.version>
     <wagon-ssh-external.version>3.0.0</wagon-ssh-external.version>
+
+    <check-style-location>google_checks.xml</check-style-location>
+    <checkstyle.version>8.15</checkstyle.version>
   </properties>
-
-  <scm>
-    <connection>scm:git:ssh://git@github.com:bremersee/smb-con-api.git</connection>
-    <developerConnection>
-      scm:git:ssh://git@github.com:bremersee/smb-con-api.git
-    </developerConnection>
-    <url>https://github.com/bremersee/smb-con-api</url>
-  </scm>
-
-  <distributionManagement>
-    <repository>
-      <id>bremersee-releases</id>
-      <url>https://nexus.bremersee.org/repository/maven-releases/</url>
-    </repository>
-    <snapshotRepository>
-      <id>bremersee-snapshots</id>
-      <url>https://nexus.bremersee.org/repository/maven-snapshots/</url>
-      <uniqueVersion>false</uniqueVersion>
-    </snapshotRepository>
-    <site>
-      <id>bremersee-sites</id>
-      <url>dav:https://nexus.bremersee.org/repository/maven-sites/smb-con-api</url>
-    </site>
-  </distributionManagement>
 
   <developers>
     <developer>
@@ -102,11 +67,55 @@
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:ssh://git@github.com:bremersee/smb-con-api.git</connection>
+    <developerConnection>
+      scm:git:ssh://git@github.com:bremersee/smb-con-api.git
+    </developerConnection>
+    <url>https://github.com/bremersee/smb-con-api</url>
+  </scm>
+
+  <issueManagement>
+    <url>https://github.com/bremersee/groupman-api/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>bremersee-releases</id>
+      <url>https://nexus.bremersee.org/repository/maven-releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>bremersee-snapshots</id>
+      <url>https://nexus.bremersee.org/repository/maven-snapshots</url>
+    </snapshotRepository>
+    <!--
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    -->
+    <site>
+      <id>bremersee-sites</id>
+      <url>
+        dav:https://nexus.bremersee.org/repository/maven-sites/smb-con-api/${project.version}
+      </url>
+    </site>
+  </distributionManagement>
+
   <repositories>
     <repository>
-      <id>spring-snapshots</id>
-      <name>Spring Snapshots</name>
-      <url>https://repo.spring.io/snapshot</url>
+      <id>bremersee-releases</id>
+      <name>Bremersee Releases</name>
+      <url>https://nexus.bremersee.org/repository/maven-releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>bremersee-snapshots</id>
+      <name>Bremersee Snapshots</name>
+      <url>https://nexus.bremersee.org/repository/maven-snapshots</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -121,215 +130,67 @@
     </repository>
   </repositories>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>spring-snapshots</id>
-      <name>Spring Snapshots</name>
-      <url>https://repo.spring.io/snapshot</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
-    <pluginRepository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>${spring-cloud.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
+        <groupId>org.bremersee</groupId>
+        <artifactId>common-base</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
+        <artifactId>common-model-spring</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
+        <artifactId>smb-con-model-spring</artifactId>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>io.swagger</groupId>
         <artifactId>swagger-annotations</artifactId>
         <version>${swagger-annotations.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>common-exception-handling</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.bremersee</groupId>
-      <artifactId>common-exception-handling</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webmvc</artifactId>
-    </dependency>
-
-
-    <!--
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-oauth2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-security</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    -->
-  </dependencies>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <configuration>
-          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <show>protected</show>
-          <quiet>true</quiet>
-          <failOnError>false</failOnError>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <configuration>
-          <format>xml</format>
-          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-          <minimumTokens>100</minimumTokens>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
-
   <build>
-    <extensions>
-      <!-- Enabling the use of SSH -->
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-ssh-external</artifactId>
-        <version>${wagon-ssh-external.version}</version>
-      </extension>
-      <!-- Enabling the use of WebDAV -->
-      <extension>
-        <groupId>org.apache.maven.wagon</groupId>
-        <artifactId>wagon-webdav-jackrabbit</artifactId>
-        <version>${wagon-webdav-jackrabbit.version}</version>
-      </extension>
-    </extensions>
-
-    <resources>
-      <resource>
-        <directory>${project.basedir}/src/main/resources</directory>
-      </resource>
-      <resource>
-        <directory>${project.basedir}/src/main/swagger</directory>
-        <targetPath>META-INF/swagger</targetPath>
-        <filtering>false</filtering>
-        <includes>
-          <include>*.yml</include>
-          <include>*.json</include>
-        </includes>
-      </resource>
-    </resources>
-
     <pluginManagement>
       <plugins>
         <plugin>
+          <groupId>io.swagger</groupId>
+          <artifactId>swagger-codegen-maven-plugin</artifactId>
+          <version>${swagger-codegen-maven-plugin.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>2.4</version>
+          <executions>
+            <execution>
+              <id>attach-sources</id>
+              <goals>
+                <goal>jar-no-fork</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.2</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
+          <version>3.1.0</version>
           <configuration>
             <archive>
               <addMavenDescriptor>true</addMavenDescriptor>
@@ -341,42 +202,72 @@
               <manifestEntries>
                 <Product-Name>${project.artifactId}</Product-Name>
                 <Product-Version>${project.version}</Product-Version>
-                <Product-Vendor>${project.organization.name}</Product-Vendor>
-                <!--suppress MavenModelInspection -->
-                <Implementation-Build>${buildNumber}</Implementation-Build>
+                <Product-Vendor>${product.vendor}</Product-Vendor>
               </manifestEntries>
             </archive>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>${maven-project-info-reports-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>${maven-surefire-report-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jxr-plugin</artifactId>
-          <version>${maven-jxr-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-pmd-plugin</artifactId>
-          <version>${maven-pmd-plugin.version}</version>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
           <configuration>
-            <format>xml</format>
-            <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-            <minimumTokens>100</minimumTokens>
+            <includes>
+              <include>**/*Test.java</include>
+              <include>**/*Tests.java</include>
+            </includes>
+            <excludes>
+              <exclude>**/Abstract*.java</exclude>
+            </excludes>
           </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.0.1</version>
+          <configuration>
+            <show>protected</show>
+            <quiet>true</quiet>
+            <failOnError>false</failOnError>
+          </configuration>
+          <executions>
+            <execution>
+              <id>attach-javadocs</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <version>3.7.1</version>
+          <configuration>
+            <generateReports>true</generateReports>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>net.sourceforge.plantuml</groupId>
+              <artifactId>plantuml</artifactId>
+              <version>${plantuml.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-ssh-external</artifactId>
+              <version>${wagon-ssh-external.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.maven.wagon</groupId>
+              <artifactId>wagon-webdav-jackrabbit</artifactId>
+              <version>${wagon-webdav-jackrabbit.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>${maven-checkstyle-plugin.version}</version>
+          <version>3.0.0</version>
           <dependencies>
             <dependency>
               <groupId>com.puppycrawl.tools</groupId>
@@ -384,22 +275,14 @@
               <version>${checkstyle.version}</version>
             </dependency>
           </dependencies>
-          <configuration>
-            <configLocation>google_checks.xml</configLocation>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>jdepend-maven-plugin</artifactId>
-          <version>${jdepend-maven-plugin.version}</version>
         </plugin>
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>${jacoco-maven-plugin.version}</version>
+          <version>0.8.2</version>
           <configuration>
-            <destFile>${basedir}${jacoco.files}</destFile>
-            <dataFile>${basedir}${jacoco.files}</dataFile>
+            <destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
+            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
           </configuration>
           <executions>
             <execution>
@@ -418,19 +301,9 @@
           </executions>
         </plugin>
         <plugin>
-          <groupId>io.swagger</groupId>
-          <artifactId>swagger-codegen-maven-plugin</artifactId>
-          <version>${swagger-codegen-maven-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <artifactId>jdeb</artifactId>
-          <groupId>org.vafer</groupId>
-          <version>${jdeb-plugin.version}</version>
-        </plugin>
-        <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>buildnumber-maven-plugin</artifactId>
-          <version>${buildnumber-maven-plugin.version}</version>
+          <version>1.4</version>
           <executions>
             <execution>
               <phase>validate</phase>
@@ -445,118 +318,30 @@
             <shortRevisionLength>7</shortRevisionLength>
           </configuration>
         </plugin>
+        <!--
         <plugin>
-          <groupId>io.swagger</groupId>
-          <artifactId>swagger-codegen-maven-plugin</artifactId>
-          <version>${swagger-codegen-maven-plugin.version}</version>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>nexus-staging-maven-plugin</artifactId>
+          <version>1.6.6</version>
+          <extensions>true</extensions>
+          <configuration>
+            <serverId>ossrh</serverId>
+            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+          </configuration>
         </plugin>
+        -->
       </plugins>
     </pluginManagement>
 
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>swagger-codegen-dependencies</id>
-            <phase>initialize</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.bremersee</groupId>
-                  <artifactId>common-exception-handling</artifactId>
-                  <outputDirectory>${basedir}/target/swagger-refs</outputDirectory>
-                  <includes>**/*.json,**/*.yml</includes>
-                </artifactItem>
-              </artifactItems>
-            </configuration>
-          </execution>
-        </executions>
+        <artifactId>maven-source-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>io.swagger</groupId>
-        <artifactId>swagger-codegen-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>api</id>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-            <configuration>
-              <configurationFile>
-                ${project.basedir}/src/main/swagger/smb-con-api-config.json
-              </configurationFile>
-              <!-- OpenAPI Spec file path (required) -->
-              <inputSpec>
-                ${project.basedir}/src/main/swagger/smb-con-api.yml
-              </inputSpec>
-              <!-- target generation language (required) -->
-              <language>spring</language>
-              <!-- For feign clients -->
-              <!-- <library>spring-cloud</library> -->
-              <!-- For services -->
-              <!-- <library>spring-boot</library> -->
-              <!-- target output path  -->
-              <output>${project.build.directory}/generated-sources</output>
-              <!-- directory with mustache templates  -->
-              <templateDirectory>
-                ${project.basedir}/src/main/swagger/templates
-              </templateDirectory>
-              <!-- the package to use for generated model objects/classes -->
-              <modelPackage>${swagger-base-package}.model</modelPackage>
-              <!-- the package to use for generated api objects/classes -->
-              <apiPackage>${swagger-base-package}.api</apiPackage>
-              <!-- the package to use for the generated invoker objects -->
-              <invokerPackage>${swagger-base-package}.invoker</invokerPackage>
-              <!-- enable XML annotations inside the generated models and API (only works with
-                   Java language and libraries that provide support for JSON and XML) -->
-              <withXml>true</withXml>
-              <!-- generate the apis (true by default) -->
-              <generateApis>true</generateApis>
-              <!-- generate the api tests (true by default.
-                   Only available if generateApis is true) -->
-              <generateApiTests>false</generateApiTests>
-              <!-- generate the api documentation (true by default.
-                   Only available if generateApis is true) -->
-              <generateApiDocumentation>false</generateApiDocumentation>
-              <!-- generate the models (true by default) -->
-              <generateModels>true</generateModels>
-              <!-- generate the model tests (true by default.
-                   Only available if generateModels is true) -->
-              <generateModelTests>false</generateModelTests>
-              <!-- generate the model documentation (true by default.
-                   Only available if generateModels is true) -->
-              <generateModelDocumentation>true</generateModelDocumentation>
-              <!-- generate the supporting files (true by default) -->
-              <generateSupportingFiles>false</generateSupportingFiles>
-              <!-- a map of language-specific parameters -->
-              <configOptions>
-                <!-- boolean - toggle "implements Serializable" for generated models
-                     (Default: false) -->
-                <serializableModel>true</serializableModel>
-                <!-- hides the timestamp when files were generated -->
-                <hideGenerationTimestamp>true</hideGenerationTimestamp>
-                <!-- whether to include support for application/xml content type and include XML
-                     annotations in the model (works with libraries that provide support for JSON
-                     and XML) (Default: false) -->
-                <withXml>true</withXml>
-                <!-- Date library to use -->
-                <dateLibrary>java8</dateLibrary>
-                <!-- Use Java8 classes instead of third party equivalents -->
-                <java8>true</java8>
-
-                <!-- api generation: generate class names by tags -->
-                <useTags>true</useTags>
-                <!-- api generation: generate only interfaces, no stubs -->
-                <interfaceOnly>true</interfaceOnly>
-              </configOptions>
-            </configuration>
-          </execution>
-        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -568,5 +353,91 @@
       </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <show>protected</show>
+          <quiet>true</quiet>
+          <failOnError>false</failOnError>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>${maven-surefire-report-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+        <version>2.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <version>3.10.0</version>
+        <configuration>
+          <format>xml</format>
+          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>${check-style-location}</configLocation>
+          <encoding>UTF-8</encoding>
+          <inputEncoding>UTF-8</inputEncoding>
+          <includeTestSourceDirectory>true</includeTestSourceDirectory>
+          <consoleOutput>true</consoleOutput>
+          <failOnViolation>false</failOnViolation>
+          <failsOnError>true</failsOnError>
+          <enableRulesSummary>true</enableRulesSummary>
+          <enableFilesSummary>true</enableFilesSummary>
+          <enableSeveritySummary>true</enableSeveritySummary>
+          <lineLength>100</lineLength>
+          <outputFileFormat>xml</outputFileFormat>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>checkstyle</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 
 </project>

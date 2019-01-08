@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "base-api.bremersee.org"
+host: "api.bremersee.org"
 basePath: "/smb-con"
 tags:
   - name: "samba-connector-controller"
@@ -35,7 +35,7 @@ paths:
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/groups:
     get:
       tags:
@@ -55,7 +55,7 @@ paths:
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     post:
       tags:
         - "samba-connector-controller"
@@ -79,15 +79,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         406:
           description: "Already exists"
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/groups/{groupName}:
     get:
       tags:
@@ -110,15 +110,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "Not found"
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     delete:
       tags:
         - "samba-connector-controller"
@@ -138,11 +138,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/groups/{groupName}/members:
     put:
       tags:
@@ -173,15 +173,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "Group not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users:
     post:
       tags:
@@ -207,11 +207,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}:
     get:
       tags:
@@ -234,15 +234,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     patch:
       tags:
         - "samba-connector-controller"
@@ -272,15 +272,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     delete:
       tags:
         - "samba-connector-controller"
@@ -300,15 +300,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}/f/exists:
     get:
       tags:
@@ -331,7 +331,7 @@ paths:
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}/groups:
     put:
       tags:
@@ -362,15 +362,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}/password:
     put:
       tags:
@@ -399,15 +399,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/dns/zones:
     get:
       tags:
@@ -427,11 +427,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     post:
       tags:
         - "samba-connector-controller"
@@ -453,7 +453,7 @@ paths:
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     delete:
       tags:
         - "samba-connector-controller"
@@ -473,11 +473,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/dns/zones/records:
     get:
       tags:
@@ -503,11 +503,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     post:
       tags:
         - "samba-connector-controller"
@@ -536,11 +536,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     put:
       tags:
         - "samba-connector-controller"
@@ -562,11 +562,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
 definitions:
   BooleanWrapper:
     description: "Wrapper of a boolean value."
