@@ -244,7 +244,6 @@
         <artifactId>maven-project-info-reports-plugin</artifactId>
         <configuration>
           <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-          <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
         </configuration>
       </plugin>
       <plugin>
@@ -497,6 +496,10 @@
               </inputSpec>
               <!-- target generation language (required) -->
               <language>spring</language>
+              <!-- For feign clients -->
+              <!-- <library>spring-cloud</library> -->
+              <!-- For services -->
+              <!-- <library>spring-boot</library> -->
               <!-- target output path  -->
               <output>${project.build.directory}/generated-sources</output>
               <!-- directory with mustache templates  -->
