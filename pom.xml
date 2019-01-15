@@ -6,16 +6,17 @@
 
   <groupId>org.bremersee</groupId>
   <artifactId>smb-con-api</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>smb-con-api</name>
+  <description>Samba Connector API</description>
+
   <modules>
     <module>smb-con-model-spring</module>
     <module>smb-con-api-spring</module>
     <module>smb-con-api-spring-reactive</module>
   </modules>
-  <packaging>pom</packaging>
-
-  <name>smb-con-api</name>
-  <description>Samba Connector API</description>
 
   <properties>
     <github.global.server>github</github.global.server>
@@ -25,8 +26,10 @@
     <product.vendor>bremersee.org</product.vendor>
     <inceptionYear>2019</inceptionYear>
 
+    <spring-boot.version>2.1.2.RELEASE</spring-boot.version>
+
     <swagger-annotations.version>1.5.18</swagger-annotations.version>
-    <swagger-codegen-maven-plugin.version>2.3.1</swagger-codegen-maven-plugin.version>
+    <swagger-codegen-maven-plugin.version>2.4.1</swagger-codegen-maven-plugin.version>
 
     <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 
