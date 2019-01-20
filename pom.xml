@@ -5,17 +5,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.bremersee</groupId>
-  <artifactId>smb-con-api</artifactId>
+  <artifactId>dc-con-api</artifactId>
   <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>smb-con-api</name>
-  <description>Samba Connector API</description>
+  <name>dc-con-api</name>
+  <description>Domain Connector API</description>
 
   <modules>
-    <module>smb-con-model-spring</module>
-    <module>smb-con-api-spring</module>
-    <module>smb-con-api-spring-reactive</module>
+    <module>dc-con-api-model-spring</module>
+    <module>dc-con-api-spring</module>
+    <module>dc-con-api-spring-reactive</module>
   </modules>
 
   <properties>
@@ -71,11 +71,11 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:ssh://git@github.com:bremersee/smb-con-api.git</connection>
+    <connection>scm:git:ssh://git@github.com:bremersee/dc-con-api.git</connection>
     <developerConnection>
-      scm:git:ssh://git@github.com:bremersee/smb-con-api.git
+      scm:git:ssh://git@github.com:bremersee/dc-con-api.git
     </developerConnection>
-    <url>https://github.com/bremersee/smb-con-api</url>
+    <url>https://github.com/bremersee/dc-con-api</url>
   </scm>
 
   <issueManagement>
@@ -101,7 +101,7 @@
     <site>
       <id>bremersee-sites</id>
       <url>
-        dav:https://nexus.bremersee.org/repository/maven-sites/smb-con-api/${project.version}
+        dav:https://nexus.bremersee.org/repository/maven-sites/dc-con-api/${project.version}
       </url>
     </site>
   </distributionManagement>
@@ -147,7 +147,7 @@
       </dependency>
       <dependency>
         <groupId>org.bremersee</groupId>
-        <artifactId>smb-con-model-spring</artifactId>
+        <artifactId>dc-con-api-model-spring</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

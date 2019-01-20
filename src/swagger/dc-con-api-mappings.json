@@ -1,0 +1,23 @@
+{
+  "importMappings": {
+    "BooleanWrapper": "org.bremersee.dccon.model.BooleanWrapper",
+    "Common": "org.bremersee.dccon.model.Common",
+    "DnsDwDpZoneFlag": "org.bremersee.dccon.model.DnsDwDpZoneFlag",
+    "DnsEntry": "org.bremersee.dccon.model.DnsEntry",
+    "DnsRecord": "org.bremersee.dccon.model.DnsRecord",
+    "DnsRecordRequest": "org.bremersee.dccon.model.DnsRecordRequest",
+    "DnsRecordType": "org.bremersee.dccon.model.DnsRecordType",
+    "DnsRecordUpdateRequest": "org.bremersee.dccon.model.DnsRecordUpdateRequest",
+    "DnsZone": "org.bremersee.dccon.model.DnsZone",
+    "DnsZoneCreateRequest": "org.bremersee.dccon.model.DnsZoneCreateRequest",
+    "DnsZoneFlag": "org.bremersee.dccon.model.DnsZoneFlag",
+    "Info": "org.bremersee.dccon.model.Info",
+    "Name": "org.bremersee.dccon.model.Name",
+    "Names": "org.bremersee.dccon.model.Names",
+    "Password": "org.bremersee.dccon.model.Password",
+    "DomainGroup": "org.bremersee.dccon.model.DomainGroup",
+    "DomainGroupItem": "org.bremersee.dccon.model.DomainGroupItem",
+    "DomainUser": "org.bremersee.dccon.model.DomainUser",
+    "DomainUserAddRequest": "org.bremersee.dccon.model.DomainUserAddRequest"
+  }
+}

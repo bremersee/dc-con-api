@@ -1,3 +1,3 @@
-# smb-con-api
+# dc-con-api
 
-Samba Connector API
+Domain Controller Connector API

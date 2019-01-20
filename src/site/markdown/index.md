@@ -1,3 +1,3 @@
-# smb-con-api
+# dc-con-api
 
 Parent module with Swagger definitions.
