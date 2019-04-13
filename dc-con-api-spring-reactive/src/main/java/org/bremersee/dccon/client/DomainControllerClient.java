@@ -23,13 +23,12 @@ import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
 import org.bremersee.dccon.model.DnsZone;
 import org.bremersee.dccon.model.DnsZoneCreateRequest;
-import org.bremersee.dccon.model.Info;
-import org.bremersee.dccon.model.Names;
-import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
-import org.bremersee.dccon.model.DomainUserAddRequest;
+import org.bremersee.dccon.model.Info;
+import org.bremersee.dccon.model.Names;
+import org.bremersee.dccon.model.Password;
 import org.bremersee.web.ErrorDetectors;
 import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
 import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
@@ -217,7 +216,7 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Mono<DomainUser> addUser(final DomainUserAddRequest domainUser) {
+  public Mono<DomainUser> addUser(final DomainUser domainUser) {
     return webClient
         .post()
         .uri("/api/users")

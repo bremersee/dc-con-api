@@ -4,71 +4,30 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.bremersee</groupId>
+  <parent>
+    <groupId>org.bremersee</groupId>
+    <artifactId>common-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath/>
+  </parent>
+
   <artifactId>dc-con-api</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>dc-con-api</name>
   <description>Domain Connector API</description>
 
   <modules>
-    <module>dc-con-api-model-spring</module>
+    <module>dc-con-model</module>
     <module>dc-con-api-spring</module>
     <module>dc-con-api-spring-reactive</module>
   </modules>
 
   <properties>
-    <github.global.server>github</github.global.server>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>1.8</java.version>
-    <product.vendor>bremersee.org</product.vendor>
-    <inceptionYear>2019</inceptionYear>
-
-    <spring-boot.version>2.1.3.RELEASE</spring-boot.version>
-
-    <swagger-annotations.version>1.5.21</swagger-annotations.version>
-    <swagger-codegen-maven-plugin.version>2.4.1</swagger-codegen-maven-plugin.version>
-
-    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-
-    <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-    <maven-surefire-report-plugin.version>3.0.0-M3</maven-surefire-report-plugin.version>
-
-    <plantuml.version>1.2018.11</plantuml.version>
-    <wagon-webdav-jackrabbit.version>3.0.0</wagon-webdav-jackrabbit.version>
-    <wagon-ssh-external.version>3.0.0</wagon-ssh-external.version>
-
-    <check-style-location>google_checks.xml</check-style-location>
-    <checkstyle.version>8.18</checkstyle.version>
+    <common-model.version>1.1.0-SNAPSHOT</common-model.version>
+    <common-base.version>1.1.0-SNAPSHOT</common-base.version>
   </properties>
-
-  <developers>
-    <developer>
-      <id>cbr</id>
-      <name>Christian Bremer</name>
-      <organization>bremersee.org</organization>
-      <organizationUrl>https://bremersee.org</organizationUrl>
-      <email>bremersee@googlemail.com</email>
-      <timezone>+1</timezone>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </developer>
-  </developers>
-
-  <organization>
-    <name>bremersee.org</name>
-    <url>https://bremersee.org</url>
-  </organization>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
-    </license>
-  </licenses>
 
   <scm>
     <connection>scm:git:ssh://git@github.com:bremersee/dc-con-api.git</connection>
@@ -84,20 +43,10 @@
   </issueManagement>
 
   <distributionManagement>
-    <repository>
-      <id>bremersee-releases</id>
-      <url>https://nexus.bremersee.org/repository/maven-releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>bremersee-snapshots</id>
-      <url>https://nexus.bremersee.org/repository/maven-snapshots</url>
-    </snapshotRepository>
-    <!--
     <snapshotRepository>
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
-    -->
     <site>
       <id>bremersee-sites</id>
       <url>
@@ -106,341 +55,24 @@
     </site>
   </distributionManagement>
 
-  <repositories>
-    <repository>
-      <id>bremersee-releases</id>
-      <name>Bremersee Releases</name>
-      <url>https://nexus.bremersee.org/repository/maven-releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>bremersee-snapshots</id>
-      <name>Bremersee Snapshots</name>
-      <url>https://nexus.bremersee.org/repository/maven-snapshots</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <id>spring-milestones</id>
-      <name>Spring Milestones</name>
-      <url>https://repo.spring.io/milestone</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.bremersee</groupId>
+        <artifactId>common-model</artifactId>
+        <version>${common-model.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
         <artifactId>common-base</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${common-base.version}</version>
       </dependency>
       <dependency>
         <groupId>org.bremersee</groupId>
-        <artifactId>common-model-spring</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>dc-con-api-model-spring</artifactId>
+        <artifactId>dc-con-model</artifactId>
         <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.swagger</groupId>
-        <artifactId>swagger-annotations</artifactId>
-        <version>${swagger-annotations.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>io.swagger</groupId>
-          <artifactId>swagger-codegen-maven-plugin</artifactId>
-          <version>${swagger-codegen-maven-plugin.version}</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>2.4</version>
-          <executions>
-            <execution>
-              <id>attach-sources</id>
-              <goals>
-                <goal>jar-no-fork</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.2</version>
-          <configuration>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-            <encoding>${project.build.sourceEncoding}</encoding>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.0</version>
-          <configuration>
-            <archive>
-              <addMavenDescriptor>true</addMavenDescriptor>
-              <index>true</index>
-              <manifest>
-                <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-              </manifest>
-              <manifestEntries>
-                <Product-Name>${project.artifactId}</Product-Name>
-                <Product-Version>${project.version}</Product-Version>
-                <Product-Vendor>${product.vendor}</Product-Vendor>
-              </manifestEntries>
-            </archive>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-          <configuration>
-            <includes>
-              <include>**/*Test.java</include>
-              <include>**/*Tests.java</include>
-            </includes>
-            <excludes>
-              <exclude>**/Abstract*.java</exclude>
-            </excludes>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.0.1</version>
-          <configuration>
-            <show>protected</show>
-            <quiet>true</quiet>
-            <failOnError>false</failOnError>
-          </configuration>
-          <executions>
-            <execution>
-              <id>attach-javadocs</id>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
-          <configuration>
-            <generateReports>true</generateReports>
-          </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>net.sourceforge.plantuml</groupId>
-              <artifactId>plantuml</artifactId>
-              <version>${plantuml.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.maven.wagon</groupId>
-              <artifactId>wagon-ssh-external</artifactId>
-              <version>${wagon-ssh-external.version}</version>
-            </dependency>
-            <dependency>
-              <groupId>org.apache.maven.wagon</groupId>
-              <artifactId>wagon-webdav-jackrabbit</artifactId>
-              <version>${wagon-webdav-jackrabbit.version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-checkstyle-plugin</artifactId>
-          <version>3.0.0</version>
-          <dependencies>
-            <dependency>
-              <groupId>com.puppycrawl.tools</groupId>
-              <artifactId>checkstyle</artifactId>
-              <version>${checkstyle.version}</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-        <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.2</version>
-          <configuration>
-            <destFile>${project.build.directory}/coverage-reports/jacoco.exec</destFile>
-            <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
-          </configuration>
-          <executions>
-            <execution>
-              <id>jacoco-initialize</id>
-              <goals>
-                <goal>prepare-agent</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>jacoco-site</id>
-              <phase>package</phase>
-              <goals>
-                <goal>report</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>buildnumber-maven-plugin</artifactId>
-          <version>1.4</version>
-          <executions>
-            <execution>
-              <phase>validate</phase>
-              <goals>
-                <goal>create</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <doCheck>false</doCheck>
-            <doUpdate>false</doUpdate>
-            <shortRevisionLength>7</shortRevisionLength>
-          </configuration>
-        </plugin>
-        <!--
-        <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>1.6.6</version>
-          <extensions>true</extensions>
-          <configuration>
-            <serverId>ossrh</serverId>
-            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-          </configuration>
-        </plugin>
-        -->
-      </plugins>
-    </pluginManagement>
-
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>buildnumber-maven-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-
-  <reporting>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-project-info-reports-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <show>protected</show>
-          <quiet>true</quiet>
-          <failOnError>false</failOnError>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <version>${maven-surefire-report-plugin.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jxr-plugin</artifactId>
-        <version>3.0.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>jdepend-maven-plugin</artifactId>
-        <version>2.0</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.10.0</version>
-        <configuration>
-          <format>xml</format>
-          <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
-          <minimumTokens>100</minimumTokens>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.jacoco</groupId>
-        <artifactId>jacoco-maven-plugin</artifactId>
-        <configuration>
-          <dataFile>${project.build.directory}/coverage-reports/jacoco.exec</dataFile>
-        </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>report</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <configuration>
-          <configLocation>${check-style-location}</configLocation>
-          <encoding>UTF-8</encoding>
-          <inputEncoding>UTF-8</inputEncoding>
-          <includeTestSourceDirectory>true</includeTestSourceDirectory>
-          <consoleOutput>true</consoleOutput>
-          <failOnViolation>false</failOnViolation>
-          <failsOnError>true</failsOnError>
-          <enableRulesSummary>true</enableRulesSummary>
-          <enableFilesSummary>true</enableFilesSummary>
-          <enableSeveritySummary>true</enableSeveritySummary>
-          <lineLength>100</lineLength>
-          <outputFileFormat>xml</outputFileFormat>
-        </configuration>
-        <reportSets>
-          <reportSet>
-            <reports>
-              <report>checkstyle</report>
-            </reports>
-          </reportSet>
-        </reportSets>
-      </plugin>
-    </plugins>
-  </reporting>
 
 </project>

@@ -10,25 +10,12 @@
     <version>1.1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>dc-con-api-spring-reactive</artifactId>
+  <artifactId>dc-con-model</artifactId>
 
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>
-      <artifactId>common-base</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.bremersee</groupId>
       <artifactId>common-model</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.bremersee</groupId>
-      <artifactId>dc-con-model</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-webflux</artifactId>
     </dependency>
   </dependencies>
 

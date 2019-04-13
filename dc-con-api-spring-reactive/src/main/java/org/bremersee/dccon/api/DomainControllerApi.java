@@ -24,13 +24,12 @@ import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
 import org.bremersee.dccon.model.DnsZone;
 import org.bremersee.dccon.model.DnsZoneCreateRequest;
-import org.bremersee.dccon.model.Info;
-import org.bremersee.dccon.model.Names;
-import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
-import org.bremersee.dccon.model.DomainUserAddRequest;
+import org.bremersee.dccon.model.Info;
+import org.bremersee.dccon.model.Names;
+import org.bremersee.dccon.model.Password;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -148,7 +147,7 @@ public interface DomainControllerApi {
    * @param domainUser the domain user
    * @return the added user
    */
-  Mono<DomainUser> addUser(@Valid DomainUserAddRequest domainUser);
+  Mono<DomainUser> addUser(@Valid DomainUser domainUser);
 
   /**
    * Delete user.
@@ -169,7 +168,7 @@ public interface DomainControllerApi {
   /**
    * Update user.
    *
-   * @param userName  the user name
+   * @param userName   the user name
    * @param domainUser the domain user
    * @return the updated user
    */
