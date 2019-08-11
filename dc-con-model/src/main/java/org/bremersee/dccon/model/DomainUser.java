@@ -72,7 +72,7 @@ public class DomainUser extends CommonAttributes implements Serializable {
   private String mobile = null;
 
   @JsonProperty("groups")
-  private List<Name> groups = null;
+  private List<String> groups = null;
 
   @JsonProperty("password")
   private String password = null;
@@ -109,7 +109,7 @@ public class DomainUser extends CommonAttributes implements Serializable {
       String email,
       String telephoneNumber,
       String mobile,
-      List<Name> groups,
+      List<String> groups,
       String password) {
 
     super(distinguishedName, created, modified);
@@ -303,7 +303,7 @@ public class DomainUser extends CommonAttributes implements Serializable {
    * @return groups groups
    */
   @ApiModelProperty(value = "The groups of the domain user.")
-  public List<Name> getGroups() {
+  public List<String> getGroups() {
     if (groups == null) {
       groups = new ArrayList<>();
     }
@@ -315,7 +315,7 @@ public class DomainUser extends CommonAttributes implements Serializable {
    *
    * @param groups the groups
    */
-  public void setGroups(List<Name> groups) {
+  public void setGroups(List<String> groups) {
     this.groups = groups;
   }
 

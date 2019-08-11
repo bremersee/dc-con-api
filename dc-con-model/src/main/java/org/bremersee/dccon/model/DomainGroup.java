@@ -45,7 +45,7 @@ public class DomainGroup extends DomainGroupItem implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @JsonProperty("members")
-  private List<Name> members = null;
+  private List<String> members = null;
 
   /**
    * Instantiates a new Domain group.
@@ -62,7 +62,7 @@ public class DomainGroup extends DomainGroupItem implements Serializable {
       OffsetDateTime created,
       OffsetDateTime modified,
       String name,
-      List<Name> members) {
+      List<String> members) {
 
     super(distinguishedName, created, modified, name);
     this.members = members;
@@ -74,7 +74,7 @@ public class DomainGroup extends DomainGroupItem implements Serializable {
    * @return members members
    */
   @ApiModelProperty(value = "The members of the domain group.")
-  public List<Name> getMembers() {
+  public List<String> getMembers() {
     if (members == null) {
       members = new ArrayList<>();
     }
@@ -86,7 +86,7 @@ public class DomainGroup extends DomainGroupItem implements Serializable {
    *
    * @param members the members
    */
-  public void setMembers(List<Name> members) {
+  public void setMembers(List<String> members) {
     this.members = members;
   }
 

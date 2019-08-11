@@ -16,9 +16,9 @@
 
 package org.bremersee.dccon.api;
 
+import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import org.bremersee.dccon.model.BooleanWrapper;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
@@ -28,8 +28,8 @@ import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Info;
-import org.bremersee.dccon.model.Names;
 import org.bremersee.dccon.model.Password;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -55,7 +55,7 @@ public interface DomainControllerApi {
    * Create dns zone.
    *
    * @param request the request
-   * @return void
+   * @return void mono
    */
   Mono<Void> createDnsZone(@Valid DnsZoneCreateRequest request);
 
@@ -64,7 +64,7 @@ public interface DomainControllerApi {
    *
    * @param action  the action, must be {@code CREATE} or {@code DELETE}
    * @param request the request
-   * @return void
+   * @return void mono
    */
   Mono<Void> createOrDeleteDnsRecord(@NotNull String action, @Valid DnsRecordRequest request);
 
@@ -72,7 +72,7 @@ public interface DomainControllerApi {
    * Delete dns zone.
    *
    * @param zoneName the zone name
-   * @return void
+   * @return void mono
    */
   Mono<Void> deleteDnsZone(@NotNull String zoneName);
 
@@ -95,7 +95,7 @@ public interface DomainControllerApi {
    * Update dns record.
    *
    * @param request the request
-   * @return void
+   * @return void mono
    */
   Mono<Void> updateDnsRecord(@Valid DnsRecordUpdateRequest request);
 
@@ -112,7 +112,7 @@ public interface DomainControllerApi {
    * Delete group.
    *
    * @param groupName the group name
-   * @return void
+   * @return void mono
    */
   Mono<Void> deleteGroup(@NotNull String groupName);
 
@@ -138,7 +138,7 @@ public interface DomainControllerApi {
    * @param members   the members
    * @return the updated group
    */
-  Mono<DomainGroup> updateGroupMembers(@NotNull String groupName, @Valid Names members);
+  Mono<DomainGroup> updateGroupMembers(@NotNull String groupName, @Valid List<String> members);
 
 
   /**
@@ -153,7 +153,7 @@ public interface DomainControllerApi {
    * Delete user.
    *
    * @param userName the user name
-   * @return void
+   * @return void mono
    */
   Mono<Void> deleteUser(@NotNull String userName);
 
@@ -168,11 +168,15 @@ public interface DomainControllerApi {
   /**
    * Update user.
    *
-   * @param userName   the user name
-   * @param domainUser the domain user
+   * @param userName     the user name
+   * @param updateGroups the update groups flag (default is false)
+   * @param domainUser   the domain user
    * @return the updated user
    */
-  Mono<DomainUser> updateUser(@NotNull String userName, @Valid DomainUser domainUser);
+  Mono<DomainUser> updateUser(
+      @NotNull String userName,
+      @Nullable Boolean updateGroups,
+      @Valid DomainUser domainUser);
 
   /**
    * Update user groups.
@@ -181,14 +185,14 @@ public interface DomainControllerApi {
    * @param groups   the groups
    * @return the updated user
    */
-  Mono<DomainUser> updateUserGroups(@NotNull String userName, @Valid Names groups);
+  Mono<DomainUser> updateUserGroups(@NotNull String userName, @Valid List<String> groups);
 
   /**
    * Update user password.
    *
    * @param userName    the user name
    * @param newPassword the new password
-   * @return void
+   * @return void mono
    */
   Mono<Void> updateUserPassword(@NotNull String userName, @Valid Password newPassword);
 
@@ -198,6 +202,6 @@ public interface DomainControllerApi {
    * @param userName the user name
    * @return wrapped {@code true}, if the user exists, otherwise wrapped {@code false}
    */
-  Mono<BooleanWrapper> userExists(@NotNull String userName);
+  Mono<Boolean> userExists(@NotNull String userName);
 
 }

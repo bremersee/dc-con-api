@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import org.bremersee.dccon.model.BooleanWrapper;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
@@ -34,7 +33,6 @@ import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Info;
-import org.bremersee.dccon.model.Names;
 import org.bremersee.dccon.model.Password;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -110,7 +108,7 @@ public interface DomainControllerConnectorApi {
    * Create dns zone.
    *
    * @param request the request
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Create new name server zone.",
@@ -137,7 +135,7 @@ public interface DomainControllerConnectorApi {
    *
    * @param action  the action
    * @param request the request
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Create or delete name server record.",
@@ -166,7 +164,7 @@ public interface DomainControllerConnectorApi {
    * Delete dns zone.
    *
    * @param zoneName the zone name
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Delete names server zone.",
@@ -193,7 +191,7 @@ public interface DomainControllerConnectorApi {
    * Delete group.
    *
    * @param groupName the group name
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Delete a domain group.",
@@ -219,7 +217,7 @@ public interface DomainControllerConnectorApi {
    * Delete user.
    *
    * @param userName the user name
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Deletes a domain user.",
@@ -409,7 +407,7 @@ public interface DomainControllerConnectorApi {
    * Update dns record.
    *
    * @param request the request
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Update name server record.",
@@ -462,14 +460,15 @@ public interface DomainControllerConnectorApi {
       @ApiParam(value = "The domain group name.",
           required = true) @PathVariable("groupName") String groupName,
       @ApiParam(value = "The domain group members.",
-          required = true) @Valid @RequestBody Names members);
+          required = true) @Valid @RequestBody List<String> members);
 
 
   /**
    * Update user.
    *
-   * @param userName   the user name
-   * @param domainUser the domain user
+   * @param userName     the user name
+   * @param updateGroups the update groups flag (default is false)
+   * @param domainUser   the domain user
    * @return the user
    */
   @ApiOperation(
@@ -494,6 +493,7 @@ public interface DomainControllerConnectorApi {
   ResponseEntity<DomainUser> updateUser(
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName,
+      @RequestParam(name = "updateGroups", defaultValue = "false") Boolean updateGroups,
       @ApiParam(value = "The update data of the domain user.",
           required = true) @Valid @RequestBody DomainUser domainUser);
 
@@ -528,7 +528,7 @@ public interface DomainControllerConnectorApi {
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName,
       @ApiParam(value = "The groups of the domain user.",
-          required = true) @Valid @RequestBody Names groups);
+          required = true) @Valid @RequestBody List<String> groups);
 
 
   /**
@@ -536,7 +536,7 @@ public interface DomainControllerConnectorApi {
    *
    * @param userName    the user name
    * @param newPassword the new password
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Updates the password of the domain user.",
@@ -572,18 +572,18 @@ public interface DomainControllerConnectorApi {
   @ApiOperation(
       value = "Checks whether a domain user exists.",
       nickname = "userExists",
-      response = BooleanWrapper.class,
+      response = Boolean.class,
       tags = {"domain-controller-connector"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "True if the user exists otherwise false.",
-          response = BooleanWrapper.class),
+          response = Boolean.class),
       @ApiResponse(code = 500, message = "Fatal server error.",
           response = org.bremersee.exception.model.RestApiException.class)
   })
   @RequestMapping(value = "/api/users/{userName}/f/exists",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<BooleanWrapper> userExists(
+  ResponseEntity<Boolean> userExists(
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
 

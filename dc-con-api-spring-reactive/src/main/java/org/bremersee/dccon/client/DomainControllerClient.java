@@ -16,8 +16,8 @@
 
 package org.bremersee.dccon.client;
 
+import java.util.List;
 import org.bremersee.dccon.api.DomainControllerApi;
-import org.bremersee.dccon.model.BooleanWrapper;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
@@ -27,7 +27,6 @@ import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Info;
-import org.bremersee.dccon.model.Names;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.web.ErrorDetectors;
 import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
@@ -203,7 +202,7 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Mono<DomainGroup> updateGroupMembers(final String groupName, final Names members) {
+  public Mono<DomainGroup> updateGroupMembers(final String groupName, final List<String> members) {
     return webClient
         .put()
         .uri("/api/groups/{groupName}/members", groupName)
@@ -250,10 +249,15 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Mono<DomainUser> updateUser(final String userName, final DomainUser domainUser) {
+  public Mono<DomainUser> updateUser(
+      final String userName,
+      final Boolean updateGroups,
+      final DomainUser domainUser) {
     return webClient
         .put()
-        .uri("/api/users/{userName}", userName)
+        .uri("/api/users/{userName}?updateGroups={updateGroups}",
+            userName,
+            Boolean.TRUE.equals(updateGroups))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(domainUser))
@@ -263,7 +267,7 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Mono<DomainUser> updateUserGroups(final String userName, final Names groups) {
+  public Mono<DomainUser> updateUserGroups(final String userName, final List<String> groups) {
     return webClient
         .put()
         .uri("/api/users/{userName}/groups", userName)
@@ -289,13 +293,14 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Mono<BooleanWrapper> userExists(final String userName) {
+  public Mono<Boolean> userExists(final String userName) {
     return webClient
         .get()
         .uri("/api/users/{userName}/f/exists", userName)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToMono(BooleanWrapper.class);
+        .bodyToMono(Boolean.class);
   }
+
 }
