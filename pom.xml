@@ -17,6 +17,7 @@
 
   <name>dc-con-api</name>
   <description>Domain Connector API</description>
+  <url>https://github.com/bremersee/dc-con-api</url>
 
   <modules>
     <module>dc-con-model</module>
