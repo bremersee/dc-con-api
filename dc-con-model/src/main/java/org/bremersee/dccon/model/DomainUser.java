@@ -50,6 +50,12 @@ public class DomainUser extends CommonAttributes implements Serializable {
   @JsonProperty("enabled")
   private Boolean enabled = Boolean.FALSE;
 
+  @JsonProperty("firstName")
+  private String firstName = null;
+
+  @JsonProperty("lastName")
+  private String lastName = null;
+
   @JsonProperty("passwordLastSet")
   private OffsetDateTime passwordLastSet = null;
 
@@ -58,6 +64,9 @@ public class DomainUser extends CommonAttributes implements Serializable {
 
   @JsonProperty("email")
   private String email = null;
+
+  @JsonProperty("telephoneNumber")
+  private String telephoneNumber = null;
 
   @JsonProperty("mobile")
   private String mobile = null;
@@ -76,9 +85,12 @@ public class DomainUser extends CommonAttributes implements Serializable {
    * @param modified          the modified
    * @param userName          the user name
    * @param enabled           the enabled
+   * @param firstName         the first name
+   * @param lastName          the last name
    * @param passwordLastSet   the password last set
    * @param displayName       the display name
    * @param email             the email
+   * @param telephoneNumber   the telephone number
    * @param mobile            the mobile
    * @param groups            the groups
    * @param password          the password
@@ -90,9 +102,12 @@ public class DomainUser extends CommonAttributes implements Serializable {
       OffsetDateTime modified,
       String userName,
       Boolean enabled,
+      String firstName,
+      String lastName,
       OffsetDateTime passwordLastSet,
       String displayName,
       String email,
+      String telephoneNumber,
       String mobile,
       List<Name> groups,
       String password) {
@@ -100,9 +115,12 @@ public class DomainUser extends CommonAttributes implements Serializable {
     super(distinguishedName, created, modified);
     this.userName = userName;
     this.enabled = Boolean.TRUE.equals(enabled);
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.passwordLastSet = passwordLastSet;
     this.displayName = displayName;
     this.email = email;
+    this.telephoneNumber = telephoneNumber;
     this.mobile = mobile;
     this.groups = groups;
     this.password = password;
@@ -134,10 +152,7 @@ public class DomainUser extends CommonAttributes implements Serializable {
    */
   @ApiModelProperty(value = "Is the domain user enabled?")
   public Boolean getEnabled() {
-    if (enabled == null) {
-      enabled = Boolean.FALSE;
-    }
-    return enabled;
+    return Boolean.TRUE.equals(enabled);
   }
 
   /**
@@ -147,6 +162,44 @@ public class DomainUser extends CommonAttributes implements Serializable {
    */
   public void setEnabled(Boolean enabled) {
     this.enabled = Boolean.TRUE.equals(enabled);
+  }
+
+  /**
+   * Gets first name.
+   *
+   * @return the first name
+   */
+  @ApiModelProperty(value = "The first name of the domain user.")
+  public String getFirstName() {
+    return firstName;
+  }
+
+  /**
+   * Sets first name.
+   *
+   * @param firstName the first name
+   */
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  /**
+   * Gets last name.
+   *
+   * @return the last name
+   */
+  @ApiModelProperty(value = "The last name of the domain user.")
+  public String getLastName() {
+    return lastName;
+  }
+
+  /**
+   * Sets last name.
+   *
+   * @param lastName the last name
+   */
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
   }
 
   /**
@@ -204,6 +257,25 @@ public class DomainUser extends CommonAttributes implements Serializable {
    */
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  /**
+   * Gets telephone number.
+   *
+   * @return the telephone number
+   */
+  @ApiModelProperty(value = "The telephone number of the domain user.")
+  public String getTelephoneNumber() {
+    return telephoneNumber;
+  }
+
+  /**
+   * Sets telephone number.
+   *
+   * @param telephoneNumber the telephone number
+   */
+  public void setTelephoneNumber(String telephoneNumber) {
+    this.telephoneNumber = telephoneNumber;
   }
 
   /**
