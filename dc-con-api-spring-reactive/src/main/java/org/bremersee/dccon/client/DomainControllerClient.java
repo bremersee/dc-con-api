@@ -18,6 +18,7 @@ package org.bremersee.dccon.client;
 
 import java.util.List;
 import org.bremersee.dccon.api.DomainControllerApi;
+import org.bremersee.dccon.model.AddDhcpLeaseParameter;
 import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
@@ -138,10 +139,12 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Flux<DnsEntry> getDnsRecords(final String zoneName) {
+  public Flux<DnsEntry> getDnsRecords(final String zoneName, final String addDhcpLease) {
     return webClient
         .get()
-        .uri("/api/dns/zones/records?zoneName={zoneName}", zoneName)
+        .uri("/api/dns/zones/records?zoneName={zoneName}&addDhcpLease={addDhcpLease}",
+            zoneName,
+            AddDhcpLeaseParameter.fromValue(addDhcpLease, AddDhcpLeaseParameter.ACTIVE))
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)

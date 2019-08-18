@@ -80,10 +80,11 @@ public interface DomainControllerApi {
   /**
    * Gets dns records.
    *
-   * @param zoneName the zone name
+   * @param zoneName     the zone name
+   * @param addDhcpLease the add dhcp lease parameter (NONE, ACTIVE or ALL)
    * @return the dns records
    */
-  Flux<DnsEntry> getDnsRecords(@NotNull String zoneName);
+  Flux<DnsEntry> getDnsRecords(@NotNull String zoneName, @Nullable String addDhcpLease);
 
   /**
    * Gets dhcp leases.

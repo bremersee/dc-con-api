@@ -274,7 +274,8 @@ public interface DomainControllerConnectorApi {
   /**
    * Gets dns records.
    *
-   * @param zoneName the zone name
+   * @param zoneName     the zone name
+   * @param addDhcpLease the add dhcp lease
    * @return the dns records
    */
   @ApiOperation(
@@ -294,8 +295,11 @@ public interface DomainControllerConnectorApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<DnsEntry>> getDnsRecords(
-      @NotNull @ApiParam(value = "The name server zone name.",
-          required = true) @Valid @RequestParam(value = "zoneName") String zoneName);
+      @ApiParam(value = "The name server zone name.", required = true)
+      @RequestParam(value = "zoneName") String zoneName,
+      @ApiParam(value = "Specifies which dhcp lease information should be added (NONE|ACTIVE|ALL).",
+          defaultValue = "ACTIVE")
+      @RequestParam(value = "addDhcpLease", defaultValue = "ACTIVE") String addDhcpLease);
 
 
   /**
