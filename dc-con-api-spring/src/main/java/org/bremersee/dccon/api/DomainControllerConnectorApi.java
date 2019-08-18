@@ -24,6 +24,7 @@ import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
@@ -238,6 +239,36 @@ public interface DomainControllerConnectorApi {
   ResponseEntity<Void> deleteUser(
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
+
+  /**
+   * Gets dhcp leases.
+   *
+   * @param all  if {@code true}, expired leases will also be returned, otherwise only active ones
+   * @param sort the sort order
+   * @return the dhcp leases
+   */
+  @ApiOperation(
+      value = "Get dhcp leases.",
+      nickname = "getDhcpLeases", notes = "Get dhcp leases.",
+      response = DhcpLease.class,
+      responseContainer = "List",
+      tags = {"domain-controller-connector"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "A list with dhcp leases.",
+          response = DhcpLease.class, responseContainer = "List"),
+      @ApiResponse(code = 400, message = "Bad request.",
+          response = org.bremersee.exception.model.RestApiException.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = org.bremersee.exception.model.RestApiException.class)})
+  @RequestMapping(value = "/api/dhcp-leases",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<List<DhcpLease>> getDhcpLeases(
+      @ApiParam(value = "'true' returns also expired leases, 'false' only active ones.",
+          defaultValue = "false")
+      @RequestParam(value = "all", defaultValue = "false") Boolean all,
+      @ApiParam(value = "The sort order.", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME)
+      @RequestParam(value = "sort", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
 
 
   /**

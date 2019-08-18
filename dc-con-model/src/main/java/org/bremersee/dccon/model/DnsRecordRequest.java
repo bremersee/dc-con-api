@@ -96,11 +96,11 @@ public class DnsRecordRequest implements Serializable {
   }
 
   /**
-   * The record name.
+   * The record name. It can be the host name or a part of the ip address (e. g. 1.178 or 178).
    *
    * @return name
    */
-  @ApiModelProperty(required = true, value = "The record name.")
+  @ApiModelProperty(required = true, value = "The record name (host name or part of the ip address).")
   @NotNull
   public String getName() {
     return name;
@@ -116,11 +116,11 @@ public class DnsRecordRequest implements Serializable {
   }
 
   /**
-   * Get record type.
+   * Get record type (A|CNAME|PTR etc).
    *
    * @return the record type
    */
-  @ApiModelProperty(required = true, value = "The record type.")
+  @ApiModelProperty(required = true, value = "The record type (A|CNAME|PTR etc).")
   @NotNull
   public DnsRecordType getRecordType() {
     return recordType;
@@ -136,11 +136,13 @@ public class DnsRecordRequest implements Serializable {
   }
 
   /**
-   * The record data.
+   * The record data. It can be the ip address or the full qualified host name.
    *
    * @return data data
    */
-  @ApiModelProperty(required = true, value = "The record data.")
+  @ApiModelProperty(
+      required = true,
+      value = "The record data (ip address or the full qualified host name).")
   @NotNull
   public String getData() {
     return data;

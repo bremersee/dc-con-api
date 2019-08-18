@@ -56,6 +56,9 @@ public class DnsRecord implements Serializable {
   @JsonProperty("ttl")
   private String ttl = null;
 
+  @JsonProperty("dhcpLease")
+  private DhcpLease dhcpLease;
+
   /**
    * Instantiates a new dns record.
    *
@@ -64,6 +67,7 @@ public class DnsRecord implements Serializable {
    * @param flags       the flags
    * @param serial      the serial
    * @param ttl         the ttl
+   * @param dhcpLease   the dhcp lease
    */
   @Builder
   public DnsRecord(
@@ -71,20 +75,22 @@ public class DnsRecord implements Serializable {
       String recordValue,
       String flags,
       String serial,
-      String ttl) {
+      String ttl,
+      DhcpLease dhcpLease) {
     this.recordType = recordType;
     this.recordValue = recordValue;
     this.flags = flags;
     this.serial = serial;
     this.ttl = ttl;
+    this.dhcpLease = dhcpLease;
   }
 
   /**
-   * The name server record type.
+   * The record type (A|CNAME|PTR etc).
    *
-   * @return recordType record type
+   * @return the record type
    */
-  @ApiModelProperty(value = "The name server record type.")
+  @ApiModelProperty(value = "The record type (A|CNAME|PTR etc).")
   public String getRecordType() {
     return recordType;
   }
@@ -99,11 +105,11 @@ public class DnsRecord implements Serializable {
   }
 
   /**
-   * The name server record value.
+   * The record value. It can be the ip address or the full qualified host name.
    *
    * @return record value
    */
-  @ApiModelProperty(value = "The name server record value.")
+  @ApiModelProperty(value = "The record value (IP address or full qualified host name).")
   public String getRecordValue() {
     return recordValue;
   }
@@ -174,5 +180,22 @@ public class DnsRecord implements Serializable {
     this.ttl = ttl;
   }
 
+  /**
+   * Gets dhcp lease.
+   *
+   * @return the dhcp lease
+   */
+  public DhcpLease getDhcpLease() {
+    return dhcpLease;
+  }
+
+  /**
+   * Sets dhcp lease.
+   *
+   * @param dhcpLease the dhcp lease
+   */
+  public void setDhcpLease(DhcpLease dhcpLease) {
+    this.dhcpLease = dhcpLease;
+  }
 }
 

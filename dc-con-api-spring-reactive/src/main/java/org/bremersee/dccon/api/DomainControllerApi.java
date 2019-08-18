@@ -19,6 +19,7 @@ package org.bremersee.dccon.api;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
@@ -83,6 +84,16 @@ public interface DomainControllerApi {
    * @return the dns records
    */
   Flux<DnsEntry> getDnsRecords(@NotNull String zoneName);
+
+  /**
+   * Gets dhcp leases.
+   *
+   * @param all  if {@code true}, expired leases will also be returned, otherwise only active ones
+   *             (default is {@code false})
+   * @param sort the sort order (default is {@link DhcpLease#SORT_ORDER_BEGIN_HOSTNAME})
+   * @return the dhcp leases
+   */
+  Flux<DhcpLease> getDhcpLeases(Boolean all, String sort);
 
   /**
    * Gets dns zones.

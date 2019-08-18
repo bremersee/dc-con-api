@@ -62,11 +62,11 @@ public class DnsEntry implements Serializable {
   }
 
   /**
-   * The entry name.
+   * The entry name. It can be the host name or a part of the ip address (e. g. 1.178 or 178).
    *
    * @return the entry name
    */
-  @ApiModelProperty(value = "The entry name.")
+  @ApiModelProperty(value = "The entry name (host name or part of the ip address).")
   public String getName() {
     return name;
   }

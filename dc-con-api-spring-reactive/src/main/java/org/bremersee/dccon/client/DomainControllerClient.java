@@ -18,6 +18,7 @@ package org.bremersee.dccon.client;
 
 import java.util.List;
 import org.bremersee.dccon.api.DomainControllerApi;
+import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DnsEntry;
 import org.bremersee.dccon.model.DnsRecordRequest;
 import org.bremersee.dccon.model.DnsRecordUpdateRequest;
@@ -32,6 +33,7 @@ import org.bremersee.web.ErrorDetectors;
 import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
 import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -119,6 +121,20 @@ public class DomainControllerClient implements DomainControllerApi {
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
         .bodyToMono(Void.class);
+  }
+
+  @Override
+  public Flux<DhcpLease> getDhcpLeases(final Boolean all, final String sort) {
+    final String sortOrder = StringUtils.hasText(sort) ? sort : DhcpLease.SORT_ORDER_BEGIN_HOSTNAME;
+    return webClient
+        .get()
+        .uri("/api/dhcp-leases?all={all}&sort={sort}",
+            Boolean.TRUE.equals(all),
+            sortOrder)
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
+        .bodyToFlux(DhcpLease.class);
   }
 
   @Override
