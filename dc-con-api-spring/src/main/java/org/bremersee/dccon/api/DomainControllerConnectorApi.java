@@ -156,8 +156,10 @@ public interface DomainControllerConnectorApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<Void> createOrDeleteDnsRecord(
-      @NotNull @ApiParam(value = "The action.", required = true,
-          allowableValues = "CREATE, DELETE") @Valid @RequestParam(value = "action") String action,
+      @ApiParam(value = "The action.", allowableValues = "CREATE, DELETE", defaultValue = "CREATE")
+      @RequestParam(value = "action", defaultValue = "CREATE") String action,
+      @ApiParam(value = "Also handle reverse record.", defaultValue = "true")
+      @RequestParam(value = "reverse", defaultValue = "true") Boolean reverse,
       @ApiParam(value = "The dns record request.") @Valid @RequestBody DnsRecordRequest request);
 
 

@@ -63,11 +63,15 @@ public interface DomainControllerApi {
   /**
    * Create or delete dns record.
    *
-   * @param action  the action, must be {@code CREATE} or {@code DELETE}
+   * @param action  the action, can be {@code CREATE} or {@code DELETE}, default is {@code CREATE}
+   * @param reverse also handle reverse record, default is {@code true}
    * @param request the request
    * @return void mono
    */
-  Mono<Void> createOrDeleteDnsRecord(@NotNull String action, @Valid DnsRecordRequest request);
+  Mono<Void> createOrDeleteDnsRecord(
+      @Nullable String action,
+      @Nullable Boolean reverse,
+      @NotNull @Valid DnsRecordRequest request);
 
   /**
    * Delete dns zone.

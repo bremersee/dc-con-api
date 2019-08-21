@@ -17,6 +17,8 @@
 package org.bremersee.dccon.client;
 
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.bremersee.dccon.api.DomainControllerApi;
 import org.bremersee.dccon.model.AddDhcpLeaseParameter;
 import org.bremersee.dccon.model.DhcpLease;
@@ -34,6 +36,7 @@ import org.bremersee.web.ErrorDetectors;
 import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
 import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -101,11 +104,15 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Mono<Void> createOrDeleteDnsRecord(final String action, final DnsRecordRequest request) {
+  public Mono<Void> createOrDeleteDnsRecord(
+      final String action,
+      final Boolean reverse,
+      final DnsRecordRequest request) {
     final String validatedAction = "DELETE".equalsIgnoreCase(action) ? "DELETE" : "CREATE";
     return webClient
         .post()
-        .uri("/api/dns/zones/records?action={action}", validatedAction)
+        .uri("/api/dns/zones/records?action={action}&reverse={reverse}",
+            validatedAction, !Boolean.FALSE.equals(reverse))
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromObject(request))
