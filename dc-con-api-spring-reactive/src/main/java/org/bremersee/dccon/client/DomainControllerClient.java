@@ -17,8 +17,6 @@
 package org.bremersee.dccon.client;
 
 import java.util.List;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import org.bremersee.dccon.api.DomainControllerApi;
 import org.bremersee.dccon.model.AddDhcpLeaseParameter;
 import org.bremersee.dccon.model.DhcpLease;
@@ -36,7 +34,6 @@ import org.bremersee.web.ErrorDetectors;
 import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
 import org.bremersee.web.reactive.function.client.WebClientErrorDecoder;
 import org.springframework.http.MediaType;
-import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -146,12 +143,19 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Flux<DnsEntry> getDnsRecords(final String zoneName, final String addDhcpLease) {
+  public Flux<DnsEntry> getDnsRecords(
+      final String zoneName,
+      final Boolean correlations,
+      final String leases) {
     return webClient
         .get()
-        .uri("/api/dns/zones/records?zoneName={zoneName}&addDhcpLease={addDhcpLease}",
+        .uri("/api/dns/zones/records"
+                + "?zoneName={zoneName}"
+                + "&correlations={correlations}"
+                + "&leases={leases}",
             zoneName,
-            AddDhcpLeaseParameter.fromValue(addDhcpLease, AddDhcpLeaseParameter.ACTIVE))
+            !Boolean.FALSE.equals(correlations),
+            AddDhcpLeaseParameter.fromValue(leases, AddDhcpLeaseParameter.ACTIVE))
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)

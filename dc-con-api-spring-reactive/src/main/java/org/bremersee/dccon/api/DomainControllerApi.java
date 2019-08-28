@@ -85,10 +85,15 @@ public interface DomainControllerApi {
    * Gets dns records.
    *
    * @param zoneName     the zone name
-   * @param addDhcpLease the add dhcp lease parameter (NONE, ACTIVE or ALL)
+   * @param correlations specifies whether correlated records should be added to the response
+   *                     (default is {@code true})
+   * @param leases       the enum value for adding dhcp leases (NONE|ACTIVE|ALL)
    * @return the dns records
    */
-  Flux<DnsEntry> getDnsRecords(@NotNull String zoneName, @Nullable String addDhcpLease);
+  Flux<DnsEntry> getDnsRecords(
+      @NotNull String zoneName,
+      @Nullable Boolean correlations,
+      @Nullable String leases);
 
   /**
    * Gets dhcp leases.

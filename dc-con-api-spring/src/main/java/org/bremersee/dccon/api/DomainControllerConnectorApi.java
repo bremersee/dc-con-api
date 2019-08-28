@@ -276,8 +276,8 @@ public interface DomainControllerConnectorApi {
   /**
    * Gets dns records.
    *
-   * @param zoneName     the zone name
-   * @param addDhcpLease the add dhcp lease
+   * @param zoneName the zone name
+   * @param leases   the enum value for adding dhcp leases (NONE|ACTIVE|ALL)
    * @return the dns records
    */
   @ApiOperation(
@@ -299,9 +299,12 @@ public interface DomainControllerConnectorApi {
   ResponseEntity<List<DnsEntry>> getDnsRecords(
       @ApiParam(value = "The name server zone name.", required = true)
       @RequestParam(value = "zoneName") String zoneName,
+      @ApiParam(value = "Specifies whether correlated records should be added to the response.",
+          defaultValue = "true")
+      @RequestParam(value = "correlations", defaultValue = "true") Boolean correlations,
       @ApiParam(value = "Specifies which dhcp lease information should be added (NONE|ACTIVE|ALL).",
           defaultValue = "ACTIVE")
-      @RequestParam(value = "addDhcpLease", defaultValue = "ACTIVE") String addDhcpLease);
+      @RequestParam(value = "leases", defaultValue = "ACTIVE") String leases);
 
 
   /**
