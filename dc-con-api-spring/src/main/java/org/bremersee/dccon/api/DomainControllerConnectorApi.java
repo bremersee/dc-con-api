@@ -276,8 +276,9 @@ public interface DomainControllerConnectorApi {
   /**
    * Gets dns records.
    *
-   * @param zoneName the zone name
-   * @param leases   the enum value for adding dhcp leases (NONE|ACTIVE|ALL)
+   * @param zoneName     the zone name
+   * @param correlations specifies whether correlated records should be added to the response
+   * @param leases       the enum value for adding dhcp leases (NONE|ACTIVE|ALL)
    * @return the dns records
    */
   @ApiOperation(

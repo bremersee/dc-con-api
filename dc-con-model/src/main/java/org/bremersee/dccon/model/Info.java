@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -41,36 +43,41 @@ public class Info implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty("nameServerHost")
-  private String nameServerHost = null;
+  @JsonProperty("nameServerHosts")
+  private List<String> nameServerHosts = new ArrayList<>();
 
   /**
-   * Instantiates a new Info.
+   * Instantiates a new info object.
    *
-   * @param nameServerHost the name server host
+   * @param nameServerHosts the host names of the name servers
    */
   @Builder
-  public Info(String nameServerHost) {
-    this.nameServerHost = nameServerHost;
+  public Info(List<String> nameServerHosts) {
+    if (nameServerHosts != null) {
+      this.nameServerHosts = nameServerHosts;
+    }
   }
 
   /**
-   * The host name of the name server.
+   * Gets the host names of the name servers.
    *
-   * @return nameServerHost name server host
+   * @return nameServerHosts the host names of the name servers
    */
-  @ApiModelProperty(value = "The host name of the name server.")
-  public String getNameServerHost() {
-    return nameServerHost;
+  @ApiModelProperty(value = "The host names of the name servers.")
+  public List<String> getNameServerHosts() {
+    if (nameServerHosts == null) {
+      nameServerHosts = new ArrayList<>();
+    }
+    return nameServerHosts;
   }
 
   /**
-   * Sets name server host.
+   * Sets the host names of the name servers.
    *
-   * @param nameServerHost the name server host
+   * @param nameServerHosts the host names of the name servers
    */
-  public void setNameServerHost(String nameServerHost) {
-    this.nameServerHost = nameServerHost;
+  public void setNameServerHosts(List<String> nameServerHosts) {
+    this.nameServerHosts = nameServerHosts;
   }
 
 }
