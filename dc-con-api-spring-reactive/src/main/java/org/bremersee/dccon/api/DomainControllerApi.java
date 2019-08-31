@@ -28,7 +28,6 @@ import org.bremersee.dccon.model.DnsZoneCreateRequest;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
-import org.bremersee.dccon.model.Info;
 import org.bremersee.dccon.model.Password;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
@@ -43,14 +42,6 @@ import reactor.core.publisher.Mono;
 @Validated
 @SuppressWarnings("unused")
 public interface DomainControllerApi {
-
-  /**
-   * Gets domain server info.
-   *
-   * @return the info
-   */
-  Mono<Info> getInfo();
-
 
   /**
    * Create dns zone.

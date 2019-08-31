@@ -28,7 +28,6 @@ import org.bremersee.dccon.model.DnsZoneCreateRequest;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
-import org.bremersee.dccon.model.Info;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.web.ErrorDetectors;
 import org.bremersee.web.reactive.function.client.DefaultWebClientErrorDecoder;
@@ -74,17 +73,6 @@ public class DomainControllerClient implements DomainControllerApi {
     this.webClientErrorDecoder = webClientErrorDecoder != null
         ? webClientErrorDecoder
         : new DefaultWebClientErrorDecoder();
-  }
-
-  @Override
-  public Mono<Info> getInfo() {
-    return webClient
-        .get()
-        .uri("/api/info")
-        .accept(MediaType.APPLICATION_JSON)
-        .retrieve()
-        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToMono(Info.class);
   }
 
   @Override

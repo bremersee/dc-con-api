@@ -33,7 +33,6 @@ import org.bremersee.dccon.model.DnsZoneCreateRequest;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
-import org.bremersee.dccon.model.Info;
 import org.bremersee.dccon.model.Password;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -388,30 +387,6 @@ public interface DomainControllerConnectorApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<DomainGroupItem>> getGroups();
-
-
-  /**
-   * Gets info.
-   *
-   * @return the info
-   */
-  @ApiOperation(
-      value = "Get domain controller server info.",
-      nickname = "getInfo",
-      notes = "Get domain controller server info.",
-      response = Info.class,
-      tags = {"domain-controller-connector"})
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The domain controller server info.",
-          response = Info.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = org.bremersee.exception.model.RestApiException.class)
-  })
-  @RequestMapping(
-      value = "/api/info",
-      produces = {"application/json"},
-      method = RequestMethod.GET)
-  ResponseEntity<Info> getInfo();
 
 
   /**
