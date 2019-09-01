@@ -1,19 +1,19 @@
 swagger: "2.0"
 info:
-  title: "Samba 4 Connector"
+  title: "Domain Controller Connector"
   version: "1.0.0"
-  description: "Samba 4 connector interface."
+  description: "Domain controller connector interface."
   contact:
     name: "Christian Bremer"
     email: "bremersee@googlemail.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "base-api.bremersee.org"
-basePath: "/smb-con"
+host: "api.bremersee.org"
+basePath: "/dc-con"
 tags:
-  - name: "samba-connector-controller"
-    description: "Samba connector endpoint."
+  - name: "domain-controller-connector"
+    description: "Domain controller connector endpoint."
 schemes:
   - "http"
   - "https"
@@ -21,82 +21,82 @@ paths:
   /api/info:
     get:
       tags:
-        - "samba-connector-controller"
-      summary: "Get samba server info."
-      description: "Get samba server info."
+        - "domain-controller-connector"
+      summary: "Get domain controller server info."
+      description: "Get domain controller server info."
       operationId: "getInfo"
       produces:
         - "application/json"
       responses:
         200:
-          description: "The samba server info."
+          description: "The domain controller server info."
           schema:
             $ref: "#/definitions/Info"
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/groups:
     get:
       tags:
-        - "samba-connector-controller"
-      summary: "Get all samba groups."
-      description: "Get all samba groups."
+        - "domain-controller-connector"
+      summary: "Get all domain groups."
+      description: "Get all domain groups."
       operationId: "getGroups"
       produces:
         - "application/json"
       responses:
         200:
-          description: "A list with samba group items."
+          description: "A list with domain group items."
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/SambaGroupItem"
+              $ref: "#/definitions/DomainGroupItem"
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     post:
       tags:
-        - "samba-connector-controller"
-      summary: "Add a samba group."
+        - "domain-controller-connector"
+      summary: "Add a domain group."
       operationId: "addGroup"
       parameters:
         - name: "group"
-          description: "The samba group to add."
+          description: "The domain group to add."
           in: "body"
           schema:
-            $ref: "#/definitions/SambaGroup"
+            $ref: "#/definitions/DomainGroup"
       consumes:
         - "application/json"
       produces:
         - "application/json"
       responses:
         200:
-          description: "The added samba group."
+          description: "The added domain group."
           schema:
-            $ref: "#/definitions/SambaGroup"
+            $ref: "#/definitions/DomainGroup"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         406:
           description: "Already exists"
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/groups/{groupName}:
     get:
       tags:
-      - "samba-connector-controller"
-      summary: "Get a samba group by name."
+      - "domain-controller-connector"
+      summary: "Get a domain group by name."
       operationId: "getGroupByName"
       parameters:
         - name: "groupName"
-          description: "The samba group name."
+          description: "The domain group name."
           type: "string"
           required: true
           in: "path"
@@ -104,29 +104,29 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "The samba group with the specified name."
+          description: "The domain group with the specified name."
           schema:
-            $ref: "#/definitions/SambaGroup"
+            $ref: "#/definitions/DomainGroup"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "Not found"
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     delete:
       tags:
-        - "samba-connector-controller"
-      summary: "Delete a samba group."
+        - "domain-controller-connector"
+      summary: "Delete a domain group."
       operationId: "deleteGroup"
       parameters:
         - name: "groupName"
-          description: "The samba group name."
+          description: "The domain group name."
           type: "string"
           required: true
           in: "path"
@@ -138,25 +138,25 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/groups/{groupName}/members:
     put:
       tags:
-        - "samba-connector-controller"
-      summary: "Update samba group members."
+        - "domain-controller-connector"
+      summary: "Update domain group members."
       operationId: "updateGroupMembers"
       parameters:
         - name: "groupName"
-          description: "The samba group name."
+          description: "The domain group name."
           type: "string"
           required: true
           in: "path"
         - name: "members"
-          description: "The samba group members."
+          description: "The domain group members."
           in: "body"
           required: true
           schema:
@@ -167,60 +167,60 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "The updated samba group."
+          description: "The updated domain group."
           schema:
-            $ref: "#/definitions/SambaGroup"
+            $ref: "#/definitions/DomainGroup"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "Group not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users:
     post:
       tags:
-        - "samba-connector-controller"
-      summary: "Add a samba user."
+        - "domain-controller-connector"
+      summary: "Add a domain user."
       operationId: "addUser"
       parameters:
-        - name: "sambaUser"
-          description: "The samba user to add."
+        - name: "domainUser"
+          description: "The domain user to add."
           in: "body"
           required: true
           schema:
-            $ref: "#/definitions/SambaUserAddRequest"
+            $ref: "#/definitions/DomainUserAddRequest"
       consumes:
         - "application/json"
       produces:
         - "application/json"
       responses:
         200:
-          description: "The added samba user."
+          description: "The added domain user."
           schema:
-            $ref: "#/definitions/SambaUser"
+            $ref: "#/definitions/DomainUser"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}:
     get:
       tags:
-        - "samba-connector-controller"
-      summary: "Get a samba user by name."
+        - "domain-controller-connector"
+      summary: "Get a domain user by name."
       operationId: "getUser"
       parameters:
         - name: "userName"
-          description: "The user name of the samba user."
+          description: "The user name of the domain user."
           type: "string"
           required: true
           in: "path"
@@ -228,67 +228,67 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "The samba user with the specified name."
+          description: "The domain user with the specified name."
           schema:
-            $ref: "#/definitions/SambaUser"
+            $ref: "#/definitions/DomainUser"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     patch:
       tags:
-        - "samba-connector-controller"
-      summary: "Updates a samba user."
+        - "domain-controller-connector"
+      summary: "Updates a domain user."
       operationId: "updateUser"
       parameters:
         - name: "userName"
-          description: "The user name of the samba user."
+          description: "The user name of the domain user."
           type: "string"
           required: true
           in: "path"
-        - name: "sambaUser"
-          description: "The update data of the samba user."
+        - name: "domainUser"
+          description: "The update data of the domain user."
           in: "body"
           required: true
           schema:
-            $ref: "#/definitions/SambaUser"
+            $ref: "#/definitions/DomainUser"
       consumes:
         - "application/json"
       produces:
         - "application/json"
       responses:
         200:
-          description: "The updated samba user."
+          description: "The updated domain user."
           schema:
-            $ref: "#/definitions/SambaUser"
+            $ref: "#/definitions/DomainUser"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     delete:
       tags:
-        - "samba-connector-controller"
-      summary: "Deletes a samba user."
+        - "domain-controller-connector"
+      summary: "Deletes a domain user."
       operationId: "deleteUser"
       parameters:
         - name: "userName"
-          description: "The user name of the samba user."
+          description: "The user name of the domain user."
           type: "string"
           required: true
           in: "path"
@@ -300,24 +300,24 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}/f/exists:
     get:
       tags:
-        - "samba-connector-controller"
-      summary: "Checks whether a samba user exists."
+        - "domain-controller-connector"
+      summary: "Checks whether a domain user exists."
       operationId: "userExists"
       parameters:
         - name: "userName"
-          description: "The user name of the samba user."
+          description: "The user name of the domain user."
           type: "string"
           required: true
           in: "path"
@@ -331,21 +331,21 @@ paths:
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}/groups:
     put:
       tags:
-        - "samba-connector-controller"
-      summary: "Updates samba user groups."
+        - "domain-controller-connector"
+      summary: "Updates domain user groups."
       operationId: "updateUserGroups"
       parameters:
         - name: "userName"
-          description: "The user name of the samba user."
+          description: "The user name of the domain user."
           type: "string"
           required: true
           in: "path"
         - name: "groups"
-          description: "The groups of the samba user."
+          description: "The groups of the domain user."
           in: "body"
           required: true
           schema:
@@ -356,35 +356,35 @@ paths:
         - "application/json"
       responses:
         200:
-          description: "The updated samba user."
+          description: "The updated domain user."
           schema:
-            $ref: "#/definitions/SambaUser"
+            $ref: "#/definitions/DomainUser"
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/users/{userName}/password:
     put:
       tags:
-        - "samba-connector-controller"
-      summary: "Updates the password of the samba user."
+        - "domain-controller-connector"
+      summary: "Updates the password of the domain user."
       operationId: "updateUserPassword"
       parameters:
         - name: "userName"
-          description: "The user name of the samba user."
+          description: "The user name of the domain user."
           type: "string"
           required: true
           in: "path"
         - name: "newPassword"
-          description: "The password of the samba user."
+          description: "The password of the domain user."
           in: "body"
           required: true
           schema:
@@ -399,19 +399,19 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         404:
           description: "User not found."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/dns/zones:
     get:
       tags:
-        - "samba-connector-controller"
+        - "domain-controller-connector"
       summary: "Get all name server zones."
       description: "Get all name server zones."
       operationId: "getDnsZones"
@@ -427,14 +427,14 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     post:
       tags:
-        - "samba-connector-controller"
+        - "domain-controller-connector"
       summary: "Create new name server zone."
       description: "Create new name server zone."
       operationId: "createDnsZone"
@@ -453,10 +453,10 @@ paths:
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     delete:
       tags:
-        - "samba-connector-controller"
+        - "domain-controller-connector"
       summary: "Delete names server zone."
       description: "Delete name server zone."
       operationId: "deleteDnsZone"
@@ -473,15 +473,15 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
   /api/dns/zones/records:
     get:
       tags:
-        - "samba-connector-controller"
+        - "domain-controller-connector"
       summary: "Get all name server records of a zone."
       description: "Get all name server records of a zone."
       operationId: "getDnsRecords"
@@ -503,14 +503,14 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     post:
       tags:
-        - "samba-connector-controller"
+        - "domain-controller-connector"
       summary: "Create or delete name server record."
       description: "Create or delete name server record."
       operationId: "createOrDeleteDnsRecord"
@@ -536,14 +536,14 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
     put:
       tags:
-        - "samba-connector-controller"
+        - "domain-controller-connector"
       summary: "Update name server record."
       description: "Update name server record."
       operationId: "updateDnsRecord"
@@ -562,11 +562,11 @@ paths:
         400:
           description: "Bad request."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
         500:
           description: "Fatal server error."
           schema:
-            $ref: '../../../target/swagger-refs/META-INF/swagger/common-exception-handling.yml#/definitions/RestApiException'
+            $ref: './META-INF/swagger/exception-model.yml#/definitions/RestApiException'
 definitions:
   BooleanWrapper:
     description: "Wrapper of a boolean value."
@@ -578,7 +578,7 @@ definitions:
     required:
       - value
   Info:
-    description: "A description of the samba domain controller."
+    description: "A description of the domain controller."
     type: "object"
     properties:
       nameServerHost:
@@ -622,39 +622,39 @@ definitions:
         format: "date-time"
         description: "The last modification date."
     discriminator: "_type"
-  SambaGroupItem:
-    description: "Samba group item."
+  DomainGroupItem:
+    description: "Domain group item."
     allOf:
       - $ref: "#/definitions/Common"
       - type: "object"
         properties:
           name:
             type: "string"
-            description: "The name of the samba group."
+            description: "The name of the domain group."
     discriminator: "_type"
-  SambaGroup:
-    description: "Samba group."
+  DomainGroup:
+    description: "Domain group."
     allOf:
-      - $ref: "#/definitions/SambaGroupItem"
+      - $ref: "#/definitions/DomainGroupItem"
       - type: "object"
         properties:
           members:
             type: "array"
             items:
               $ref: "#/definitions/Name"
-            description: "The members of the samba group."
-  SambaUser:
-    description: "Samba user."
+            description: "The members of the domain group."
+  DomainUser:
+    description: "Domain user."
     allOf:
       - $ref: "#/definitions/Common"
       - type: "object"
         properties:
           userName:
             type: "string"
-            description: "The user name of the samba user."
+            description: "The user name of the domain user."
           enabled:
             type: "boolean"
-            description: "Is the samba user enabled?"
+            description: "Is the domain user enabled?"
           passwordLastSet:
             type: "string"
             format: "date-time"
@@ -663,25 +663,25 @@ definitions:
           email:
             type: "string"
             format: "email"
-            description: "The mail address of the samba user."
+            description: "The mail address of the domain user."
           mobile:
             type: "string"
-            description: "The mobile number of the samba user."
+            description: "The mobile number of the domain user."
           groups:
             type: "array"
             items:
               $ref: "#/definitions/Name"
-            description: "The groups of the samba user."
-  SambaUserAddRequest:
-    description: "Samba user to add."
+            description: "The groups of the domain user."
+  DomainUserAddRequest:
+    description: "Domain user to add."
     allOf:
-      - $ref: "#/definitions/SambaUser"
+      - $ref: "#/definitions/DomainUser"
       - type: "object"
         properties:
           password:
             type: "string"
             format: "password"
-            description: "The password of the samba user."
+            description: "The password of the domain user."
   Password:
     type: "object"
     properties:
