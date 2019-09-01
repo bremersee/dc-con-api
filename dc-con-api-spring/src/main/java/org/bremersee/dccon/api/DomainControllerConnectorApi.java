@@ -391,6 +391,30 @@ public interface DomainControllerConnectorApi {
 
 
   /**
+   * Gets users.
+   *
+   * @return the user
+   */
+  @ApiOperation(
+      value = "Get all domain users.",
+      nickname = "getUsers",
+      notes = "Get all domain users.",
+      response = DomainUser.class,
+      responseContainer = "List",
+      tags = {"domain-controller-connector"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The domain users.",
+          response = DomainUser.class, responseContainer = "List"),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/users",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<List<DomainUser>> getUsers();
+
+  /**
    * Gets user.
    *
    * @param userName the user name

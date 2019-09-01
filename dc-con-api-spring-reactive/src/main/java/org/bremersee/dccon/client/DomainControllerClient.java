@@ -256,6 +256,17 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
+  public Flux<DomainUser> getUsers() {
+    return webClient
+        .get()
+        .uri("/api/users")
+        .accept(MediaType.APPLICATION_JSON)
+        .retrieve()
+        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
+        .bodyToFlux(DomainUser.class);
+  }
+
+  @Override
   public Mono<DomainUser> getUser(final String userName) {
     return webClient
         .get()

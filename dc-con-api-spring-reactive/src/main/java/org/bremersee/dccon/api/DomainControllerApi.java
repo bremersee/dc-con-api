@@ -170,6 +170,13 @@ public interface DomainControllerApi {
   Mono<Void> deleteUser(@NotNull String userName);
 
   /**
+   * Gets users.
+   *
+   * @return the users
+   */
+  Flux<DomainUser> getUsers();
+
+  /**
    * Gets user.
    *
    * @param userName the user name
