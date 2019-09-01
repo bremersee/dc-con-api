@@ -42,6 +42,11 @@ import org.springframework.validation.annotation.Validated;
 @SuppressWarnings("unused")
 public class DomainUser extends CommonAttributes implements Serializable {
 
+  /**
+   * The constant DEFAULT_SORT_ORDER.
+   */
+  public static final String DEFAULT_SORT_ORDER = "userName";
+
   private static final long serialVersionUID = 1L;
 
   @JsonProperty("userName")

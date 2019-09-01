@@ -209,10 +209,11 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Flux<DomainGroupItem> getGroups() {
+  public Flux<DomainGroupItem> getGroups(String sort) {
+    final String sortOrder = StringUtils.hasText(sort) ? sort : DomainGroupItem.DEFAULT_SORT_ORDER;
     return webClient
         .get()
-        .uri("/api/groups")
+        .uri("/api/groups?sort={sort}", sortOrder)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
@@ -256,10 +257,11 @@ public class DomainControllerClient implements DomainControllerApi {
   }
 
   @Override
-  public Flux<DomainUser> getUsers() {
+  public Flux<DomainUser> getUsers(String sort) {
+    final String sortOrder = StringUtils.hasText(sort) ? sort : DomainUser.DEFAULT_SORT_ORDER;
     return webClient
         .get()
-        .uri("/api/users")
+        .uri("/api/users?sort={sort}", sortOrder)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)

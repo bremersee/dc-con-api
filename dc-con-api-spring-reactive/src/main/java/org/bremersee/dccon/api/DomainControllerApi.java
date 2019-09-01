@@ -139,9 +139,10 @@ public interface DomainControllerApi {
   /**
    * Gets groups.
    *
+   * @param sort the sort order
    * @return the groups
    */
-  Flux<DomainGroupItem> getGroups();
+  Flux<DomainGroupItem> getGroups(@Nullable String sort);
 
   /**
    * Update group members.
@@ -172,9 +173,10 @@ public interface DomainControllerApi {
   /**
    * Gets users.
    *
+   * @param sort the sort order
    * @return the users
    */
-  Flux<DomainUser> getUsers();
+  Flux<DomainUser> getUsers(@Nullable String sort);
 
   /**
    * Gets user.
