@@ -134,6 +134,7 @@ public interface DomainControllerConnectorApi {
    * Create or delete dns record.
    *
    * @param action  the action
+   * @param reverse the reverse
    * @param request the request
    * @return void response entity
    */
@@ -368,6 +369,7 @@ public interface DomainControllerConnectorApi {
   /**
    * Gets groups.
    *
+   * @param sort the sort order
    * @return the groups
    */
   @ApiOperation(
@@ -387,8 +389,38 @@ public interface DomainControllerConnectorApi {
       value = "/api/groups",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DomainGroupItem>> getGroups();
+  ResponseEntity<List<DomainGroupItem>> getGroups(
+      @ApiParam(value = "The sort order.", defaultValue = DomainGroupItem.DEFAULT_SORT_ORDER)
+      @RequestParam(value = "sort",
+          defaultValue = DomainGroupItem.DEFAULT_SORT_ORDER) String sort);
 
+
+  /**
+   * Gets users.
+   *
+   * @return the user
+   */
+  @ApiOperation(
+      value = "Get all domain users.",
+      nickname = "getUsers",
+      notes = "Get all domain users.",
+      response = DomainUser.class,
+      responseContainer = "List",
+      tags = {"domain-controller-connector"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The domain users.",
+          response = DomainUser.class, responseContainer = "List"),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = org.bremersee.exception.model.RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/users",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<List<DomainUser>> getUsers(
+      @ApiParam(value = "The sort order.", defaultValue = DomainUser.DEFAULT_SORT_ORDER)
+      @RequestParam(value = "sort",
+          defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort);
 
   /**
    * Gets user.

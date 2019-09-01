@@ -41,6 +41,11 @@ public class DomainGroupItem extends CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The constant DEFAULT_SORT_ORDER.
+   */
+  public static final String DEFAULT_SORT_ORDER = "name";
+
   @JsonProperty("name")
   private String name = null;
 
