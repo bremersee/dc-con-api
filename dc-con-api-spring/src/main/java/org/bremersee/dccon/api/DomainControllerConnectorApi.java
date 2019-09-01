@@ -269,7 +269,8 @@ public interface DomainControllerConnectorApi {
           defaultValue = "false")
       @RequestParam(value = "all", defaultValue = "false") Boolean all,
       @ApiParam(value = "The sort order.", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME)
-      @RequestParam(value = "sort", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
+      @RequestParam(value = "sort",
+          defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
 
 
   /**

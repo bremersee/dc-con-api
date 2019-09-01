@@ -100,7 +100,9 @@ public class DnsRecordRequest implements Serializable {
    *
    * @return name
    */
-  @ApiModelProperty(required = true, value = "The record name (host name or part of the ip address).")
+  @ApiModelProperty(
+      required = true,
+      value = "The record name (host name or part of the ip address).")
   @NotNull
   public String getName() {
     return name;
