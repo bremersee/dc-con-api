@@ -18,15 +18,10 @@ package org.bremersee.dccon.client;
 
 import java.util.List;
 import org.bremersee.dccon.api.DomainControllerApi;
-import org.bremersee.dccon.model.AddDhcpLeaseParameter;
 import org.bremersee.dccon.model.DhcpLease;
-import org.bremersee.dccon.model.DnsEntry;
-import org.bremersee.dccon.model.DnsRecordRequest;
-import org.bremersee.dccon.model.DnsRecordUpdateRequest;
+import org.bremersee.dccon.model.DnsNode;
 import org.bremersee.dccon.model.DnsZone;
-import org.bremersee.dccon.model.DnsZoneCreateRequest;
 import org.bremersee.dccon.model.DomainGroup;
-import org.bremersee.dccon.model.DomainGroupItem;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.web.ErrorDetectors;
@@ -75,38 +70,6 @@ public class DomainControllerClient implements DomainControllerApi {
         : new DefaultWebClientErrorDecoder();
   }
 
-  @Override
-  public Mono<Void> createDnsZone(final DnsZoneCreateRequest request) {
-    return webClient
-        .post()
-        .uri("/api/dns/zones")
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(BodyInserters.fromObject(request))
-        .retrieve()
-        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToMono(Void.class);
-  }
-
-  @Override
-  public Mono<Void> createOrDeleteDnsRecord(
-      final String action,
-      final Boolean reverse,
-      final DnsRecordRequest request) {
-    final String validatedAction = "DELETE".equalsIgnoreCase(action) ? "DELETE" : "CREATE";
-    return webClient
-        .post()
-        .uri("/api/dns/zones/records?action={action}&reverse={reverse}",
-            validatedAction, !Boolean.FALSE.equals(reverse))
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(BodyInserters.fromObject(request))
-        .retrieve()
-        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToMono(Void.class);
-  }
-
-  @Override
   public Mono<Void> deleteDnsZone(final String zoneName) {
     return webClient
         .delete()
@@ -116,7 +79,6 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(Void.class);
   }
 
-  @Override
   public Flux<DhcpLease> getDhcpLeases(final Boolean all, final String sort) {
     final String sortOrder = StringUtils.hasText(sort) ? sort : DhcpLease.SORT_ORDER_BEGIN_HOSTNAME;
     return webClient
@@ -130,11 +92,9 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToFlux(DhcpLease.class);
   }
 
-  @Override
-  public Flux<DnsEntry> getDnsRecords(
+  public Flux<DnsNode> getDnsNodes(
       final String zoneName,
-      final Boolean correlations,
-      final String leases) {
+      final Boolean correlations) {
     return webClient
         .get()
         .uri("/api/dns/zones/records"
@@ -142,15 +102,13 @@ public class DomainControllerClient implements DomainControllerApi {
                 + "&correlations={correlations}"
                 + "&leases={leases}",
             zoneName,
-            !Boolean.FALSE.equals(correlations),
-            AddDhcpLeaseParameter.fromValue(leases, AddDhcpLeaseParameter.ACTIVE))
+            !Boolean.FALSE.equals(correlations))
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToFlux(DnsEntry.class);
+        .bodyToFlux(DnsNode.class);
   }
 
-  @Override
   public Flux<DnsZone> getDnsZones() {
     return webClient
         .get()
@@ -161,20 +119,6 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToFlux(DnsZone.class);
   }
 
-  @Override
-  public Mono<Void> updateDnsRecord(final DnsRecordUpdateRequest request) {
-    return webClient
-        .put()
-        .uri("/api/dns/zones/records")
-        .accept(MediaType.APPLICATION_JSON)
-        .contentType(MediaType.APPLICATION_JSON)
-        .body(BodyInserters.fromObject(request))
-        .retrieve()
-        .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToMono(Void.class);
-  }
-
-  @Override
   public Mono<DomainGroup> addGroup(final DomainGroup group) {
     return webClient
         .put()
@@ -187,7 +131,6 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainGroup.class);
   }
 
-  @Override
   public Mono<Void> deleteGroup(final String groupName) {
     return webClient
         .delete()
@@ -197,7 +140,6 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(Void.class);
   }
 
-  @Override
   public Mono<DomainGroup> getGroupByName(final String groupName) {
     return webClient
         .get()
@@ -208,19 +150,17 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainGroup.class);
   }
 
-  @Override
-  public Flux<DomainGroupItem> getGroups(String sort) {
-    final String sortOrder = StringUtils.hasText(sort) ? sort : DomainGroupItem.DEFAULT_SORT_ORDER;
+  public Flux<DomainGroup> getGroups(String sort) {
+    final String sortOrder = StringUtils.hasText(sort) ? sort : DomainGroup.DEFAULT_SORT_ORDER;
     return webClient
         .get()
         .uri("/api/groups?sort={sort}", sortOrder)
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .onStatus(ErrorDetectors.DEFAULT, webClientErrorDecoder)
-        .bodyToFlux(DomainGroupItem.class);
+        .bodyToFlux(DomainGroup.class);
   }
 
-  @Override
   public Mono<DomainGroup> updateGroupMembers(final String groupName, final List<String> members) {
     return webClient
         .put()
@@ -233,7 +173,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainGroup.class);
   }
 
-  @Override
+
   public Mono<DomainUser> addUser(final DomainUser domainUser) {
     return webClient
         .post()
@@ -246,7 +186,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainUser.class);
   }
 
-  @Override
+
   public Mono<Void> deleteUser(final String userName) {
     return webClient
         .delete()
@@ -256,7 +196,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(Void.class);
   }
 
-  @Override
+
   public Flux<DomainUser> getUsers(String sort) {
     final String sortOrder = StringUtils.hasText(sort) ? sort : DomainUser.DEFAULT_SORT_ORDER;
     return webClient
@@ -268,7 +208,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToFlux(DomainUser.class);
   }
 
-  @Override
+
   public Mono<DomainUser> getUser(final String userName) {
     return webClient
         .get()
@@ -279,7 +219,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainUser.class);
   }
 
-  @Override
+
   public Mono<DomainUser> updateUser(
       final String userName,
       final Boolean updateGroups,
@@ -297,7 +237,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainUser.class);
   }
 
-  @Override
+
   public Mono<DomainUser> updateUserGroups(final String userName, final List<String> groups) {
     return webClient
         .put()
@@ -310,7 +250,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(DomainUser.class);
   }
 
-  @Override
+
   public Mono<Void> updateUserPassword(final String userName, final Password newPassword) {
     return webClient
         .put()
@@ -323,7 +263,7 @@ public class DomainControllerClient implements DomainControllerApi {
         .bodyToMono(Void.class);
   }
 
-  @Override
+
   public Mono<Boolean> userExists(final String userName) {
     return webClient
         .get()

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,62 +18,53 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * DNS Zone Flag.
+ * The pair of zone name and dns node.
+ *
+ * @author Christian Bremer
  */
-@ApiModel(description = "DNS Zone Flag")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class DnsDwDpZoneFlag implements Serializable {
+public class DnsPair implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty(value = "name", required = true)
-  private String name = null;
+  @ApiModelProperty(value = "The zone name of the dns node.", required = true)
+  @JsonProperty(value = "zoneName", required = true)
+  @NotNull
+  private String zoneName;
+
+  @ApiModelProperty(value = "A dns node.", required = true)
+  @JsonProperty(value = "node", required = true)
+  @NotNull
+  private DnsNode node;
 
   /**
-   * Instantiates a new dns zone flag.
+   * Instantiates a new Dns pair.
    *
-   * @param name the name
+   * @param zoneName the zone name
+   * @param node     the node
    */
   @Builder
-  public DnsDwDpZoneFlag(String name) {
-    this.name = name;
+  public DnsPair(String zoneName, DnsNode node) {
+    this.zoneName = zoneName;
+    this.node = node;
   }
-
-  /**
-   * The zone flag name.
-   *
-   * @return zone flag name
-   */
-  @ApiModelProperty(required = true, value = "The zone flag name.")
-  @NotNull
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets zone flag name.
-   *
-   * @param name the zone flag name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
 }
-
