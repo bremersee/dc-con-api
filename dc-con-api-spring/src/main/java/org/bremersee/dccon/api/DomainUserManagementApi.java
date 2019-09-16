@@ -126,6 +126,35 @@ public interface DomainUserManagementApi {
       @PathVariable("userName") String userName);
 
   /**
+   * Get avatar of domain user.
+   *
+   * @param userName the user name
+   * @return the avatar of the domain user
+   */
+  @ApiOperation(
+      value = "Get avatar of domain user.",
+      nickname = "getUserAvatar",
+      response = byte[].class,
+      tags = {"domain-user-management"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The avatar of the domain user.",
+          response = byte[].class),
+      @ApiResponse(code = 400, message = "Bad request.",
+          response = RestApiException.class),
+      @ApiResponse(code = 404, message = "Avatar not found.",
+          response = RestApiException.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/users/{userName}/avatar",
+      produces = {"image/jpeg"},
+      method = RequestMethod.GET)
+  ResponseEntity<byte[]> getUserAvatar(
+      @ApiParam(value = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName);
+
+  /**
    * Update domain user.
    *
    * @param userName     the user name
