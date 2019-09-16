@@ -118,13 +118,17 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("password")
   private String password;
 
+  @ApiModelProperty(value = "The avatar of the domain user.")
+  @JsonProperty("avatar")
+  private byte[] avatar;
+
   @Builder
   public DomainUser(String distinguishedName, OffsetDateTime created,
       OffsetDateTime modified, String userName, Boolean enabled, String firstName,
       String lastName, String displayName, String email, String telephoneNumber,
       String mobile, List<String> groups, String homeDirectory, String unixHomeDirectory,
       String loginShell, OffsetDateTime lastLogon, Integer logonCount,
-      OffsetDateTime passwordLastSet, String password) {
+      OffsetDateTime passwordLastSet, String password, byte[] avatar) {
     super(distinguishedName, created, modified);
     this.userName = userName;
     this.enabled = enabled;
@@ -142,6 +146,7 @@ public class DomainUser extends CommonAttributes {
     this.logonCount = logonCount;
     this.passwordLastSet = passwordLastSet;
     this.password = password;
+    this.avatar = avatar;
   }
 
   /**
