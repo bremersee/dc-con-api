@@ -188,7 +188,7 @@ public interface NameServerManagementApi {
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable(value = "zoneName") String zoneName,
 
-      @ApiParam(value = "The dns zone create request", defaultValue = "NO_UNKNOWN")
+      @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
       @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
@@ -261,7 +261,7 @@ public interface NameServerManagementApi {
       @ApiParam(value = "The dns node name.", required = true)
       @PathVariable("nodeName") String nodeName,
 
-      @ApiParam(value = "The dns zone create request", defaultValue = "NO_UNKNOWN")
+      @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
       @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
