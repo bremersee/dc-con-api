@@ -26,6 +26,7 @@ import javax.validation.Valid;
 import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DnsNode;
 import org.bremersee.dccon.model.DnsZone;
+import org.bremersee.dccon.model.UnknownFilter;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -161,7 +162,8 @@ public interface NameServerManagementApi {
   /**
    * Get dns nodes.
    *
-   * @param zoneName the zone name
+   * @param zoneName      the zone name
+   * @param unknownFilter the unknown filter
    * @return the dns nodes
    */
   @ApiOperation(
@@ -184,7 +186,10 @@ public interface NameServerManagementApi {
       method = RequestMethod.GET)
   ResponseEntity<List<DnsNode>> getDnsNodes(
       @ApiParam(value = "The dns zone name.", required = true)
-      @PathVariable(value = "zoneName") String zoneName);
+      @PathVariable(value = "zoneName") String zoneName,
+
+      @ApiParam(value = "The dns zone create request", defaultValue = "NO_UNKNOWN")
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
    * Save dns node.
@@ -224,8 +229,9 @@ public interface NameServerManagementApi {
   /**
    * Get dns node.
    *
-   * @param zoneName the dns zone name
-   * @param nodeName the dns node name
+   * @param zoneName      the dns zone name
+   * @param nodeName      the dns node name
+   * @param unknownFilter the unknown filter
    * @return the dns node
    */
   @ApiOperation(
@@ -253,7 +259,10 @@ public interface NameServerManagementApi {
       @PathVariable("zoneName") String zoneName,
 
       @ApiParam(value = "The dns node name.", required = true)
-      @PathVariable("nodeName") String nodeName);
+      @PathVariable("nodeName") String nodeName,
+
+      @ApiParam(value = "The dns zone create request", defaultValue = "NO_UNKNOWN")
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
    * Delete dns node.
@@ -294,7 +303,7 @@ public interface NameServerManagementApi {
    *
    * @param zoneName  the zone name
    * @param nodeNames the node names (if the list is empty, all dns nodes will be deleted)
-   * @return void
+   * @return void response entity
    */
   @ApiOperation(
       value = "Delete all dns nodes.",
