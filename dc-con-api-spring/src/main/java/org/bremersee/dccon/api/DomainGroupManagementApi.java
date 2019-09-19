@@ -52,7 +52,7 @@ public interface DomainGroupManagementApi {
       notes = "Get all domain groups.",
       response = DomainGroup.class,
       responseContainer = "List",
-      tags = {"domain-group-management"})
+      tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "A list of domain groups.",
           response = DomainGroup.class, responseContainer = "List"),
@@ -78,7 +78,7 @@ public interface DomainGroupManagementApi {
       value = "Add domain group.",
       nickname = "addGroup",
       response = DomainGroup.class,
-      tags = {"domain-group-management"})
+      tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The added domain group.", response = DomainGroup.class),
       @ApiResponse(code = 400, message = "Bad request.",
@@ -106,7 +106,7 @@ public interface DomainGroupManagementApi {
       value = "Get a domain group by name.",
       nickname = "getGroupByName",
       response = DomainGroup.class,
-      tags = {"domain-group-management"})
+      tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The domain group with the specified name.",
           response = DomainGroup.class),
@@ -136,7 +136,7 @@ public interface DomainGroupManagementApi {
       value = "Updates a domain group.",
       nickname = "updateGroup",
       response = DomainGroup.class,
-      tags = {"domain-group-management"})
+      tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The updated domain group.", response = DomainGroup.class),
       @ApiResponse(code = 400, message = "Bad request.",
@@ -168,7 +168,7 @@ public interface DomainGroupManagementApi {
       value = "Checks whether a domain group exists.",
       nickname = "groupExists",
       response = Boolean.class,
-      tags = {"domain-group-management"})
+      tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "True if the group exists otherwise false.",
           response = Boolean.class),
@@ -191,7 +191,7 @@ public interface DomainGroupManagementApi {
   @ApiOperation(
       value = "Delete domain group.",
       nickname = "deleteGroup",
-      tags = {"domain-group-management"})
+      tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200,
           message = "True if the domain group was successfully deleted, otherwise false.",

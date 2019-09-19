@@ -56,7 +56,7 @@ public interface NameServerManagementApi {
       nickname = "getDhcpLeases", notes = "Get dhcp leases.",
       response = DhcpLease.class,
       responseContainer = "List",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "A list with dhcp leases.",
           response = DhcpLease.class, responseContainer = "List"),
@@ -87,7 +87,7 @@ public interface NameServerManagementApi {
       notes = "Get all dns zones.",
       response = DnsZone.class,
       responseContainer = "List",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "A list with dns zones.",
           response = DnsZone.class, responseContainer = "List"),
@@ -112,7 +112,7 @@ public interface NameServerManagementApi {
       value = "Add dns zone.",
       nickname = "addDnsZone",
       notes = "Add dns zone.",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The zone was successfully added.",
           response = DnsZone.class),
@@ -140,7 +140,7 @@ public interface NameServerManagementApi {
       value = "Delete dns zone.",
       nickname = "deleteDnsZone",
       notes = "Delete dns zone.",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200,
           message = "True if the dns zone was successfully deleted, otherwise false.",
@@ -171,7 +171,7 @@ public interface NameServerManagementApi {
       nickname = "getDnsNodes", notes = "Get all dns nodes of a zone.",
       response = DnsNode.class,
       responseContainer = "List",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "A list with dns nodes.",
           response = DnsNode.class, responseContainer = "List"),
@@ -202,7 +202,7 @@ public interface NameServerManagementApi {
       value = "Save dns node.",
       nickname = "saveDnsNode",
       notes = "Save dns node.",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The dns node was successfully saved.",
           response = DnsNode.class),
@@ -238,7 +238,7 @@ public interface NameServerManagementApi {
       value = "Get dns node.",
       nickname = "getDnsNode",
       notes = "Get dns node.",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200,
           message = "The dns node.",
@@ -275,7 +275,7 @@ public interface NameServerManagementApi {
       value = "Delete dns node.",
       nickname = "deleteDnsNode",
       notes = "Delete dns node.",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200,
           message = "True if the dns node was removed; false if dns node didn't exist.",
@@ -309,7 +309,7 @@ public interface NameServerManagementApi {
       value = "Delete all dns nodes.",
       nickname = "deleteAllDnsNodes",
       notes = "Delete all dns nodes.",
-      tags = {"name-server-management"})
+      tags = {"name-server-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "All dns nodes were deleted."),
       @ApiResponse(code = 400, message = "Bad request.",

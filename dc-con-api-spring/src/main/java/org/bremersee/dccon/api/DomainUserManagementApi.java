@@ -53,7 +53,7 @@ public interface DomainUserManagementApi {
       notes = "Get all domain users.",
       response = DomainUser.class,
       responseContainer = "List",
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The domain users.",
           response = DomainUser.class, responseContainer = "List"),
@@ -79,7 +79,7 @@ public interface DomainUserManagementApi {
       value = "Add domain user.",
       nickname = "addUser",
       response = DomainUser.class,
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The added domain user.", response = DomainUser.class),
       @ApiResponse(code = 400, message = "Bad request.",
@@ -106,7 +106,7 @@ public interface DomainUserManagementApi {
       value = "Get a domain user by name.",
       nickname = "getUser",
       response = DomainUser.class,
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The domain user with the specified name.",
           response = DomainUser.class),
@@ -136,7 +136,7 @@ public interface DomainUserManagementApi {
       value = "Get avatar of domain user.",
       nickname = "getUserAvatar",
       response = byte[].class,
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The avatar of the domain user.",
           response = byte[].class),
@@ -170,7 +170,7 @@ public interface DomainUserManagementApi {
       value = "Updates a domain user.",
       nickname = "updateUser",
       response = DomainUser.class,
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The updated domain user.", response = DomainUser.class),
       @ApiResponse(code = 400, message = "Bad request.",
@@ -206,7 +206,7 @@ public interface DomainUserManagementApi {
   @ApiOperation(
       value = "Updates the password of the domain user.",
       nickname = "updateUserPassword",
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "The password was successfully changed."),
       @ApiResponse(code = 400, message = "Bad request.",
@@ -237,7 +237,7 @@ public interface DomainUserManagementApi {
       value = "Checks whether a domain user exists.",
       nickname = "userExists",
       response = Boolean.class,
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "True if the user exists otherwise false.",
           response = Boolean.class),
@@ -260,7 +260,7 @@ public interface DomainUserManagementApi {
   @ApiOperation(
       value = "Delete domain user.",
       nickname = "deleteUser",
-      tags = {"domain-user-management"})
+      tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
       @ApiResponse(code = 200,
           message = "True if the domain user was successfully deleted, otherwise false.",

@@ -28,7 +28,7 @@ import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * The type Dhcp lease.
+ * The dhcp lease.
  *
  * @author Christian Bremer
  */
@@ -70,7 +70,7 @@ public class DhcpLease {
   private String manufacturer;
 
   /**
-   * Instantiates a new Dhcp lease.
+   * Instantiates a new dhcp lease.
    *
    * @param mac          the mac
    * @param ip           the ip
