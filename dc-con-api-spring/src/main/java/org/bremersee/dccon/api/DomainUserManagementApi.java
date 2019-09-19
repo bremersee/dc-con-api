@@ -128,7 +128,8 @@ public interface DomainUserManagementApi {
   /**
    * Get avatar of domain user.
    *
-   * @param userName the user name
+   * @param userName      the user name
+   * @param returnDefault the return default flag
    * @return the avatar of the domain user
    */
   @ApiOperation(
@@ -152,7 +153,10 @@ public interface DomainUserManagementApi {
       method = RequestMethod.GET)
   ResponseEntity<byte[]> getUserAvatar(
       @ApiParam(value = "The user name of the domain user.", required = true)
-      @PathVariable("userName") String userName);
+      @PathVariable("userName") String userName,
+
+      @ApiParam(value = "Return a default avatar if no one exits.", defaultValue = "false")
+      @RequestParam(name = "d", defaultValue = "false") Boolean returnDefault);
 
   /**
    * Update domain user.
