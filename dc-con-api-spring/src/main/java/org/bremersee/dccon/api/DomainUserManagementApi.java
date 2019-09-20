@@ -26,6 +26,7 @@ import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.exception.model.RestApiException;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -149,7 +150,7 @@ public interface DomainUserManagementApi {
   })
   @RequestMapping(
       value = "/api/users/{userName}/avatar",
-      produces = {"image/jpeg"},
+      produces = {MediaType.IMAGE_JPEG_VALUE},
       method = RequestMethod.GET)
   ResponseEntity<byte[]> getUserAvatar(
       @ApiParam(value = "The user name of the domain user.", required = true)
