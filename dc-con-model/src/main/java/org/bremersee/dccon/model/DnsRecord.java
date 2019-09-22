@@ -19,9 +19,14 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
@@ -31,79 +36,103 @@ import org.springframework.validation.annotation.Validated;
 @ApiModel(description = "DNS Record")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"recordType", "recordValue"})
+@ToString
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class DnsRecord extends AbstractDnsRecord {
+public class DnsRecord implements Serializable, Comparable<DnsRecord> {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The constant SORT_ORDER_TIME_STAMP_DESC.
+   */
+  public static final String SORT_ORDER_TIME_STAMP_DESC = "timeStamp,desc";
+
+  @ApiModelProperty(value = "The record type.", required = true)
+  @JsonProperty(value = "recordType", required = true)
+  private String recordType;
+
+  @ApiModelProperty(value = "The record value.")
+  @JsonProperty(value = "recordValue")
+  private String recordValue;
+
+  @ApiModelProperty(value = "The record raw active directory value.")
+  @JsonProperty("recordRawValue")
+  private byte[] recordRawValue;
+
+  @ApiModelProperty(value = "The correlated record value.")
+  @JsonProperty("correlatedRecordValue")
+  private String correlatedRecordValue;
+
+  @ApiModelProperty(value = "The version.")
+  @JsonProperty("version")
+  private Integer version;
+
+  @ApiModelProperty(value = "The serial.")
+  @JsonProperty("serial")
+  private Integer serial;
+
+  @ApiModelProperty(value = "TTL in seconds.")
+  @JsonProperty("ttlSeconds")
+  private Integer ttlSeconds;
+
+  @ApiModelProperty(value = "The time stamp.")
+  @JsonProperty("timeStamp")
+  private OffsetDateTime timeStamp;
+
+  @ApiModelProperty(value = "The dhcp lease.")
   @JsonProperty("dhcpLease")
   private DhcpLease dhcpLease;
 
-  @JsonProperty("correlatedDnsRecord")
-  private CorrelatedDnsRecord correlatedDnsRecord;
-
   /**
-   * Instantiates a new dns record.
+   * Instantiates a new Dns record.
    *
-   * @param recordType          the record type
-   * @param recordValue         the record value
-   * @param flags               the flags
-   * @param serial              the serial
-   * @param ttl                 the ttl
-   * @param dhcpLease           the dhcp lease
-   * @param correlatedDnsRecord the correlated dns record
+   * @param recordType            the record type
+   * @param recordValue           the record value
+   * @param recordRawValue        the record raw active directory value
+   * @param correlatedRecordValue the correlated record value
+   * @param version               the version
+   * @param serial                the serial
+   * @param ttlSeconds            the ttl seconds
+   * @param timeStamp             the time stamp
+   * @param dhcpLease             the dhcp lease
    */
   @Builder
-  public DnsRecord(
-      String recordType,
-      String recordValue,
-      String flags,
-      String serial,
-      String ttl,
-      DhcpLease dhcpLease,
-      CorrelatedDnsRecord correlatedDnsRecord) {
-    super(recordType, recordValue, flags, serial, ttl);
-    this.dhcpLease = dhcpLease;
-    this.correlatedDnsRecord = correlatedDnsRecord;
-  }
-
-  /**
-   * Gets dhcp lease.
-   *
-   * @return the dhcp lease
-   */
-  public DhcpLease getDhcpLease() {
-    return dhcpLease;
-  }
-
-  /**
-   * Sets dhcp lease.
-   *
-   * @param dhcpLease the dhcp lease
-   */
-  public void setDhcpLease(DhcpLease dhcpLease) {
+  public DnsRecord(String recordType, String recordValue, byte[] recordRawValue,
+      String correlatedRecordValue, Integer version, Integer serial, Integer ttlSeconds,
+      OffsetDateTime timeStamp, DhcpLease dhcpLease) {
+    this.recordType = recordType;
+    this.recordValue = recordValue;
+    this.recordRawValue = recordRawValue;
+    this.correlatedRecordValue = correlatedRecordValue;
+    this.version = version;
+    this.serial = serial;
+    this.ttlSeconds = ttlSeconds;
+    this.timeStamp = timeStamp;
     this.dhcpLease = dhcpLease;
   }
 
-  /**
-   * Gets correlated dns record.
-   *
-   * @return the correlated dns record
-   */
-  public CorrelatedDnsRecord getCorrelatedDnsRecord() {
-    return correlatedDnsRecord;
+  public boolean hasRecordRawValue() {
+    return recordRawValue != null && recordRawValue.length > 0;
   }
 
-  /**
-   * Sets correlated dns record.
-   *
-   * @param correlatedDnsRecord the correlated dns record
-   */
-  public void setCorrelatedDnsRecord(CorrelatedDnsRecord correlatedDnsRecord) {
-    this.correlatedDnsRecord = correlatedDnsRecord;
+  @Override
+  public int compareTo(DnsRecord o) {
+    if (o == null) {
+      return -1;
+    }
+    String s1 = getRecordType() != null ? getRecordType() : "";
+    String s2 = o.getRecordType() != null ? o.getRecordType() : "";
+    int result = s1.compareToIgnoreCase(s2);
+    if (result != 0) {
+      return result;
+    }
+    s1 = getRecordValue() != null ? getRecordValue() : "";
+    s2 = o.getRecordValue() != null ? o.getRecordValue() : "";
+    return s1.compareToIgnoreCase(s2);
   }
 }
 

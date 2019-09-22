@@ -28,7 +28,7 @@ import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * The type Dhcp lease.
+ * The dhcp lease.
  *
  * @author Christian Bremer
  */
@@ -45,6 +45,11 @@ public class DhcpLease {
    * The constant SORT_ORDER_BEGIN_HOSTNAME.
    */
   public static final String SORT_ORDER_BEGIN_HOSTNAME = "begin,desc|hostname";
+
+  /**
+   * The constant SORT_ORDER_IP_BEGIN_HOSTNAME.
+   */
+  public static final String SORT_ORDER_IP_BEGIN_HOSTNAME = "ip|begin,desc";
 
   @JsonProperty("mac")
   private String mac;
@@ -65,7 +70,7 @@ public class DhcpLease {
   private String manufacturer;
 
   /**
-   * Instantiates a new Dhcp lease.
+   * Instantiates a new dhcp lease.
    *
    * @param mac          the mac
    * @param ip           the ip

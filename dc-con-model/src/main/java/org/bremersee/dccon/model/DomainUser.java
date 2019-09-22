@@ -20,13 +20,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
@@ -36,11 +38,13 @@ import org.springframework.validation.annotation.Validated;
 @ApiModel(description = "Domain user.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class DomainUser extends CommonAttributes implements Serializable {
+public class DomainUser extends CommonAttributes {
 
   /**
    * The constant DEFAULT_SORT_ORDER.
@@ -49,257 +53,118 @@ public class DomainUser extends CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty("userName")
-  private String userName = null;
+  @ApiModelProperty(value = "The user name of the domain user.", required = true)
+  @JsonProperty(value = "userName", required = true)
+  @NotNull
+  private String userName;
 
+  @ApiModelProperty(value = "Specifies whether the user is enabled or not.")
   @JsonProperty("enabled")
   private Boolean enabled = Boolean.FALSE;
 
+  @ApiModelProperty(value = "The first name of the domain user.")
   @JsonProperty("firstName")
-  private String firstName = null;
+  private String firstName;
 
+  @ApiModelProperty(value = "The last name of the domain user.")
   @JsonProperty("lastName")
-  private String lastName = null;
+  private String lastName;
 
-  @JsonProperty("passwordLastSet")
-  private OffsetDateTime passwordLastSet = null;
-
+  @ApiModelProperty(value = "The display name.")
   @JsonProperty("displayName")
-  private String displayName = null;
+  private String displayName;
 
+  @ApiModelProperty(value = "The email address of the domain user.")
   @JsonProperty("email")
-  private String email = null;
+  private String email;
 
+  @ApiModelProperty(value = "The telephone number of the domain user.")
   @JsonProperty("telephoneNumber")
-  private String telephoneNumber = null;
+  private String telephoneNumber;
 
+  @ApiModelProperty(value = "The mobile number of the domain user.")
   @JsonProperty("mobile")
-  private String mobile = null;
+  private String mobile;
 
+  @ApiModelProperty(value = "The groups of the domain user.")
   @JsonProperty("groups")
-  private List<String> groups = null;
+  private List<String> groups;
 
+  @ApiModelProperty(value = "The home directory of the domain user.")
+  @JsonProperty("homeDirectory")
+  private String homeDirectory;
+
+  @ApiModelProperty(value = "The unix home directory of the domain user.")
+  @JsonProperty("unixHomeDirectory")
+  private String unixHomeDirectory;
+
+  @ApiModelProperty(value = "The login shell of the domain user.")
+  @JsonProperty("loginShell")
+  private String loginShell;
+
+  @ApiModelProperty(value = "The last logon time of the domain user.")
+  @JsonProperty("lastLogon")
+  private OffsetDateTime lastLogon;
+
+  @ApiModelProperty(value = "The logon count of the domain user.")
+  @JsonProperty("logonCount")
+  private Integer logonCount;
+
+  @ApiModelProperty(value = "Date of the last password change.")
+  @JsonProperty("passwordLastSet")
+  private OffsetDateTime passwordLastSet;
+
+  @ApiModelProperty(value = "The password of the domain user.")
   @JsonProperty("password")
-  private String password = null;
+  private String password;
 
-  /**
-   * Instantiates a new domain user.
-   *
-   * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param userName          the user name
-   * @param enabled           the enabled
-   * @param firstName         the first name
-   * @param lastName          the last name
-   * @param passwordLastSet   the password last set
-   * @param displayName       the display name
-   * @param email             the email
-   * @param telephoneNumber   the telephone number
-   * @param mobile            the mobile
-   * @param groups            the groups
-   * @param password          the password
-   */
+  @ApiModelProperty(value = "The avatar of the domain user.")
+  @JsonProperty("avatar")
+  private byte[] avatar;
+
   @Builder
-  public DomainUser(
-      String distinguishedName,
-      OffsetDateTime created,
-      OffsetDateTime modified,
-      String userName,
-      Boolean enabled,
-      String firstName,
-      String lastName,
-      OffsetDateTime passwordLastSet,
-      String displayName,
-      String email,
-      String telephoneNumber,
-      String mobile,
-      List<String> groups,
-      String password) {
-
+  public DomainUser(String distinguishedName, OffsetDateTime created,
+      OffsetDateTime modified, String userName, Boolean enabled, String firstName,
+      String lastName, String displayName, String email, String telephoneNumber,
+      String mobile, List<String> groups, String homeDirectory, String unixHomeDirectory,
+      String loginShell, OffsetDateTime lastLogon, Integer logonCount,
+      OffsetDateTime passwordLastSet, String password, byte[] avatar) {
     super(distinguishedName, created, modified);
     this.userName = userName;
-    this.enabled = Boolean.TRUE.equals(enabled);
+    this.enabled = enabled;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.passwordLastSet = passwordLastSet;
     this.displayName = displayName;
     this.email = email;
     this.telephoneNumber = telephoneNumber;
     this.mobile = mobile;
     this.groups = groups;
+    this.homeDirectory = homeDirectory;
+    this.unixHomeDirectory = unixHomeDirectory;
+    this.loginShell = loginShell;
+    this.lastLogon = lastLogon;
+    this.logonCount = logonCount;
+    this.passwordLastSet = passwordLastSet;
     this.password = password;
+    this.avatar = avatar;
   }
 
   /**
-   * The user name of the domain user.
+   * Specifies whether the user is enabled or not.
    *
-   * @return userName user name
+   * @return {@code true} is the user is enabled, otherwise {@code false}
    */
-  @ApiModelProperty(value = "The user name of the domain user.")
-  public String getUserName() {
-    return userName;
-  }
-
-  /**
-   * Sets user name.
-   *
-   * @param userName the user name
-   */
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  /**
-   * Is the domain user enabled.
-   *
-   * @return enabled enabled
-   */
-  @ApiModelProperty(value = "Is the domain user enabled?")
   public Boolean getEnabled() {
     return Boolean.TRUE.equals(enabled);
   }
 
   /**
-   * Sets enabled.
+   * Sets whether the user is enabled or not.
    *
-   * @param enabled the enabled
+   * @param enabled {@code true} if the user should be enabled, otherwise {@code false}
    */
   public void setEnabled(Boolean enabled) {
     this.enabled = Boolean.TRUE.equals(enabled);
-  }
-
-  /**
-   * Gets first name.
-   *
-   * @return the first name
-   */
-  @ApiModelProperty(value = "The first name of the domain user.")
-  public String getFirstName() {
-    return firstName;
-  }
-
-  /**
-   * Sets first name.
-   *
-   * @param firstName the first name
-   */
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  /**
-   * Gets last name.
-   *
-   * @return the last name
-   */
-  @ApiModelProperty(value = "The last name of the domain user.")
-  public String getLastName() {
-    return lastName;
-  }
-
-  /**
-   * Sets last name.
-   *
-   * @param lastName the last name
-   */
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
-
-  /**
-   * Get password last set.
-   *
-   * @return password last set
-   */
-  @ApiModelProperty(value = "Date of the last password change.")
-  public OffsetDateTime getPasswordLastSet() {
-    return passwordLastSet;
-  }
-
-  /**
-   * Sets password last set.
-   *
-   * @param passwordLastSet the password last set
-   */
-  public void setPasswordLastSet(OffsetDateTime passwordLastSet) {
-    this.passwordLastSet = passwordLastSet;
-  }
-
-  /**
-   * Get display name.
-   *
-   * @return display name
-   */
-  @ApiModelProperty(value = "The display name.")
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  /**
-   * Sets display name.
-   *
-   * @param displayName the display name
-   */
-  public void setDisplayName(String displayName) {
-    this.displayName = displayName;
-  }
-
-  /**
-   * The mail address of the domain user.
-   *
-   * @return email email
-   */
-  @ApiModelProperty(value = "The mail address of the domain user.")
-  public String getEmail() {
-    return email;
-  }
-
-  /**
-   * Sets email.
-   *
-   * @param email the email
-   */
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  /**
-   * Gets telephone number.
-   *
-   * @return the telephone number
-   */
-  @ApiModelProperty(value = "The telephone number of the domain user.")
-  public String getTelephoneNumber() {
-    return telephoneNumber;
-  }
-
-  /**
-   * Sets telephone number.
-   *
-   * @param telephoneNumber the telephone number
-   */
-  public void setTelephoneNumber(String telephoneNumber) {
-    this.telephoneNumber = telephoneNumber;
-  }
-
-  /**
-   * The mobile number of the domain user.
-   *
-   * @return mobile mobile
-   */
-  @ApiModelProperty(value = "The mobile number of the domain user.")
-  public String getMobile() {
-    return mobile;
-  }
-
-  /**
-   * Sets mobile.
-   *
-   * @param mobile the mobile
-   */
-  public void setMobile(String mobile) {
-    this.mobile = mobile;
   }
 
   /**
@@ -307,7 +172,6 @@ public class DomainUser extends CommonAttributes implements Serializable {
    *
    * @return groups groups
    */
-  @ApiModelProperty(value = "The groups of the domain user.")
   public List<String> getGroups() {
     if (groups == null) {
       groups = new ArrayList<>();
@@ -322,25 +186,6 @@ public class DomainUser extends CommonAttributes implements Serializable {
    */
   public void setGroups(List<String> groups) {
     this.groups = groups;
-  }
-
-  /**
-   * The password of the domain user.
-   *
-   * @return password password
-   */
-  @ApiModelProperty(value = "The password of the domain user.")
-  public String getPassword() {
-    return password;
-  }
-
-  /**
-   * Sets password.
-   *
-   * @param password the password
-   */
-  public void setPassword(String password) {
-    this.password = password;
   }
 
 }
