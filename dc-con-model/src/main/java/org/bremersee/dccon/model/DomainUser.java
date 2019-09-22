@@ -122,6 +122,30 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("avatar")
   private byte[] avatar;
 
+  /**
+   * Instantiates a new domain user.
+   *
+   * @param distinguishedName the distinguished name
+   * @param created           the created
+   * @param modified          the modified
+   * @param userName          the user name
+   * @param enabled           the enabled
+   * @param firstName         the first name
+   * @param lastName          the last name
+   * @param displayName       the display name
+   * @param email             the email
+   * @param telephoneNumber   the telephone number
+   * @param mobile            the mobile
+   * @param groups            the groups
+   * @param homeDirectory     the home directory
+   * @param unixHomeDirectory the unix home directory
+   * @param loginShell        the login shell
+   * @param lastLogon         the last logon
+   * @param logonCount        the logon count
+   * @param passwordLastSet   the password last set
+   * @param password          the password
+   * @param avatar            the avatar
+   */
   @Builder
   public DomainUser(String distinguishedName, OffsetDateTime created,
       OffsetDateTime modified, String userName, Boolean enabled, String firstName,
