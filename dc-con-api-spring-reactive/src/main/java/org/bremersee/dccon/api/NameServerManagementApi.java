@@ -38,6 +38,21 @@ import reactor.core.publisher.Mono;
 public interface NameServerManagementApi {
 
   /**
+   * Query dns nodes.
+   *
+   * @param query         the query, can be a host name, an IP or a MAC address
+   * @param unknownFilter the unknown filter
+   * @return found dns nodes
+   */
+  @RequestMapping(
+      value = "/api/dns",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Flux<DnsNode> query(
+      @RequestParam(name = "q") String query,
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
+
+  /**
    * Gets dhcp leases.
    *
    * @param all  if {@code true}, expired leases will also be returned, otherwise only active ones

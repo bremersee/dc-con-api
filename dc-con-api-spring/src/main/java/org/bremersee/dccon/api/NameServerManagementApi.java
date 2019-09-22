@@ -44,6 +44,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface NameServerManagementApi {
 
   /**
+   * Query dns nodes.
+   *
+   * @param query         the query, can be a host name, an IP or a MAC address
+   * @param unknownFilter the unknown filter
+   * @return found dns nodes
+   */
+  @ApiOperation(
+      value = "Simple dns query.",
+      nickname = "query", notes = "Find dns nodes.",
+      response = DnsNode.class,
+      responseContainer = "List",
+      tags = {"name-server-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The found dns nodes.",
+          response = DnsNode.class, responseContainer = "List"),
+      @ApiResponse(code = 400, message = "Bad request.",
+          response = RestApiException.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)})
+  @RequestMapping(
+      value = "/api/dns",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<List<DnsNode>> query(
+      @ApiParam(value = "The query, can be a host name, an IP or a MAC address.")
+      @RequestParam(name = "q") String query,
+
+      @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
+
+  /**
    * Gets dhcp leases.
    *
    * @param all  if {@code true}, expired leases will also be returned, otherwise only active ones
@@ -74,7 +105,6 @@ public interface NameServerManagementApi {
       @ApiParam(value = "The sort order.", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME)
       @RequestParam(value = "sort",
           defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
-
 
   /**
    * Get dns zones.
