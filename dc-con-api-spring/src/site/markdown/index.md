@@ -1,3 +1,3 @@
-# dc-con-api-spring
+# Domain Controller Connector API - Spring Servlet Variant
 
-This library contains the Java API.
+This library contains the Spring API with Swagger annotations.
