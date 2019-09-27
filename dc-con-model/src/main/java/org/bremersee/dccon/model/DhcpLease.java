@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -39,7 +40,9 @@ import org.springframework.validation.annotation.Validated;
 @ToString
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class DhcpLease {
+public class DhcpLease implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * The constant SORT_ORDER_BEGIN_HOSTNAME.
