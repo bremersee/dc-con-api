@@ -36,9 +36,10 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "_type", visible = true)
 @JsonSubTypes({
+    @JsonSubTypes.Type(value = DnsZone.class, name = "DnsZone"),
+    @JsonSubTypes.Type(value = DnsNode.class, name = "DnsNode"),
     @JsonSubTypes.Type(value = DomainUser.class, name = "DomainUser"),
-    @JsonSubTypes.Type(value = DomainGroup.class, name = "DomainGroup"),
-    @JsonSubTypes.Type(value = DomainGroupItem.class, name = "DomainGroupItem"),
+    @JsonSubTypes.Type(value = DomainGroup.class, name = "DomainGroup")
 })
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
@@ -49,7 +50,7 @@ public abstract class CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty("distinguishedName")
+  @JsonProperty(value = "distinguishedName")
   private String distinguishedName = null;
 
   @JsonProperty("created")

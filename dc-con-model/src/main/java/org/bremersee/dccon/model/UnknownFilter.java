@@ -16,45 +16,50 @@
 
 package org.bremersee.dccon.model;
 
+import java.util.Optional;
+
 /**
- * The dhcp lease add parameter.
+ * The unknown filter.
  *
  * @author Christian Bremer
  */
-public enum AddDhcpLeaseParameter {
+public enum UnknownFilter {
 
   /**
-   * None dhcp lease add parameter.
+   * All unknown filter.
    */
-  NONE,
+  ALL,
 
   /**
-   * Active dhcp lease add parameter.
+   * No unknown filter.
    */
-  ACTIVE,
+  NO_UNKNOWN,
 
   /**
-   * All dhcp lease add parameter.
+   * Unknown filter.
    */
-  ALL;
+  UNKNOWN;
 
   /**
-   * From value dhcp lease add parameter.
+   * Matches record type filter.
    *
-   * @param text             the text
-   * @param defaultParameter the default parameter
-   * @return the dhcp lease add parameter
+   * @param dnsRecord the dns record
+   * @return the boolean
    */
-  public static AddDhcpLeaseParameter fromValue(
-      String text,
-      AddDhcpLeaseParameter defaultParameter) {
-
-    for (AddDhcpLeaseParameter parameter : AddDhcpLeaseParameter.values()) {
-      if (parameter.name().equalsIgnoreCase(text)) {
-        return parameter;
-      }
-    }
-    return defaultParameter;
+  public boolean matches(DnsRecord dnsRecord) {
+    return Optional.ofNullable(dnsRecord)
+        .map(DnsRecord::getRecordType)
+        .map(recordType -> {
+          switch (this) {
+            case NO_UNKNOWN:
+              return !recordType.equalsIgnoreCase("UNKNOWN");
+            case UNKNOWN:
+              return recordType.equalsIgnoreCase("UNKNOWN");
+            default:
+              return true;
+          }
+        })
+        .orElse(false);
   }
 
 }

@@ -1,3 +1,3 @@
-# dc-con-api-spring-reactive
+# Domain Controller Connector API - Spring Reactive Variant
 
-This library contains the Reactive Java API and a web client implementation.
+This library contains the Spring Reactive API.

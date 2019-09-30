@@ -24,6 +24,7 @@ import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -40,9 +41,18 @@ import org.springframework.validation.annotation.Validated;
 @ToString(callSuper = true)
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class DomainGroup extends DomainGroupItem implements Serializable {
+public class DomainGroup extends CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
+
+  /**
+   * The constant DEFAULT_SORT_ORDER.
+   */
+  public static final String DEFAULT_SORT_ORDER = "name";
+
+  @JsonProperty(value = "name", required = true)
+  @NotNull
+  private String name = null;
 
   @JsonProperty("members")
   private List<String> members = null;
@@ -64,8 +74,28 @@ public class DomainGroup extends DomainGroupItem implements Serializable {
       String name,
       List<String> members) {
 
-    super(distinguishedName, created, modified, name);
+    super(distinguishedName, created, modified);
+    this.name = name;
     this.members = members;
+  }
+
+  /**
+   * The name of the domain group.
+   *
+   * @return name name
+   */
+  @ApiModelProperty(value = "The name of the domain group.", required = true)
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Sets name.
+   *
+   * @param name the name
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**

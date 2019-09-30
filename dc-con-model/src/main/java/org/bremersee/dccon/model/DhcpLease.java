@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -28,7 +29,7 @@ import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * The type Dhcp lease.
+ * The dhcp lease.
  *
  * @author Christian Bremer
  */
@@ -39,12 +40,19 @@ import org.springframework.validation.annotation.Validated;
 @ToString
 @NoArgsConstructor
 @SuppressWarnings("unused")
-public class DhcpLease {
+public class DhcpLease implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   /**
    * The constant SORT_ORDER_BEGIN_HOSTNAME.
    */
   public static final String SORT_ORDER_BEGIN_HOSTNAME = "begin,desc|hostname";
+
+  /**
+   * The constant SORT_ORDER_IP_BEGIN_HOSTNAME.
+   */
+  public static final String SORT_ORDER_IP_BEGIN_HOSTNAME = "ip|begin,desc";
 
   @JsonProperty("mac")
   private String mac;
@@ -65,7 +73,7 @@ public class DhcpLease {
   private String manufacturer;
 
   /**
-   * Instantiates a new Dhcp lease.
+   * Instantiates a new dhcp lease.
    *
    * @param mac          the mac
    * @param ip           the ip
