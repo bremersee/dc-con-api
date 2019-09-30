@@ -15,14 +15,6 @@
   <dependencies>
     <dependency>
       <groupId>org.bremersee</groupId>
-      <artifactId>common-base</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.bremersee</groupId>
-      <artifactId>common-model</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.bremersee</groupId>
       <artifactId>dc-con-model</artifactId>
     </dependency>
 
