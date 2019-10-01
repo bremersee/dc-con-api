@@ -44,6 +44,9 @@ public class DnsZone extends CommonAttributes {
   @JsonProperty(value = "name", required = true)
   private String name = null;
 
+  @JsonProperty(value = "defaultZone")
+  private Boolean defaultZone;
+
   /**
    * Instantiates a new dns zone.
    *
@@ -51,16 +54,19 @@ public class DnsZone extends CommonAttributes {
    * @param created           the created
    * @param modified          the modified
    * @param name              the zone name
+   * @param defaultZone       the default zone
    */
   @Builder
   public DnsZone(
       String distinguishedName,
       OffsetDateTime created,
       OffsetDateTime modified,
-      String name) {
+      String name,
+      Boolean defaultZone) {
 
     super(distinguishedName, created, modified);
     this.name = name;
+    this.defaultZone = Boolean.TRUE.equals(defaultZone);
   }
 
   /**
@@ -82,5 +88,22 @@ public class DnsZone extends CommonAttributes {
     this.name = name;
   }
 
+  /**
+   * Gets default zone.
+   *
+   * @return the default zone
+   */
+  public Boolean getDefaultZone() {
+    return Boolean.TRUE.equals(defaultZone);
+  }
+
+  /**
+   * Sets default zone.
+   *
+   * @param defaultZone the default zone
+   */
+  public void setDefaultZone(Boolean defaultZone) {
+    this.defaultZone = defaultZone;
+  }
 }
 

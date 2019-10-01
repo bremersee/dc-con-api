@@ -7,4 +7,4 @@ variants: A 'normal' Spring Web API and a reactive Spring Webflux API.
 
 - [Release](https://bremersee.github.io/dc-con-api/index.html)
 
-- [Snapshot](https://nexus.bremersee.org/repository/maven-sites/dc-con-api/2.0.0-SNAPSHOT/index.html)
+- [Snapshot](https://nexus.bremersee.org/repository/maven-sites/dc-con-api/2.0.1-SNAPSHOT/index.html)
