@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -93,6 +94,9 @@ public class DnsZone extends CommonAttributes {
    *
    * @return the default zone
    */
+  @ApiModelProperty(
+      value = "Specifies whether this zone is the default zone or not.",
+      accessMode = AccessMode.READ_ONLY)
   public Boolean getDefaultZone() {
     return Boolean.TRUE.equals(defaultZone);
   }

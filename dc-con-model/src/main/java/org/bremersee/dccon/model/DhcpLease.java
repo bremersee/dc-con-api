@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
@@ -103,7 +104,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the mac
    */
-  @ApiModelProperty(value = "The mac of the client.")
+  @ApiModelProperty(value = "The mac of the client.", accessMode = AccessMode.READ_ONLY)
   public String getMac() {
     return mac;
   }
@@ -122,7 +123,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the ip
    */
-  @ApiModelProperty(value = "The ip of the client.")
+  @ApiModelProperty(value = "The ip of the client.", accessMode = AccessMode.READ_ONLY)
   public String getIp() {
     return ip;
   }
@@ -141,7 +142,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the hostname
    */
-  @ApiModelProperty(value = "The host name of the client.")
+  @ApiModelProperty(value = "The host name of the client.", accessMode = AccessMode.READ_ONLY)
   public String getHostname() {
     return hostname;
   }
@@ -160,7 +161,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the begin
    */
-  @ApiModelProperty(value = "The start time of the lease.")
+  @ApiModelProperty(value = "The start time of the lease.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getBegin() {
     return begin;
   }
@@ -179,7 +180,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the end
    */
-  @ApiModelProperty(value = "The end time of the lease.")
+  @ApiModelProperty(value = "The end time of the lease.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getEnd() {
     return end;
   }
@@ -198,7 +199,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the manufacturer
    */
-  @ApiModelProperty(value = "The manufacturer of the client.")
+  @ApiModelProperty(value = "The manufacturer of the client.", accessMode = AccessMode.READ_ONLY)
   public String getManufacturer() {
     return manufacturer;
   }

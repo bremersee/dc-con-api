@@ -19,6 +19,7 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -46,17 +47,25 @@ public class DnsPair implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @ApiModelProperty(value = "The zone name of the dns node.", required = true)
+  @ApiModelProperty(
+      value = "The zone name of the dns node.",
+      required = true,
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = "zoneName", required = true)
   @NotNull
   private String zoneName;
 
-  @ApiModelProperty(value = "A dns node.", required = true)
+  @ApiModelProperty(
+      value = "A dns node.",
+      required = true,
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = "node", required = true)
   @NotNull
   private DnsNode node;
 
-  @ApiModelProperty(value = "Information about the existence of the dns node.")
+  @ApiModelProperty(
+      value = "Information about the existence of the dns node.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = "nodeExists")
   private Boolean nodeExists;
 

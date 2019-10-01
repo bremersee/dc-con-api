@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,15 +103,21 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("loginShell")
   private String loginShell;
 
-  @ApiModelProperty(value = "The last logon time of the domain user.")
+  @ApiModelProperty(
+      value = "The last logon time of the domain user.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("lastLogon")
   private OffsetDateTime lastLogon;
 
-  @ApiModelProperty(value = "The logon count of the domain user.")
+  @ApiModelProperty(
+      value = "The logon count of the domain user.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("logonCount")
   private Integer logonCount;
 
-  @ApiModelProperty(value = "Date of the last password change.")
+  @ApiModelProperty(
+      value = "Date of the last password change.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("passwordLastSet")
   private OffsetDateTime passwordLastSet;
 

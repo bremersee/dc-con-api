@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
@@ -81,7 +82,9 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return distinguishedName distinguished name
    */
-  @ApiModelProperty(value = "The distinguished name in the active directory.")
+  @ApiModelProperty(
+      value = "The distinguished name in the active directory.",
+      accessMode = AccessMode.READ_ONLY)
   public String getDistinguishedName() {
     return distinguishedName;
   }
@@ -100,7 +103,7 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return created created
    */
-  @ApiModelProperty(value = "The creation date.")
+  @ApiModelProperty(value = "The creation date.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getCreated() {
     return created;
   }
@@ -119,7 +122,7 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return modified modified
    */
-  @ApiModelProperty(value = "The last modification date.")
+  @ApiModelProperty(value = "The last modification date.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getModified() {
     return modified;
   }

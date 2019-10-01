@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
@@ -59,31 +60,33 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
   @JsonProperty(value = "recordValue")
   private String recordValue;
 
-  @ApiModelProperty(value = "The record raw active directory value.")
+  @ApiModelProperty(
+      value = "The record raw active directory value.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("recordRawValue")
   private byte[] recordRawValue;
 
-  @ApiModelProperty(value = "The correlated record value.")
+  @ApiModelProperty(value = "The correlated record value.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("correlatedRecordValue")
   private String correlatedRecordValue;
 
-  @ApiModelProperty(value = "The version.")
+  @ApiModelProperty(value = "The version.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("version")
   private Integer version;
 
-  @ApiModelProperty(value = "The serial.")
+  @ApiModelProperty(value = "The serial.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("serial")
   private Integer serial;
 
-  @ApiModelProperty(value = "TTL in seconds.")
+  @ApiModelProperty(value = "TTL in seconds.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("ttlSeconds")
   private Integer ttlSeconds;
 
-  @ApiModelProperty(value = "The time stamp.")
+  @ApiModelProperty(value = "The time stamp.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("timeStamp")
   private OffsetDateTime timeStamp;
 
-  @ApiModelProperty(value = "The dhcp lease.")
+  @ApiModelProperty(value = "The dhcp lease.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("dhcpLease")
   private DhcpLease dhcpLease;
 
