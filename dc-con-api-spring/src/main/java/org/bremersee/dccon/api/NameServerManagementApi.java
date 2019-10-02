@@ -157,7 +157,7 @@ public interface NameServerManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DnsZone> addDnsZone(
-      @ApiParam(value = "The dns zone to add.")
+      @ApiParam(value = "The dns zone to add.", required = true)
       @Valid @RequestBody DnsZone request);
 
   /**
@@ -253,7 +253,7 @@ public interface NameServerManagementApi {
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
-      @ApiParam(value = "The dns node to save.")
+      @ApiParam(value = "The dns node to save.", required = true)
       @Valid @RequestBody DnsNode dnsNode);
 
   /**

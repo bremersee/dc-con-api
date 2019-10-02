@@ -94,7 +94,8 @@ public interface DomainGroupManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DomainGroup> addGroup(
-      @ApiParam(value = "The domain group to add.") @Valid @RequestBody DomainGroup group);
+      @ApiParam(value = "The domain group to add.", required = true)
+      @Valid @RequestBody DomainGroup group);
 
   /**
    * Get domain group by name.

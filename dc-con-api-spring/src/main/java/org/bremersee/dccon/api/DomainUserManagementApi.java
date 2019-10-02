@@ -94,8 +94,8 @@ public interface DomainUserManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DomainUser> addUser(
-      @ApiParam(value = "The domain user to add.",
-          required = true) @Valid @RequestBody DomainUser domainUser);
+      @ApiParam(value = "The domain user to add.", required = true)
+      @Valid @RequestBody DomainUser domainUser);
 
   /**
    * Get domain user.
