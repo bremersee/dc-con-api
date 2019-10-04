@@ -47,7 +47,8 @@ public interface DomainUserManagementApi {
       method = RequestMethod.GET)
   Flux<DomainUser> getUsers(
       @RequestParam(value = "sort",
-          defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort);
+          defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort,
+      @RequestParam(name = "q", required = false) String query);
 
   /**
    * Add a domain user.

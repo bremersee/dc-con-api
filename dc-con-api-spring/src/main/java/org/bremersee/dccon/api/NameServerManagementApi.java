@@ -262,6 +262,7 @@ public interface NameServerManagementApi {
    * @param zoneName      the dns zone name
    * @param nodeName      the dns node name
    * @param unknownFilter the unknown filter
+   * @param query         the query
    * @return the dns node
    */
   @ApiOperation(
@@ -292,7 +293,10 @@ public interface NameServerManagementApi {
       @PathVariable("nodeName") String nodeName,
 
       @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
-      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter,
+
+      @ApiParam(value = "A query.")
+      @RequestParam(name = "q", required = false) String query);
 
   /**
    * Delete dns node.

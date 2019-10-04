@@ -113,6 +113,7 @@ public interface NameServerManagementApi {
    *
    * @param zoneName      the zone name
    * @param unknownFilter the unknown filter
+   * @param query         the query
    * @return the dns nodes
    */
   @RequestMapping(value = "/api/dns/zones/{zoneName}",
@@ -120,7 +121,8 @@ public interface NameServerManagementApi {
       method = RequestMethod.GET)
   Flux<DnsNode> getDnsNodes(
       @PathVariable(value = "zoneName") String zoneName,
-      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter,
+      @RequestParam(name = "q", required = false) String query);
 
   /**
    * Save dns node.

@@ -43,7 +43,8 @@ public interface DomainGroupManagementApi {
   /**
    * Get domain groups.
    *
-   * @param sort the sort order
+   * @param sort  the sort order
+   * @param query the query
    * @return the groups
    */
   @ApiOperation(
@@ -66,7 +67,10 @@ public interface DomainGroupManagementApi {
   ResponseEntity<List<DomainGroup>> getGroups(
       @ApiParam(value = "The sort order.", defaultValue = DomainGroup.DEFAULT_SORT_ORDER)
       @RequestParam(value = "sort",
-          defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort);
+          defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort,
+
+      @ApiParam(value = "A query.")
+      @RequestParam(name = "q", required = false) String query);
 
   /**
    * Add domain group.

@@ -45,7 +45,8 @@ public interface DomainUserManagementApi {
   /**
    * Get domain users.
    *
-   * @param sort the sort
+   * @param sort  the sort
+   * @param query the query
    * @return the domain users
    */
   @ApiOperation(
@@ -68,7 +69,10 @@ public interface DomainUserManagementApi {
   ResponseEntity<List<DomainUser>> getUsers(
       @ApiParam(value = "The sort order.", defaultValue = DomainUser.DEFAULT_SORT_ORDER)
       @RequestParam(value = "sort",
-          defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort);
+          defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort,
+
+      @ApiParam(value = "A query.")
+      @RequestParam(name = "q", required = false) String query);
 
   /**
    * Add a domain user.

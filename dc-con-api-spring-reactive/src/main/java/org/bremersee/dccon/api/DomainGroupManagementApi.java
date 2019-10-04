@@ -36,7 +36,8 @@ public interface DomainGroupManagementApi {
   /**
    * Get domain groups.
    *
-   * @param sort the sort order
+   * @param sort  the sort order
+   * @param query the query
    * @return the groups
    */
   @RequestMapping(
@@ -45,7 +46,8 @@ public interface DomainGroupManagementApi {
       method = RequestMethod.GET)
   Flux<DomainGroup> getGroups(
       @RequestParam(value = "sort",
-          defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort);
+          defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort,
+      @RequestParam(name = "q", required = false) String query);
 
   /**
    * Add domain group.
