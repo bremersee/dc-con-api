@@ -54,6 +54,9 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   @NotNull
   private String name = null;
 
+  @JsonProperty("description")
+  private String description;
+
   @JsonProperty("members")
   private List<String> members = null;
 
@@ -64,6 +67,7 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * @param created           the created
    * @param modified          the modified
    * @param name              the name
+   * @param description       the description
    * @param members           the members
    */
   @Builder
@@ -72,10 +76,12 @@ public class DomainGroup extends CommonAttributes implements Serializable {
       OffsetDateTime created,
       OffsetDateTime modified,
       String name,
+      String description,
       List<String> members) {
 
     super(distinguishedName, created, modified);
     this.name = name;
+    this.description = description;
     this.members = members;
   }
 
@@ -96,6 +102,25 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Gets description.
+   *
+   * @return the description
+   */
+  @ApiModelProperty(value = "A description of the domain user.")
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Sets description.
+   *
+   * @param description the description
+   */
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**

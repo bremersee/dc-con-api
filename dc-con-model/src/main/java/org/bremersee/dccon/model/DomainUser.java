@@ -87,6 +87,10 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("mobile")
   private String mobile;
 
+  @ApiModelProperty(value = "A description of the domain user.")
+  @JsonProperty("description")
+  private String description;
+
   @ApiModelProperty(value = "The groups of the domain user.")
   @JsonProperty("groups")
   private List<String> groups;
@@ -143,6 +147,7 @@ public class DomainUser extends CommonAttributes {
    * @param email             the email
    * @param telephoneNumber   the telephone number
    * @param mobile            the mobile
+   * @param description       the description
    * @param groups            the groups
    * @param homeDirectory     the home directory
    * @param unixHomeDirectory the unix home directory
@@ -157,8 +162,8 @@ public class DomainUser extends CommonAttributes {
   public DomainUser(String distinguishedName, OffsetDateTime created,
       OffsetDateTime modified, String userName, Boolean enabled, String firstName,
       String lastName, String displayName, String email, String telephoneNumber,
-      String mobile, List<String> groups, String homeDirectory, String unixHomeDirectory,
-      String loginShell, OffsetDateTime lastLogon, Integer logonCount,
+      String mobile, String description, List<String> groups, String homeDirectory,
+      String unixHomeDirectory, String loginShell, OffsetDateTime lastLogon, Integer logonCount,
       OffsetDateTime passwordLastSet, String password, byte[] avatar) {
     super(distinguishedName, created, modified);
     this.userName = userName;
@@ -169,6 +174,7 @@ public class DomainUser extends CommonAttributes {
     this.email = email;
     this.telephoneNumber = telephoneNumber;
     this.mobile = mobile;
+    this.description = description;
     this.groups = groups;
     this.homeDirectory = homeDirectory;
     this.unixHomeDirectory = unixHomeDirectory;
