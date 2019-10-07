@@ -19,6 +19,7 @@ package org.bremersee.dccon.api;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
+import org.bremersee.dccon.model.SubSets;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,8 @@ public interface DomainUserManagementApi {
   /**
    * Get domain users.
    *
-   * @param sort the sort
+   * @param sort  the sort
+   * @param query the query
    * @return the domain users
    */
   @RequestMapping(
@@ -74,6 +76,21 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<DomainUser> getUser(@PathVariable("userName") String userName);
+
+  /**
+   * Get group memberships of a domain user.
+   *
+   * @param userName     the user name
+   * @param addAvailable the add available flag (default is {@code true})
+   * @return the memberships of the domain user and optional the available users
+   */
+  @RequestMapping(
+      value = "/api/users/{userName}/memberships",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<SubSets> getUserMemberships(
+      @PathVariable("userName") String userName,
+      @RequestParam(name = "available", defaultValue = "true") Boolean addAvailable);
 
   /**
    * Get avatar of domain user.

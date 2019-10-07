@@ -24,6 +24,7 @@ import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
+import org.bremersee.dccon.model.SubSets;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -162,6 +163,39 @@ public interface DomainGroupManagementApi {
 
       @ApiParam(value = "The domain group.", required = true)
       @Valid @RequestBody DomainGroup domainGroup);
+
+  /**
+   * Gets group members by name.
+   *
+   * @param groupName    the group name
+   * @param addAvailable the add available flag (default is {@code true})
+   * @return the group members and optional the available members
+   */
+  @ApiOperation(
+      value = "Get domain group members by group name.",
+      nickname = "getGroupMembersByName",
+      response = SubSets.class,
+      tags = {"domain-group-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The domain group members.",
+          response = SubSets.class),
+      @ApiResponse(code = 400, message = "Bad request.",
+          response = RestApiException.class),
+      @ApiResponse(code = 404, message = "Not found",
+          response = RestApiException.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/groups/{groupName}/members",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<SubSets> getGroupMembersByName(
+      @ApiParam(value = "The domain group name.", required = true)
+      @PathVariable("groupName") String groupName,
+
+      @ApiParam(value = "The add available members flag.", defaultValue = "true")
+      @RequestParam(name = "available", defaultValue = "true") Boolean addAvailable);
 
   /**
    * Domain group exists.

@@ -25,6 +25,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
+import org.bremersee.dccon.model.SubSets;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -129,6 +130,39 @@ public interface DomainUserManagementApi {
   ResponseEntity<DomainUser> getUser(
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName);
+
+  /**
+   * Get group memberships of a domain user.
+   *
+   * @param userName     the user name
+   * @param addAvailable the add available flag (default is {@code true})
+   * @return the memberships of the domain user and optional the available users
+   */
+  @ApiOperation(
+      value = "Get group memberships of a domain user.",
+      nickname = "getUserMemberships",
+      response = SubSets.class,
+      tags = {"domain-user-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The memberships of a domain user.",
+          response = SubSets.class),
+      @ApiResponse(code = 400, message = "Bad request.",
+          response = RestApiException.class),
+      @ApiResponse(code = 404, message = "User not found.",
+          response = RestApiException.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/users/{userName}/memberships",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<SubSets> getUserMemberships(
+      @ApiParam(value = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName,
+
+      @ApiParam(value = "The add available groups flag.", defaultValue = "true")
+      @RequestParam(name = "available", defaultValue = "true") Boolean addAvailable);
 
   /**
    * Get avatar of domain user.
