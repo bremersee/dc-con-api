@@ -52,6 +52,11 @@ public class DomainUser extends CommonAttributes {
    */
   public static final String DEFAULT_SORT_ORDER = "userName";
 
+  /**
+   * The constant LDAP_ATTR_AVATAR.
+   */
+  public static final String LDAP_ATTR_AVATAR = "jpegPhoto";
+
   private static final long serialVersionUID = 1L;
 
   @ApiModelProperty(value = "The user name of the domain user.", required = true)
@@ -91,10 +96,6 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("description")
   private String description;
 
-  @ApiModelProperty(value = "The groups of the domain user.")
-  @JsonProperty("groups")
-  private List<String> groups;
-
   @ApiModelProperty(value = "The home directory of the domain user.")
   @JsonProperty("homeDirectory")
   private String homeDirectory;
@@ -133,6 +134,16 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("avatar")
   private byte[] avatar;
 
+  @ApiModelProperty(value = "The groups of the domain user.")
+  @JsonProperty("groups")
+  private List<String> groups;
+
+  @ApiModelProperty(
+      value = "The available groups of the domain user.",
+      accessMode = AccessMode.READ_ONLY)
+  @JsonProperty("availableGroups")
+  private List<String> availableGroups;
+
   /**
    * Instantiates a new domain user.
    *
@@ -148,7 +159,6 @@ public class DomainUser extends CommonAttributes {
    * @param telephoneNumber   the telephone number
    * @param mobile            the mobile
    * @param description       the description
-   * @param groups            the groups
    * @param homeDirectory     the home directory
    * @param unixHomeDirectory the unix home directory
    * @param loginShell        the login shell
@@ -157,14 +167,17 @@ public class DomainUser extends CommonAttributes {
    * @param passwordLastSet   the password last set
    * @param password          the password
    * @param avatar            the avatar
+   * @param groups            the groups
+   * @param availableGroups   the available groups
    */
   @Builder
   public DomainUser(String distinguishedName, OffsetDateTime created,
       OffsetDateTime modified, String userName, Boolean enabled, String firstName,
       String lastName, String displayName, String email, String telephoneNumber,
-      String mobile, String description, List<String> groups, String homeDirectory,
-      String unixHomeDirectory, String loginShell, OffsetDateTime lastLogon, Integer logonCount,
-      OffsetDateTime passwordLastSet, String password, byte[] avatar) {
+      String mobile, String description, String homeDirectory, String unixHomeDirectory,
+      String loginShell, OffsetDateTime lastLogon, Integer logonCount,
+      OffsetDateTime passwordLastSet, String password, byte[] avatar, List<String> groups,
+      List<String> availableGroups) {
     super(distinguishedName, created, modified);
     this.userName = userName;
     this.enabled = enabled;
@@ -175,7 +188,6 @@ public class DomainUser extends CommonAttributes {
     this.telephoneNumber = telephoneNumber;
     this.mobile = mobile;
     this.description = description;
-    this.groups = groups;
     this.homeDirectory = homeDirectory;
     this.unixHomeDirectory = unixHomeDirectory;
     this.loginShell = loginShell;
@@ -184,6 +196,8 @@ public class DomainUser extends CommonAttributes {
     this.passwordLastSet = passwordLastSet;
     this.password = password;
     this.avatar = avatar;
+    this.groups = groups;
+    this.availableGroups = availableGroups;
   }
 
   /**
@@ -225,5 +239,25 @@ public class DomainUser extends CommonAttributes {
     this.groups = groups;
   }
 
+  /**
+   * Gets available groups.
+   *
+   * @return the available groups
+   */
+  public List<String> getAvailableGroups() {
+    if (availableGroups == null) {
+      availableGroups = new ArrayList<>();
+    }
+    return availableGroups;
+  }
+
+  /**
+   * Sets available groups.
+   *
+   * @param availableGroups the available groups
+   */
+  public void setAvailableGroups(List<String> availableGroups) {
+    this.availableGroups = availableGroups;
+  }
 }
 

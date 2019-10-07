@@ -18,7 +18,6 @@ package org.bremersee.dccon.api;
 
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
-import org.bremersee.dccon.model.SubSets;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,7 +65,8 @@ public interface DomainGroupManagementApi {
   /**
    * Get domain group by name.
    *
-   * @param groupName the group name
+   * @param groupName           the group name
+   * @param addAvailableMembers the add available members flag (default is {@code false})
    * @return the domain group
    */
   @RequestMapping(
@@ -74,7 +74,8 @@ public interface DomainGroupManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<DomainGroup> getGroupByName(
-      @PathVariable("groupName") String groupName);
+      @PathVariable("groupName") String groupName,
+      @RequestParam(name = "available", defaultValue = "false") Boolean addAvailableMembers);
 
   /**
    * Update domain group.
@@ -91,21 +92,6 @@ public interface DomainGroupManagementApi {
   Mono<DomainGroup> updateGroup(
       @PathVariable("groupName") String groupName,
       @Valid @RequestBody DomainGroup domainGroup);
-
-  /**
-   * Gets group members by name.
-   *
-   * @param groupName    the group name
-   * @param addAvailable the add available flag (default is {@code true})
-   * @return the group members and optional the available members
-   */
-  @RequestMapping(
-      value = "/api/groups/{groupName}/members",
-      produces = {"application/json"},
-      method = RequestMethod.GET)
-  Mono<SubSets> getGroupMembersByName(
-      @PathVariable("groupName") String groupName,
-      @RequestParam(name = "available", defaultValue = "true") Boolean addAvailable);
 
   /**
    * Domain group exists.
