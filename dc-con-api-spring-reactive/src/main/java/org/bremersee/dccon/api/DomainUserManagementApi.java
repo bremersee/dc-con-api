@@ -17,6 +17,7 @@
 package org.bremersee.dccon.api;
 
 import javax.validation.Valid;
+import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
 import org.springframework.http.MediaType;
@@ -83,7 +84,8 @@ public interface DomainUserManagementApi {
    * Get avatar of domain user.
    *
    * @param userName      the user name
-   * @param returnDefault the return default flag
+   * @param avatarDefault the avatar default
+   * @param size          the size
    * @return the avatar of the domain user
    */
   @RequestMapping(
@@ -92,7 +94,8 @@ public interface DomainUserManagementApi {
       method = RequestMethod.GET)
   Mono<byte[]> getUserAvatar(
       @PathVariable("userName") String userName,
-      @RequestParam(name = "d", defaultValue = "false") Boolean returnDefault);
+      @RequestParam(name = "d", defaultValue = "NOT_FOUND") AvatarDefault avatarDefault,
+      @RequestParam(name = "s", defaultValue = "80") Integer size);
 
   /**
    * Update domain user.

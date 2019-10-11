@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
+import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.exception.model.RestApiException;
@@ -138,7 +139,8 @@ public interface DomainUserManagementApi {
    * Get avatar of domain user.
    *
    * @param userName      the user name
-   * @param returnDefault the return default flag
+   * @param avatarDefault the default avatar
+   * @param size          the size
    * @return the avatar of the domain user
    */
   @ApiOperation(
@@ -164,8 +166,11 @@ public interface DomainUserManagementApi {
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
-      @ApiParam(value = "Return a default avatar if no one exits.", defaultValue = "false")
-      @RequestParam(name = "d", defaultValue = "false") Boolean returnDefault);
+      @ApiParam(value = "Return a default avatar if no one exits.", defaultValue = "NOT_FOUND")
+      @RequestParam(name = "d", defaultValue = "NOT_FOUND") AvatarDefault avatarDefault,
+
+      @ApiParam(value = "The size of the avatar.", defaultValue = "80")
+      @RequestParam(name = "s", defaultValue = "80") Integer size);
 
   /**
    * Update domain user.

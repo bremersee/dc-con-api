@@ -130,10 +130,6 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("password")
   private String password;
 
-  @ApiModelProperty(value = "The avatar of the domain user.")
-  @JsonProperty("avatar")
-  private byte[] avatar;
-
   @ApiModelProperty(value = "The groups of the domain user.")
   @JsonProperty("groups")
   private List<String> groups;
@@ -166,7 +162,6 @@ public class DomainUser extends CommonAttributes {
    * @param logonCount        the logon count
    * @param passwordLastSet   the password last set
    * @param password          the password
-   * @param avatar            the avatar
    * @param groups            the groups
    * @param availableGroups   the available groups
    */
@@ -176,7 +171,7 @@ public class DomainUser extends CommonAttributes {
       String lastName, String displayName, String email, String telephoneNumber,
       String mobile, String description, String homeDirectory, String unixHomeDirectory,
       String loginShell, OffsetDateTime lastLogon, Integer logonCount,
-      OffsetDateTime passwordLastSet, String password, byte[] avatar, List<String> groups,
+      OffsetDateTime passwordLastSet, String password, List<String> groups,
       List<String> availableGroups) {
     super(distinguishedName, created, modified);
     this.userName = userName;
@@ -195,7 +190,6 @@ public class DomainUser extends CommonAttributes {
     this.logonCount = logonCount;
     this.passwordLastSet = passwordLastSet;
     this.password = password;
-    this.avatar = avatar;
     this.groups = groups;
     this.availableGroups = availableGroups;
   }
