@@ -133,7 +133,7 @@ public interface DomainUserManagementApi {
       @PathVariable("userName") String userName,
 
       @ApiParam(value = "The add available groups flag.", defaultValue = "false")
-      @RequestParam(name = "available", defaultValue = "false") Boolean addAvailableGroups);
+      @RequestParam(name = "availableGroups", defaultValue = "false") Boolean addAvailableGroups);
 
   /**
    * Get avatar of domain user.

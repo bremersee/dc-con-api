@@ -75,7 +75,7 @@ public interface DomainGroupManagementApi {
       method = RequestMethod.GET)
   Mono<DomainGroup> getGroupByName(
       @PathVariable("groupName") String groupName,
-      @RequestParam(name = "available", defaultValue = "false") Boolean addAvailableMembers);
+      @RequestParam(name = "availableMembers", defaultValue = "false") Boolean addAvailableMembers);
 
   /**
    * Update domain group.

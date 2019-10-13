@@ -132,7 +132,7 @@ public interface DomainGroupManagementApi {
       @PathVariable("groupName") String groupName,
 
       @ApiParam(value = "The add available members flag.", defaultValue = "false")
-      @RequestParam(name = "available", defaultValue = "false") Boolean addAvailableMembers);
+      @RequestParam(name = "availableMembers", defaultValue = "false") Boolean addAvailableMembers);
 
   /**
    * Update domain group.

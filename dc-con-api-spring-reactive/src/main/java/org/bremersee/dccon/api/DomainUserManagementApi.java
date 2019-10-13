@@ -78,7 +78,7 @@ public interface DomainUserManagementApi {
       method = RequestMethod.GET)
   Mono<DomainUser> getUser(
       @PathVariable("userName") String userName,
-      @RequestParam(name = "available", defaultValue = "false") Boolean addAvailableGroups);
+      @RequestParam(name = "availableGroups", defaultValue = "false") Boolean addAvailableGroups);
 
   /**
    * Get avatar of domain user.
