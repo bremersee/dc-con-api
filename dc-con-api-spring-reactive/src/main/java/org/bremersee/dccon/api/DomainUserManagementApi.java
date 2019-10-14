@@ -68,8 +68,7 @@ public interface DomainUserManagementApi {
   /**
    * Get domain user.
    *
-   * @param userName           the user name
-   * @param addAvailableGroups the add available groups flag (default is {@code false})
+   * @param userName the user name
    * @return the domain user
    */
   @RequestMapping(
@@ -77,8 +76,7 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<DomainUser> getUser(
-      @PathVariable("userName") String userName,
-      @RequestParam(name = "availableGroups", defaultValue = "false") Boolean addAvailableGroups);
+      @PathVariable("userName") String userName);
 
   /**
    * Get avatar of domain user.

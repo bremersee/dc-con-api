@@ -104,8 +104,7 @@ public interface DomainGroupManagementApi {
   /**
    * Get domain group by name.
    *
-   * @param groupName           the group name
-   * @param addAvailableMembers the add available members flag (default is {@code false})
+   * @param groupName the group name
    * @return the domain group
    */
   @ApiOperation(
@@ -127,12 +126,9 @@ public interface DomainGroupManagementApi {
       value = "/api/groups/{groupName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<DomainGroup> getGroupByName(
+  ResponseEntity<DomainGroup> getGroup(
       @ApiParam(value = "The domain group name.", required = true)
-      @PathVariable("groupName") String groupName,
-
-      @ApiParam(value = "The add available members flag.", defaultValue = "false")
-      @RequestParam(name = "availableMembers", defaultValue = "false") Boolean addAvailableMembers);
+      @PathVariable("groupName") String groupName);
 
   /**
    * Update domain group.

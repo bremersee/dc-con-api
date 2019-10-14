@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -61,9 +60,6 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   @JsonProperty("members")
   private List<String> members = null;
 
-  @JsonProperty("availableMembers")
-  private List<String> availableMembers = null;
-
   /**
    * Instantiates a new Domain group.
    *
@@ -73,7 +69,6 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * @param name              the name
    * @param description       the description
    * @param members           the members
-   * @param availableMembers  the available members
    */
   @Builder
   public DomainGroup(
@@ -82,14 +77,12 @@ public class DomainGroup extends CommonAttributes implements Serializable {
       OffsetDateTime modified,
       String name,
       String description,
-      List<String> members,
-      List<String> availableMembers) {
+      List<String> members) {
 
     super(distinguishedName, created, modified);
     this.name = name;
     this.description = description;
     this.members = members;
-    this.availableMembers = availableMembers;
   }
 
   /**
@@ -152,28 +145,5 @@ public class DomainGroup extends CommonAttributes implements Serializable {
     this.members = members;
   }
 
-  /**
-   * Gets available members.
-   *
-   * @return the available members
-   */
-  @ApiModelProperty(
-      value = "The available members of the domain group.",
-      accessMode = AccessMode.READ_ONLY)
-  public List<String> getAvailableMembers() {
-    if (availableMembers == null) {
-      availableMembers = new ArrayList<>();
-    }
-    return availableMembers;
-  }
-
-  /**
-   * Sets available members.
-   *
-   * @param availableMembers the available members
-   */
-  public void setAvailableMembers(List<String> availableMembers) {
-    this.availableMembers = availableMembers;
-  }
 }
 

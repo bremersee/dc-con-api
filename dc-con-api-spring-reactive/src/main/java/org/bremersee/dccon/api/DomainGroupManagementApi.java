@@ -65,17 +65,15 @@ public interface DomainGroupManagementApi {
   /**
    * Get domain group by name.
    *
-   * @param groupName           the group name
-   * @param addAvailableMembers the add available members flag (default is {@code false})
+   * @param groupName the group name
    * @return the domain group
    */
   @RequestMapping(
       value = "/api/groups/{groupName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  Mono<DomainGroup> getGroupByName(
-      @PathVariable("groupName") String groupName,
-      @RequestParam(name = "availableMembers", defaultValue = "false") Boolean addAvailableMembers);
+  Mono<DomainGroup> getGroup(
+      @PathVariable("groupName") String groupName);
 
   /**
    * Update domain group.

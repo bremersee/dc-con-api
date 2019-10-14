@@ -134,12 +134,6 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("groups")
   private List<String> groups;
 
-  @ApiModelProperty(
-      value = "The available groups of the domain user.",
-      accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("availableGroups")
-  private List<String> availableGroups;
-
   /**
    * Instantiates a new domain user.
    *
@@ -163,7 +157,6 @@ public class DomainUser extends CommonAttributes {
    * @param passwordLastSet   the password last set
    * @param password          the password
    * @param groups            the groups
-   * @param availableGroups   the available groups
    */
   @Builder
   public DomainUser(String distinguishedName, OffsetDateTime created,
@@ -171,8 +164,7 @@ public class DomainUser extends CommonAttributes {
       String lastName, String displayName, String email, String telephoneNumber,
       String mobile, String description, String homeDirectory, String unixHomeDirectory,
       String loginShell, OffsetDateTime lastLogon, Integer logonCount,
-      OffsetDateTime passwordLastSet, String password, List<String> groups,
-      List<String> availableGroups) {
+      OffsetDateTime passwordLastSet, String password, List<String> groups) {
     super(distinguishedName, created, modified);
     this.userName = userName;
     this.enabled = enabled;
@@ -191,7 +183,6 @@ public class DomainUser extends CommonAttributes {
     this.passwordLastSet = passwordLastSet;
     this.password = password;
     this.groups = groups;
-    this.availableGroups = availableGroups;
   }
 
   /**
@@ -233,25 +224,5 @@ public class DomainUser extends CommonAttributes {
     this.groups = groups;
   }
 
-  /**
-   * Gets available groups.
-   *
-   * @return the available groups
-   */
-  public List<String> getAvailableGroups() {
-    if (availableGroups == null) {
-      availableGroups = new ArrayList<>();
-    }
-    return availableGroups;
-  }
-
-  /**
-   * Sets available groups.
-   *
-   * @param availableGroups the available groups
-   */
-  public void setAvailableGroups(List<String> availableGroups) {
-    this.availableGroups = availableGroups;
-  }
 }
 

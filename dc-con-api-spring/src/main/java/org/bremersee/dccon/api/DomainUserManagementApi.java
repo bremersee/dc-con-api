@@ -105,8 +105,7 @@ public interface DomainUserManagementApi {
   /**
    * Get domain user.
    *
-   * @param userName           the user name
-   * @param addAvailableGroups the add available groups flag (default is {@code false})
+   * @param userName the user name
    * @return the domain user
    */
   @ApiOperation(
@@ -130,10 +129,7 @@ public interface DomainUserManagementApi {
       method = RequestMethod.GET)
   ResponseEntity<DomainUser> getUser(
       @ApiParam(value = "The user name of the domain user.", required = true)
-      @PathVariable("userName") String userName,
-
-      @ApiParam(value = "The add available groups flag.", defaultValue = "false")
-      @RequestParam(name = "availableGroups", defaultValue = "false") Boolean addAvailableGroups);
+      @PathVariable("userName") String userName);
 
   /**
    * Get avatar of domain user.
