@@ -66,7 +66,7 @@ public class PasswordInformation implements Serializable {
   @JsonProperty("minimumPasswordAgeInDays")
   private Integer minimumPasswordAgeInDays = 1;
 
-  @ApiModelProperty(value = "The maximum password age in days. Default is 43")
+  @ApiModelProperty(value = "The maximum password age in days. Default is 43.")
   @JsonProperty("maximumPasswordAgeInDays")
   private Integer maximumPasswordAgeInDays = 43;
 
