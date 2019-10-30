@@ -55,6 +55,7 @@ public interface DomainUserManagementApi {
   /**
    * Add a domain user.
    *
+   * @param email      specifies whether to send an email or not (default is {@code false})
    * @param domainUser the domain user to add
    * @return the added domain user
    */
@@ -63,7 +64,9 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  Mono<DomainUser> addUser(@Valid @RequestBody DomainUser domainUser);
+  Mono<DomainUser> addUser(
+      @RequestParam(name = "email", defaultValue = "false") Boolean email,
+      @Valid @RequestBody DomainUser domainUser);
 
   /**
    * Get domain user.
@@ -117,6 +120,7 @@ public interface DomainUserManagementApi {
    * Update user password.
    *
    * @param userName    the user name
+   * @param email       specifies whether to send an email or not (default is {@code false})
    * @param newPassword the new password
    * @return void response entity
    */
@@ -127,6 +131,7 @@ public interface DomainUserManagementApi {
       method = RequestMethod.PUT)
   Mono<Void> updateUserPassword(
       @PathVariable("userName") String userName,
+      @RequestParam(name = "email", defaultValue = "false") Boolean email,
       @Valid @RequestBody Password newPassword);
 
   /**

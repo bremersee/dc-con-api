@@ -78,6 +78,7 @@ public interface DomainUserManagementApi {
   /**
    * Add a domain user.
    *
+   * @param email      specifies whether to send an email or not (default is {@code false})
    * @param domainUser the domain user to add
    * @return the added domain user
    */
@@ -99,6 +100,9 @@ public interface DomainUserManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DomainUser> addUser(
+      @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
+      @RequestParam(name = "email", defaultValue = "false") Boolean email,
+
       @ApiParam(value = "The domain user to add.", required = true)
       @Valid @RequestBody DomainUser domainUser);
 
@@ -210,6 +214,7 @@ public interface DomainUserManagementApi {
    * Update user password.
    *
    * @param userName    the user name
+   * @param email       specifies whether to send an email or not (default is {@code false})
    * @param newPassword the new password
    * @return void response entity
    */
@@ -232,10 +237,14 @@ public interface DomainUserManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   ResponseEntity<Void> updateUserPassword(
-      @ApiParam(value = "The user name of the domain user.",
-          required = true) @PathVariable("userName") String userName,
-      @ApiParam(value = "The password of the domain user.",
-          required = true) @Valid @RequestBody Password newPassword);
+      @ApiParam(value = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName,
+
+      @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
+      @RequestParam(name = "email", defaultValue = "false") Boolean email,
+
+      @ApiParam(value = "The password of the domain user.", required = true)
+      @Valid @RequestBody Password newPassword);
 
   /**
    * Domain user exists.
