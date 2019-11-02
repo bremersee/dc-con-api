@@ -16,6 +16,7 @@
 
 package org.bremersee.dccon.api;
 
+import io.swagger.annotations.ApiParam;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
@@ -144,6 +145,19 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<Boolean> userExists(@PathVariable("userName") String userName);
+
+  /**
+   * Checks whether a user name is in use or not.
+   *
+   * @param userName the user name
+   * @return true if the user name is in use otherwise false
+   */
+  @RequestMapping(value = "/api/users/{userName}/in-use",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<Boolean> isUserNameInUse(
+      @ApiParam(value = "The user name of the domain user.",
+          required = true) @PathVariable("userName") String userName);
 
   /**
    * Delete domain user.

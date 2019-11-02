@@ -164,7 +164,7 @@ public interface DomainGroupManagementApi {
       @Valid @RequestBody DomainGroup domainGroup);
 
   /**
-   * Domain group exists.
+   * Checks whether a domain group exists.
    *
    * @param groupName the group name
    * @return true if the group exists otherwise false
@@ -184,6 +184,30 @@ public interface DomainGroupManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<Boolean> groupExists(
+      @ApiParam(value = "The name of the domain group.", required = true)
+      @PathVariable("groupName") String groupName);
+
+  /**
+   * Checks whether a group is in use or not.
+   *
+   * @param groupName the group name
+   * @return true if the group name is in use otherwise false
+   */
+  @ApiOperation(
+      value = "Checks whether a group is in use or not.",
+      nickname = "isGroupNameInUse",
+      response = Boolean.class,
+      tags = {"domain-group-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "True if the group name is in use otherwise false.",
+          response = Boolean.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
+  @RequestMapping(value = "/api/groups/{groupName}/in-use",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<Boolean> isGroupNameInUse(
       @ApiParam(value = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName);
 

@@ -247,7 +247,7 @@ public interface DomainUserManagementApi {
       @Valid @RequestBody Password newPassword);
 
   /**
-   * Domain user exists.
+   * Checks whether a domain user exists.
    *
    * @param userName the user name
    * @return true if the user exists otherwise false
@@ -267,6 +267,30 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<Boolean> userExists(
+      @ApiParam(value = "The user name of the domain user.",
+          required = true) @PathVariable("userName") String userName);
+
+  /**
+   * Checks whether a user name is in use or not.
+   *
+   * @param userName the user name
+   * @return true if the user name is in use otherwise false
+   */
+  @ApiOperation(
+      value = "Checks whether a user name is in use or not.",
+      nickname = "isUserNameInUse",
+      response = Boolean.class,
+      tags = {"domain-user-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "True if the user name is in use otherwise false.",
+          response = Boolean.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
+  @RequestMapping(value = "/api/users/{userName}/in-use",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<Boolean> isUserNameInUse(
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
 

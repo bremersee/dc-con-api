@@ -16,6 +16,7 @@
 
 package org.bremersee.dccon.api;
 
+import io.swagger.annotations.ApiParam;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,6 +102,19 @@ public interface DomainGroupManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<Boolean> groupExists(
+      @PathVariable("groupName") String groupName);
+
+  /**
+   * Checks whether a group is in use or not.
+   *
+   * @param groupName the group name
+   * @return true if the group name is in use otherwise false
+   */
+  @RequestMapping(value = "/api/groups/{groupName}/in-use",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<Boolean> isGroupNameInUse(
+      @ApiParam(value = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName);
 
   /**
