@@ -18,6 +18,7 @@ package org.bremersee.dccon.api;
 
 import io.swagger.annotations.ApiParam;
 import javax.validation.Valid;
+import org.bremersee.common.model.TwoLetterLanguageCode;
 import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
@@ -57,6 +58,7 @@ public interface DomainUserManagementApi {
    * Add a domain user.
    *
    * @param email      specifies whether to send an email or not (default is {@code false})
+   * @param language   the language of the email
    * @param domainUser the domain user to add
    * @return the added domain user
    */
@@ -67,6 +69,7 @@ public interface DomainUserManagementApi {
       method = RequestMethod.POST)
   Mono<DomainUser> addUser(
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
+      @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
       @Valid @RequestBody DomainUser domainUser);
 
   /**
@@ -122,6 +125,7 @@ public interface DomainUserManagementApi {
    *
    * @param userName    the user name
    * @param email       specifies whether to send an email or not (default is {@code false})
+   * @param language    the language of the email
    * @param newPassword the new password
    * @return void response entity
    */
@@ -133,6 +137,7 @@ public interface DomainUserManagementApi {
   Mono<Void> updateUserPassword(
       @PathVariable("userName") String userName,
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
+      @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
       @Valid @RequestBody Password newPassword);
 
   /**

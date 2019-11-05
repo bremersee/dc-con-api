@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import javax.validation.Valid;
+import org.bremersee.common.model.TwoLetterLanguageCode;
 import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
@@ -79,6 +80,7 @@ public interface DomainUserManagementApi {
    * Add a domain user.
    *
    * @param email      specifies whether to send an email or not (default is {@code false})
+   * @param language   the language of the email
    * @param domainUser the domain user to add
    * @return the added domain user
    */
@@ -102,6 +104,9 @@ public interface DomainUserManagementApi {
   ResponseEntity<DomainUser> addUser(
       @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
+
+      @ApiParam(value = "The language of the email.", defaultValue = "de")
+      @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
 
       @ApiParam(value = "The domain user to add.", required = true)
       @Valid @RequestBody DomainUser domainUser);
@@ -215,6 +220,7 @@ public interface DomainUserManagementApi {
    *
    * @param userName    the user name
    * @param email       specifies whether to send an email or not (default is {@code false})
+   * @param language    the language of the email
    * @param newPassword the new password
    * @return void response entity
    */
@@ -242,6 +248,9 @@ public interface DomainUserManagementApi {
 
       @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
+
+      @ApiParam(value = "The language of the email.", defaultValue = "de")
+      @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
 
       @ApiParam(value = "The password of the domain user.", required = true)
       @Valid @RequestBody Password newPassword);
