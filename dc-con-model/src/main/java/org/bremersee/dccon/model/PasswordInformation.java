@@ -98,7 +98,7 @@ public class PasswordInformation implements Serializable {
    * @param accountLockoutThreshold         the account lockout threshold
    * @param resetAccountLockoutAfter        the reset account lockout after
    */
-  @Builder
+  @Builder(toBuilder = true)
   public PasswordInformation(
       PasswordComplexity passwordComplexity,
       Boolean storePlaintextPasswords,

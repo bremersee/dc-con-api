@@ -76,7 +76,7 @@ public class DnsPair implements Serializable {
    * @param node       the node
    * @param nodeExists {@code true} if the dns node exists, otherwise {@code false}
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DnsPair(String zoneName, DnsNode node, Boolean nodeExists) {
     this.zoneName = zoneName;
     this.node = node;

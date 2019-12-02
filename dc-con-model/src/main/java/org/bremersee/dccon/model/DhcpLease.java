@@ -83,7 +83,7 @@ public class DhcpLease implements Serializable {
    * @param end          the end
    * @param manufacturer the manufacturer
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DhcpLease(
       String mac,
       String ip,

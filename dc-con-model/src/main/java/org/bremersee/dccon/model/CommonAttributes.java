@@ -52,13 +52,13 @@ public abstract class CommonAttributes implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @JsonProperty(value = "distinguishedName")
-  private String distinguishedName = null;
+  String distinguishedName = null;
 
   @JsonProperty("created")
-  private OffsetDateTime created = null;
+  OffsetDateTime created = null;
 
   @JsonProperty("modified")
-  private OffsetDateTime modified = null;
+  OffsetDateTime modified = null;
 
   /**
    * Instantiates a new common attributes.

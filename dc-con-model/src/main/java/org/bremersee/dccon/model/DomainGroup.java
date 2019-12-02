@@ -70,7 +70,7 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * @param description       the description
    * @param members           the members
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DomainGroup(
       String distinguishedName,
       OffsetDateTime created,

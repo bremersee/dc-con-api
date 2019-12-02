@@ -57,7 +57,7 @@ public class DnsZone extends CommonAttributes {
    * @param name              the zone name
    * @param defaultZone       the default zone
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DnsZone(
       String distinguishedName,
       OffsetDateTime created,

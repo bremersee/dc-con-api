@@ -103,7 +103,7 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
    * @param timeStamp             the time stamp
    * @param dhcpLease             the dhcp lease
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DnsRecord(String recordType, String recordValue, byte[] recordRawValue,
       String correlatedRecordValue, Integer version, Integer serial, Integer ttlSeconds,
       OffsetDateTime timeStamp, DhcpLease dhcpLease) {

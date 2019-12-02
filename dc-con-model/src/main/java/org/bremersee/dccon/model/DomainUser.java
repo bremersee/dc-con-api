@@ -158,7 +158,7 @@ public class DomainUser extends CommonAttributes {
    * @param password          the password
    * @param groups            the groups
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DomainUser(String distinguishedName, OffsetDateTime created,
       OffsetDateTime modified, String userName, Boolean enabled, String firstName,
       String lastName, String displayName, String email, String telephoneNumber,

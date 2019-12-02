@@ -65,7 +65,7 @@ public class Password implements Serializable {
    * @param value         the new password
    * @param previousValue the previous password
    */
-  @Builder
+  @Builder(toBuilder = true)
   public Password(String value, String previousValue) {
     this.value = value;
     this.previousValue = previousValue;

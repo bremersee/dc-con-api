@@ -58,7 +58,7 @@ public class DnsNode extends CommonAttributes {
    * @param name              the name
    * @param records           the records
    */
-  @Builder
+  @Builder(toBuilder = true)
   public DnsNode(
       String distinguishedName,
       OffsetDateTime created,
