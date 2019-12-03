@@ -51,7 +51,7 @@ public class Sid implements Serializable {
   /**
    * Instantiates a new SID.
    *
-   * @param value         the value
+   * @param value        the value
    * @param systemEntity the system entity
    */
   @Builder(toBuilder = true)
