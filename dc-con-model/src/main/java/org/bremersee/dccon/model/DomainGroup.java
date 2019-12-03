@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -57,6 +58,9 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   @JsonProperty("description")
   private String description;
 
+  @JsonProperty("wellKnownSid")
+  private WellKnownSid wellKnownSid;
+
   @JsonProperty("members")
   private List<String> members = null;
 
@@ -68,6 +72,7 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * @param modified          the modified
    * @param name              the name
    * @param description       the description
+   * @param wellKnownSid      the well known sid
    * @param members           the members
    */
   @Builder(toBuilder = true)
@@ -77,11 +82,13 @@ public class DomainGroup extends CommonAttributes implements Serializable {
       OffsetDateTime modified,
       String name,
       String description,
+      WellKnownSid wellKnownSid,
       List<String> members) {
 
     super(distinguishedName, created, modified);
     this.name = name;
     this.description = description;
+    this.wellKnownSid = wellKnownSid;
     this.members = members;
   }
 
@@ -109,7 +116,7 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    *
    * @return the description
    */
-  @ApiModelProperty(value = "A description of the domain user.")
+  @ApiModelProperty(value = "A description of the domain group.")
   public String getDescription() {
     return description;
   }
@@ -121,6 +128,25 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  /**
+   * Gets the well known sid.
+   *
+   * @return the well known sid
+   */
+  @ApiModelProperty(value = "The well known sid.", accessMode = AccessMode.READ_ONLY)
+  public WellKnownSid getWellKnownSid() {
+    return wellKnownSid;
+  }
+
+  /**
+   * Sets the well known sid.
+   *
+   * @param wellKnownSid the well known sid
+   */
+  public void setWellKnownSid(WellKnownSid wellKnownSid) {
+    this.wellKnownSid = wellKnownSid;
   }
 
   /**

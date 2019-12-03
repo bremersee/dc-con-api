@@ -68,6 +68,11 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("enabled")
   private Boolean enabled = Boolean.FALSE;
 
+  @ApiModelProperty(value = "The well known sid.", accessMode = AccessMode.READ_ONLY)
+  @JsonProperty("wellKnownSid")
+  private WellKnownSid wellKnownSid;
+
+
   @ApiModelProperty(value = "The first name of the domain user.")
   @JsonProperty("firstName")
   private String firstName;
@@ -142,6 +147,7 @@ public class DomainUser extends CommonAttributes {
    * @param modified          the modified
    * @param userName          the user name
    * @param enabled           the enabled
+   * @param wellKnownSid      the well known sid
    * @param firstName         the first name
    * @param lastName          the last name
    * @param displayName       the display name
@@ -160,14 +166,15 @@ public class DomainUser extends CommonAttributes {
    */
   @Builder(toBuilder = true)
   public DomainUser(String distinguishedName, OffsetDateTime created,
-      OffsetDateTime modified, String userName, Boolean enabled, String firstName,
-      String lastName, String displayName, String email, String telephoneNumber,
+      OffsetDateTime modified, String userName, Boolean enabled, WellKnownSid wellKnownSid,
+      String firstName, String lastName, String displayName, String email, String telephoneNumber,
       String mobile, String description, String homeDirectory, String unixHomeDirectory,
       String loginShell, OffsetDateTime lastLogon, Integer logonCount,
       OffsetDateTime passwordLastSet, String password, List<String> groups) {
     super(distinguishedName, created, modified);
     this.userName = userName;
     this.enabled = enabled;
+    this.wellKnownSid = wellKnownSid;
     this.firstName = firstName;
     this.lastName = lastName;
     this.displayName = displayName;
