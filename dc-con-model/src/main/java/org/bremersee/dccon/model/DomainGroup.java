@@ -58,8 +58,8 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   @JsonProperty("description")
   private String description;
 
-  @JsonProperty("wellKnownSid")
-  private WellKnownSid wellKnownSid;
+  @JsonProperty("sid")
+  private Sid sid;
 
   @JsonProperty("members")
   private List<String> members = null;
@@ -70,9 +70,9 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * @param distinguishedName the distinguished name
    * @param created           the created
    * @param modified          the modified
+   * @param sid               the windows/samba SID
    * @param name              the name
    * @param description       the description
-   * @param wellKnownSid      the well known sid
    * @param members           the members
    */
   @Builder(toBuilder = true)
@@ -80,16 +80,16 @@ public class DomainGroup extends CommonAttributes implements Serializable {
       String distinguishedName,
       OffsetDateTime created,
       OffsetDateTime modified,
+      Sid sid,
       String name,
       String description,
-      WellKnownSid wellKnownSid,
       List<String> members) {
 
     super(distinguishedName, created, modified);
-    this.name = name;
-    this.description = description;
-    this.wellKnownSid = wellKnownSid;
-    this.members = members;
+    setSid(sid);
+    setName(name);
+    setDescription(description);
+    setMembers(members);
   }
 
   /**
@@ -131,22 +131,22 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   }
 
   /**
-   * Gets the well known sid.
+   * Gets sid.
    *
-   * @return the well known sid
+   * @return the sid
    */
-  @ApiModelProperty(value = "The well known sid.", accessMode = AccessMode.READ_ONLY)
-  public WellKnownSid getWellKnownSid() {
-    return wellKnownSid;
+  @ApiModelProperty(value = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
+  public Sid getSid() {
+    return sid;
   }
 
   /**
-   * Sets the well known sid.
+   * Sets sid.
    *
-   * @param wellKnownSid the well known sid
+   * @param sid the sid
    */
-  public void setWellKnownSid(WellKnownSid wellKnownSid) {
-    this.wellKnownSid = wellKnownSid;
+  public void setSid(Sid sid) {
+    this.sid = sid;
   }
 
   /**

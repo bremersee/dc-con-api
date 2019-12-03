@@ -59,6 +59,10 @@ public class DomainUser extends CommonAttributes {
 
   private static final long serialVersionUID = 1L;
 
+  @ApiModelProperty(value = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
+  @JsonProperty("sid")
+  private Sid sid;
+
   @ApiModelProperty(value = "The user name of the domain user.", required = true)
   @JsonProperty(value = "userName", required = true)
   @NotNull
@@ -67,11 +71,6 @@ public class DomainUser extends CommonAttributes {
   @ApiModelProperty(value = "Specifies whether the user is enabled or not.")
   @JsonProperty("enabled")
   private Boolean enabled = Boolean.FALSE;
-
-  @ApiModelProperty(value = "The well known sid.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("wellKnownSid")
-  private WellKnownSid wellKnownSid;
-
 
   @ApiModelProperty(value = "The first name of the domain user.")
   @JsonProperty("firstName")
@@ -145,9 +144,9 @@ public class DomainUser extends CommonAttributes {
    * @param distinguishedName the distinguished name
    * @param created           the created
    * @param modified          the modified
+   * @param sid               the windows/samba SID
    * @param userName          the user name
    * @param enabled           the enabled
-   * @param wellKnownSid      the well known sid
    * @param firstName         the first name
    * @param lastName          the last name
    * @param displayName       the display name
@@ -165,16 +164,15 @@ public class DomainUser extends CommonAttributes {
    * @param groups            the groups
    */
   @Builder(toBuilder = true)
-  public DomainUser(String distinguishedName, OffsetDateTime created,
-      OffsetDateTime modified, String userName, Boolean enabled, WellKnownSid wellKnownSid,
-      String firstName, String lastName, String displayName, String email, String telephoneNumber,
-      String mobile, String description, String homeDirectory, String unixHomeDirectory,
-      String loginShell, OffsetDateTime lastLogon, Integer logonCount,
-      OffsetDateTime passwordLastSet, String password, List<String> groups) {
+  public DomainUser(String distinguishedName, OffsetDateTime created, OffsetDateTime modified,
+      Sid sid, String userName, Boolean enabled, String firstName, String lastName,
+      String displayName, String email, String telephoneNumber, String mobile, String description,
+      String homeDirectory, String unixHomeDirectory, String loginShell, OffsetDateTime lastLogon,
+      Integer logonCount, OffsetDateTime passwordLastSet, String password, List<String> groups) {
     super(distinguishedName, created, modified);
+    this.sid = sid;
     this.userName = userName;
     this.enabled = enabled;
-    this.wellKnownSid = wellKnownSid;
     this.firstName = firstName;
     this.lastName = lastName;
     this.displayName = displayName;
