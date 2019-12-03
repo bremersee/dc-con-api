@@ -45,19 +45,19 @@ public class Sid implements Serializable {
   @JsonProperty(value = "value", required = true)
   private String value = null;
 
-  @JsonProperty(value = "value")
-  private Boolean systemAccount;
+  @JsonProperty(value = "systemEntity")
+  private Boolean systemEntity;
 
   /**
    * Instantiates a new SID.
    *
    * @param value         the value
-   * @param systemAccount the system account
+   * @param systemEntity the system entity
    */
   @Builder(toBuilder = true)
-  public Sid(String value, Boolean systemAccount) {
+  public Sid(String value, Boolean systemEntity) {
     setValue(value);
-    setSystemAccount(systemAccount);
+    setSystemEntity(systemEntity);
   }
 
   /**
@@ -82,24 +82,24 @@ public class Sid implements Serializable {
   }
 
   /**
-   * Gets system account.
+   * Gets system entity.
    *
-   * @return the system account
+   * @return the system entity
    */
   @ApiModelProperty(
       value = "Tells whether the entity is a system entity or not.",
       accessMode = AccessMode.READ_ONLY)
-  public Boolean getSystemAccount() {
-    return systemAccount;
+  public Boolean getSystemEntity() {
+    return systemEntity;
   }
 
   /**
-   * Sets system account.
+   * Sets system entity.
    *
-   * @param systemAccount the system account
+   * @param systemEntity the system entity
    */
-  public void setSystemAccount(Boolean systemAccount) {
-    this.systemAccount = systemAccount;
+  public void setSystemEntity(Boolean systemEntity) {
+    this.systemEntity = systemEntity;
   }
 
 }
