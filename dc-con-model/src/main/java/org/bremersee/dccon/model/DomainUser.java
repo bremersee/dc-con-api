@@ -52,11 +52,6 @@ public class DomainUser extends CommonAttributes {
    */
   public static final String DEFAULT_SORT_ORDER = "userName";
 
-  /**
-   * The constant LDAP_ATTR_AVATAR.
-   */
-  public static final String LDAP_ATTR_AVATAR = "jpegPhoto";
-
   private static final long serialVersionUID = 1L;
 
   @ApiModelProperty(value = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
