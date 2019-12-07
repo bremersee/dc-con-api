@@ -20,6 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.PasswordInformation;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.ResponseEntity;
@@ -56,5 +57,28 @@ public interface DomainManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<PasswordInformation> getPasswordInformation();
+
+  /**
+   * Gets random password.
+   *
+   * @return the random password
+   */
+  @ApiOperation(
+      value = "Get a random password.",
+      nickname = "getRandomPassword",
+      notes = "Get a random password.",
+      response = Password.class,
+      tags = {"domain-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The random password.",
+          response = Password.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
+  @RequestMapping(
+      value = "/api/domain/random-password",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  ResponseEntity<Password> getRandomPassword();
 
 }

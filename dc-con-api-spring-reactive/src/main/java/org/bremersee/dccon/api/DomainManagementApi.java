@@ -16,6 +16,7 @@
 
 package org.bremersee.dccon.api;
 
+import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.PasswordInformation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,5 +39,16 @@ public interface DomainManagementApi {
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<PasswordInformation> getPasswordInformation();
+
+  /**
+   * Gets random password.
+   *
+   * @return the random password
+   */
+  @RequestMapping(
+      value = "/api/domain/random-password",
+      produces = {"application/json"},
+      method = RequestMethod.GET)
+  Mono<Password> getRandomPassword();
 
 }
