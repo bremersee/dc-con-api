@@ -1,2 +1,3 @@
-org.bremersee.dccon.api
-org.bremersee.dccon.model
+org.bremersee.groupman.api
+org.bremersee.groupman.mock
+org.bremersee.groupman.model
