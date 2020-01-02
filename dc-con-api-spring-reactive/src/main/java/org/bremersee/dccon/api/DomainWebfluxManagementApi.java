@@ -16,8 +16,14 @@
 
 package org.bremersee.dccon.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.PasswordInformation;
+import org.bremersee.exception.model.RestApiException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reactor.core.publisher.Mono;
@@ -27,13 +33,27 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-public interface DomainManagementApi {
+@Api(value = "DomainManagement")
+@Validated
+public interface DomainWebfluxManagementApi {
 
   /**
    * Get password information.
    *
    * @return the password information
    */
+  @ApiOperation(
+      value = "Get password information.",
+      nickname = "getPasswordInformation",
+      notes = "Get password information.",
+      response = PasswordInformation.class,
+      tags = {"domain-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The password information.",
+          response = PasswordInformation.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
   @RequestMapping(
       value = "/api/domain/password-information",
       produces = {"application/json"},
@@ -45,6 +65,18 @@ public interface DomainManagementApi {
    *
    * @return the random password
    */
+  @ApiOperation(
+      value = "Get a random password.",
+      nickname = "getRandomPassword",
+      notes = "Get a random password.",
+      response = Password.class,
+      tags = {"domain-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "The random password.",
+          response = Password.class),
+      @ApiResponse(code = 500, message = "Fatal server error.",
+          response = RestApiException.class)
+  })
   @RequestMapping(
       value = "/api/domain/random-password",
       produces = {"application/json"},

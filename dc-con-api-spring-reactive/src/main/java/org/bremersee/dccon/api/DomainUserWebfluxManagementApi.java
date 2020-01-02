@@ -21,7 +21,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.common.model.TwoLetterLanguageCode;
 import org.bremersee.dccon.model.AvatarDefault;
@@ -29,13 +28,14 @@ import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * The domain user management api.
@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Api(value = "DomainUserManagement")
 @Validated
-public interface DomainUserManagementApi {
+public interface DomainUserWebfluxManagementApi {
 
   /**
    * Get domain users.
@@ -70,7 +70,7 @@ public interface DomainUserManagementApi {
       value = "/api/users",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DomainUser>> getUsers(
+  Flux<DomainUser> getUsers(
       @ApiParam(value = "The sort order.", defaultValue = DomainUser.DEFAULT_SORT_ORDER)
       @RequestParam(value = "sort",
           defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort,
@@ -103,7 +103,7 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  ResponseEntity<DomainUser> addUser(
+  Mono<DomainUser> addUser(
       @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
 
@@ -138,7 +138,7 @@ public interface DomainUserManagementApi {
       value = "/api/users/{userName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<DomainUser> getUser(
+  Mono<DomainUser> getUser(
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName);
 
@@ -146,7 +146,7 @@ public interface DomainUserManagementApi {
    * Get avatar of domain user.
    *
    * @param userName      the user name
-   * @param avatarDefault the default avatar
+   * @param avatarDefault the avatar default
    * @param size          the size
    * @return the avatar of the domain user
    */
@@ -169,7 +169,7 @@ public interface DomainUserManagementApi {
       value = "/api/users/{userName}/avatar",
       produces = {MediaType.IMAGE_JPEG_VALUE},
       method = RequestMethod.GET)
-  ResponseEntity<byte[]> getUserAvatar(
+  Mono<byte[]> getUserAvatar(
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
@@ -206,7 +206,7 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.PUT)
-  ResponseEntity<DomainUser> updateUser(
+  Mono<DomainUser> updateUser(
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
@@ -244,7 +244,7 @@ public interface DomainUserManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.PUT)
-  ResponseEntity<Void> updateUserPassword(
+  Mono<Void> updateUserPassword(
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
@@ -258,7 +258,7 @@ public interface DomainUserManagementApi {
       @Valid @RequestBody Password newPassword);
 
   /**
-   * Checks whether a domain user exists.
+   * Domain user exists.
    *
    * @param userName the user name
    * @return true if the user exists otherwise false
@@ -277,7 +277,7 @@ public interface DomainUserManagementApi {
   @RequestMapping(value = "/api/users/{userName}/exists",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<Boolean> userExists(
+  Mono<Boolean> userExists(
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
 
@@ -301,7 +301,7 @@ public interface DomainUserManagementApi {
   @RequestMapping(value = "/api/users/{userName}/in-use",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<Boolean> isUserNameInUse(
+  Mono<Boolean> isUserNameInUse(
       @ApiParam(value = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
 
@@ -327,7 +327,7 @@ public interface DomainUserManagementApi {
   @RequestMapping(value = "/api/users/{userName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
-  ResponseEntity<Boolean> deleteUser(
+  Mono<Boolean> deleteUser(
       @ApiParam(value = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName);
 

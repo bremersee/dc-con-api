@@ -73,6 +73,11 @@
       </dependency>
       <dependency>
         <groupId>org.bremersee</groupId>
+        <artifactId>common-base-test</artifactId>
+        <version>${common-base.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
         <artifactId>dc-con-model</artifactId>
         <version>${project.version}</version>
       </dependency>
