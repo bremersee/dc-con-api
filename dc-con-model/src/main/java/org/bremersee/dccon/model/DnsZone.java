@@ -48,6 +48,9 @@ public class DnsZone extends CommonAttributes {
   @JsonProperty(value = "defaultZone")
   private Boolean defaultZone;
 
+  @JsonProperty(value = "reverseZone")
+  private Boolean reverseZone;
+
   /**
    * Instantiates a new dns zone.
    *
@@ -56,6 +59,7 @@ public class DnsZone extends CommonAttributes {
    * @param modified          the modified
    * @param name              the zone name
    * @param defaultZone       the default zone
+   * @param reverseZone       the reverse zone
    */
   @Builder(toBuilder = true)
   public DnsZone(
@@ -63,11 +67,13 @@ public class DnsZone extends CommonAttributes {
       OffsetDateTime created,
       OffsetDateTime modified,
       String name,
-      Boolean defaultZone) {
+      Boolean defaultZone,
+      Boolean reverseZone) {
 
     super(distinguishedName, created, modified);
     this.name = name;
     this.defaultZone = Boolean.TRUE.equals(defaultZone);
+    this.reverseZone = Boolean.TRUE.equals(reverseZone);
   }
 
   /**
@@ -109,5 +115,27 @@ public class DnsZone extends CommonAttributes {
   public void setDefaultZone(Boolean defaultZone) {
     this.defaultZone = defaultZone;
   }
+
+  /**
+   * Gets reverse zone.
+   *
+   * @return the reverse zone
+   */
+  @ApiModelProperty(
+      value = "Specifies whether this zone is a reverse zone or not.",
+      accessMode = AccessMode.READ_ONLY)
+  public Boolean getReverseZone() {
+    return Boolean.TRUE.equals(reverseZone);
+  }
+
+  /**
+   * Sets reverse zone.
+   *
+   * @param reverseZone the reverse zone
+   */
+  public void setReverseZone(Boolean reverseZone) {
+    this.reverseZone = reverseZone;
+  }
+
 }
 
