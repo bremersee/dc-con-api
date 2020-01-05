@@ -54,6 +54,7 @@ public class Sid implements Serializable {
    * @param value        the value
    * @param systemEntity the system entity
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public Sid(String value, Boolean systemEntity) {
     setValue(value);
@@ -86,6 +87,7 @@ public class Sid implements Serializable {
    *
    * @return the system entity
    */
+  @SuppressWarnings("unused")
   @ApiModelProperty(
       value = "Tells whether the entity is a system entity or not.",
       accessMode = AccessMode.READ_ONLY)
