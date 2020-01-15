@@ -364,6 +364,6 @@ public interface NameServerManagementApi {
       @PathVariable("zoneName") String zoneName,
 
       @ApiParam(value = "The dns node names.")
-      @RequestParam("nodeNames") List<String> nodeNames);
+      @RequestParam(value = "nodeNames", required = false) List<String> nodeNames);
 
 }
