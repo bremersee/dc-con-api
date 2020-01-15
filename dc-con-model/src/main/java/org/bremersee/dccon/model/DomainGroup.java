@@ -34,6 +34,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * Domain group.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Domain group.")
 @Validated
@@ -41,7 +43,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DomainGroup extends CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -68,13 +69,14 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * Instantiates a new Domain group.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param sid               the windows/samba SID
-   * @param name              the name
-   * @param description       the description
-   * @param members           the members
+   * @param created the created
+   * @param modified the modified
+   * @param sid the windows/samba SID
+   * @param name the name
+   * @param description the description
+   * @param members the members
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DomainGroup(
       String distinguishedName,

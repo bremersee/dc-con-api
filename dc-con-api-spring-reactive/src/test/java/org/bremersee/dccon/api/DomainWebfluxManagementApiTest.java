@@ -16,7 +16,7 @@
 
 package org.bremersee.dccon.api;
 
-import org.bremersee.test.web.RestApiAnnotationTester;
+import org.bremersee.test.web.RestApiTester;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -31,7 +31,7 @@ class DomainWebfluxManagementApiTest {
    */
   @Test
   void assertRestApiAnnotations() {
-    RestApiAnnotationTester.assertSameApiAnnotations(
+    RestApiTester.assertSameApi(
         DomainManagementApi.class,
         DomainWebfluxManagementApi.class);
   }

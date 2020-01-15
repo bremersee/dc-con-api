@@ -29,7 +29,7 @@
     <github.repo>dc-con-api</github.repo>
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
-    <common-model.version>1.1.8</common-model.version>
+    <common-model.version>1.1.9-SNAPSHOT</common-model.version>
     <common-base.version>1.4.1-SNAPSHOT</common-base.version>
   </properties>
 
@@ -63,6 +63,11 @@
     <dependencies>
       <dependency>
         <groupId>org.bremersee</groupId>
+        <artifactId>dc-con-model</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
         <artifactId>common-model</artifactId>
         <version>${common-model.version}</version>
       </dependency>
@@ -75,11 +80,6 @@
         <groupId>org.bremersee</groupId>
         <artifactId>common-base-test</artifactId>
         <version>${common-base.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>dc-con-model</artifactId>
-        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

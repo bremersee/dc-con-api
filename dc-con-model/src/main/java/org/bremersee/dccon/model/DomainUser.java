@@ -35,6 +35,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * Domain user.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Domain user.")
 @Validated
@@ -42,9 +44,8 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"password"})
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DomainUser extends CommonAttributes {
 
   /**
@@ -137,27 +138,28 @@ public class DomainUser extends CommonAttributes {
    * Instantiates a new domain user.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param sid               the windows/samba SID
-   * @param userName          the user name
-   * @param enabled           the enabled
-   * @param firstName         the first name
-   * @param lastName          the last name
-   * @param displayName       the display name
-   * @param email             the email
-   * @param telephoneNumber   the telephone number
-   * @param mobile            the mobile
-   * @param description       the description
-   * @param homeDirectory     the home directory
+   * @param created the created
+   * @param modified the modified
+   * @param sid the windows/samba SID
+   * @param userName the user name
+   * @param enabled the enabled
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param displayName the display name
+   * @param email the email
+   * @param telephoneNumber the telephone number
+   * @param mobile the mobile
+   * @param description the description
+   * @param homeDirectory the home directory
    * @param unixHomeDirectory the unix home directory
-   * @param loginShell        the login shell
-   * @param lastLogon         the last logon
-   * @param logonCount        the logon count
-   * @param passwordLastSet   the password last set
-   * @param password          the password
-   * @param groups            the groups
+   * @param loginShell the login shell
+   * @param lastLogon the last logon
+   * @param logonCount the logon count
+   * @param passwordLastSet the password last set
+   * @param password the password
+   * @param groups the groups
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DomainUser(String distinguishedName, OffsetDateTime created, OffsetDateTime modified,
       Sid sid, String userName, Boolean enabled, String firstName, String lastName,

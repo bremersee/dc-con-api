@@ -14,26 +14,33 @@
  * limitations under the License.
  */
 
-package org.bremersee.dccon.api;
+package org.bremersee.dccon.model;
 
-import org.bremersee.test.web.RestApiTester;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 /**
- * The domain user webflux management api test.
+ * The avatar default test.
  *
  * @author Christian Bremer
  */
-class DomainUserWebfluxManagementApiTest {
+class AvatarDefaultTest {
 
   /**
-   * Assert rest api annotations.
+   * From value.
    */
   @Test
-  void assertRestApiAnnotations() {
-    RestApiTester.assertSameApi(
-        DomainUserManagementApi.class,
-        DomainUserWebfluxManagementApi.class);
+  void fromValue() {
+    for (AvatarDefault expected : AvatarDefault.values()) {
+      AvatarDefault actual = AvatarDefault.fromValue(expected.toString(), null);
+      assertEquals(expected, actual);
+    }
+    assertNull(AvatarDefault.fromValue(UUID.randomUUID().toString(), null));
+    assertEquals(
+        AvatarDefault.MP,
+        AvatarDefault.fromValue(UUID.randomUUID().toString(), AvatarDefault.MP));
   }
-
 }

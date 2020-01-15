@@ -42,7 +42,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DnsPair implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -72,10 +71,11 @@ public class DnsPair implements Serializable {
   /**
    * Instantiates a new dns pair.
    *
-   * @param zoneName   the zone name
-   * @param node       the node
+   * @param zoneName the zone name
+   * @param node the node
    * @param nodeExists {@code true} if the dns node exists, otherwise {@code false}
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsPair(String zoneName, DnsNode node, Boolean nodeExists) {
     this.zoneName = zoneName;

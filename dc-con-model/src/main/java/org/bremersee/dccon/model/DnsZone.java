@@ -30,6 +30,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS Zone.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "DNS Zone")
 @Validated
@@ -37,7 +39,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DnsZone extends CommonAttributes {
 
   private static final long serialVersionUID = 2L;
@@ -55,12 +56,13 @@ public class DnsZone extends CommonAttributes {
    * Instantiates a new dns zone.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param name              the zone name
-   * @param defaultZone       the default zone
-   * @param reverseZone       the reverse zone
+   * @param created the created
+   * @param modified the modified
+   * @param name the zone name
+   * @param defaultZone the default zone
+   * @param reverseZone the reverse zone
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsZone(
       String distinguishedName,

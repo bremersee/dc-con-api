@@ -33,6 +33,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS Record.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "DNS Record")
 @Validated
@@ -40,9 +42,8 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"recordType", "recordValue"})
-@ToString
+@ToString(exclude = {"recordRawValue"})
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DnsRecord implements Serializable, Comparable<DnsRecord> {
 
   private static final long serialVersionUID = 1L;
@@ -93,16 +94,17 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
   /**
    * Instantiates a new Dns record.
    *
-   * @param recordType            the record type
-   * @param recordValue           the record value
-   * @param recordRawValue        the record raw active directory value
+   * @param recordType the record type
+   * @param recordValue the record value
+   * @param recordRawValue the record raw active directory value
    * @param correlatedRecordValue the correlated record value
-   * @param version               the version
-   * @param serial                the serial
-   * @param ttlSeconds            the ttl seconds
-   * @param timeStamp             the time stamp
-   * @param dhcpLease             the dhcp lease
+   * @param version the version
+   * @param serial the serial
+   * @param ttlSeconds the ttl seconds
+   * @param timeStamp the time stamp
+   * @param dhcpLease the dhcp lease
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsRecord(String recordType, String recordValue, byte[] recordRawValue,
       String correlatedRecordValue, Integer version, Integer serial, Integer ttlSeconds,

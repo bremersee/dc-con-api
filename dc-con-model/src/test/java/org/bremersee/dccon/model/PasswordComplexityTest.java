@@ -14,26 +14,29 @@
  * limitations under the License.
  */
 
-package org.bremersee.dccon.api;
+package org.bremersee.dccon.model;
 
-import org.bremersee.test.web.RestApiTester;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 /**
- * The domain user webflux management api test.
+ * The password complexity test.
  *
  * @author Christian Bremer
  */
-class DomainUserWebfluxManagementApiTest {
+class PasswordComplexityTest {
 
   /**
-   * Assert rest api annotations.
+   * From value.
    */
   @Test
-  void assertRestApiAnnotations() {
-    RestApiTester.assertSameApi(
-        DomainUserManagementApi.class,
-        DomainUserWebfluxManagementApi.class);
+  void fromValue() {
+    for (PasswordComplexity expected : PasswordComplexity.values()) {
+      PasswordComplexity actual = PasswordComplexity.fromValue(expected.toString());
+      assertEquals(expected, actual);
+    }
+    assertEquals(PasswordComplexity.ON, PasswordComplexity.fromValue(UUID.randomUUID().toString()));
   }
-
 }

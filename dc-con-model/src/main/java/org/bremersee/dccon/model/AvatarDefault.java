@@ -79,11 +79,10 @@ public enum AvatarDefault {
   /**
    * From value avatar default.
    *
-   * @param value                the value
+   * @param value the value
    * @param defaultAvatarDefault the default avatar default
    * @return the avatar default
    */
-  @SuppressWarnings("unused")
   public static AvatarDefault fromValue(String value, AvatarDefault defaultAvatarDefault) {
     for (AvatarDefault avatarDefault : AvatarDefault.values()) {
       if (avatarDefault.value.equalsIgnoreCase(value)

@@ -40,7 +40,6 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @EqualsAndHashCode
 @NoArgsConstructor
-@SuppressWarnings({"WeakerAccess", "unused"})
 public class PasswordInformation implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -88,16 +87,17 @@ public class PasswordInformation implements Serializable {
   /**
    * Instantiates a new Password information.
    *
-   * @param passwordComplexity              the password complexity
-   * @param storePlaintextPasswords         the store plaintext passwords
-   * @param passwordHistoryLength           the password history length
-   * @param minimumPasswordLength           the minimum password length
-   * @param minimumPasswordAgeInDays        the minimum password age in days
-   * @param maximumPasswordAgeInDays        the maximum password age in days
+   * @param passwordComplexity the password complexity
+   * @param storePlaintextPasswords the store plaintext passwords
+   * @param passwordHistoryLength the password history length
+   * @param minimumPasswordLength the minimum password length
+   * @param minimumPasswordAgeInDays the minimum password age in days
+   * @param maximumPasswordAgeInDays the maximum password age in days
    * @param accountLockoutDurationInMinutes the account lockout duration in minutes
-   * @param accountLockoutThreshold         the account lockout threshold
-   * @param resetAccountLockoutAfter        the reset account lockout after
+   * @param accountLockoutThreshold the account lockout threshold
+   * @param resetAccountLockoutAfter the reset account lockout after
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public PasswordInformation(
       PasswordComplexity passwordComplexity,

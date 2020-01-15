@@ -32,6 +32,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * Common attributes.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Common attributes")
 @Validated
@@ -46,7 +48,7 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess"})
 public abstract class CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -64,8 +66,8 @@ public abstract class CommonAttributes implements Serializable {
    * Instantiates a new common attributes.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
+   * @param created the created
+   * @param modified the modified
    */
   public CommonAttributes(
       String distinguishedName,

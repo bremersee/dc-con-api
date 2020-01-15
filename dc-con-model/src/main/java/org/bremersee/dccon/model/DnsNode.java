@@ -31,6 +31,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS node.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "DNS node")
 @Validated
@@ -38,7 +40,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DnsNode extends CommonAttributes {
 
   private static final long serialVersionUID = 2L;
@@ -53,11 +54,12 @@ public class DnsNode extends CommonAttributes {
    * Instantiates a new dns node.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param name              the name
-   * @param records           the records
+   * @param created the created
+   * @param modified the modified
+   * @param name the name
+   * @param records the records
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsNode(
       String distinguishedName,

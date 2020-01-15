@@ -31,15 +31,16 @@ import org.springframework.validation.annotation.Validated;
 /**
  * Request body to change a password. Administrators can just set the new password. Normal users
  * must also set the previous password.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Request body to change a password. Administrators can just set the new "
     + "password. Normal users must also set the previous password.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
-@ToString
+@ToString(exclude = {"value", "previousValue"})
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class Password implements Serializable {
 
   private static final long serialVersionUID = 2L;
@@ -62,9 +63,10 @@ public class Password implements Serializable {
   /**
    * Instantiates a new password request body.
    *
-   * @param value         the new password
+   * @param value the new password
    * @param previousValue the previous password
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public Password(String value, String previousValue) {
     this.value = value;

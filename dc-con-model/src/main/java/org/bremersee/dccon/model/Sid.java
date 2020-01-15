@@ -51,7 +51,7 @@ public class Sid implements Serializable {
   /**
    * Instantiates a new SID.
    *
-   * @param value        the value
+   * @param value the value
    * @param systemEntity the system entity
    */
   @SuppressWarnings("unused")
@@ -87,7 +87,6 @@ public class Sid implements Serializable {
    *
    * @return the system entity
    */
-  @SuppressWarnings("unused")
   @ApiModelProperty(
       value = "Tells whether the entity is a system entity or not.",
       accessMode = AccessMode.READ_ONLY)

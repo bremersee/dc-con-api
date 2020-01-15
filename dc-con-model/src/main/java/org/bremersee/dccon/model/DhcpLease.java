@@ -40,7 +40,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DhcpLease implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -76,13 +75,14 @@ public class DhcpLease implements Serializable {
   /**
    * Instantiates a new dhcp lease.
    *
-   * @param mac          the mac
-   * @param ip           the ip
-   * @param hostname     the hostname
-   * @param begin        the begin
-   * @param end          the end
+   * @param mac the mac
+   * @param ip the ip
+   * @param hostname the hostname
+   * @param begin the begin
+   * @param end the end
    * @param manufacturer the manufacturer
    */
+  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DhcpLease(
       String mac,
