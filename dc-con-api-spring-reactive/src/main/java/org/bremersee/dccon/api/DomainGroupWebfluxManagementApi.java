@@ -45,7 +45,7 @@ public interface DomainGroupWebfluxManagementApi {
   /**
    * Get domain groups.
    *
-   * @param sort  the sort order
+   * @param sort the sort order
    * @param query the query
    * @return the groups
    */
@@ -135,7 +135,7 @@ public interface DomainGroupWebfluxManagementApi {
   /**
    * Update domain group.
    *
-   * @param groupName   the group name
+   * @param groupName the group name
    * @param domainGroup the domain group
    * @return the updated domain group
    */

@@ -49,7 +49,7 @@ public interface DomainUserWebfluxManagementApi {
   /**
    * Get domain users.
    *
-   * @param sort  the sort
+   * @param sort the sort
    * @param query the query
    * @return the domain users
    */
@@ -81,8 +81,8 @@ public interface DomainUserWebfluxManagementApi {
   /**
    * Add a domain user.
    *
-   * @param email      specifies whether to send an email or not (default is {@code false})
-   * @param language   the language of the email
+   * @param email specifies whether to send an email or not (default is {@code false})
+   * @param language the language of the email
    * @param domainUser the domain user to add
    * @return the added domain user
    */
@@ -145,9 +145,9 @@ public interface DomainUserWebfluxManagementApi {
   /**
    * Get avatar of domain user.
    *
-   * @param userName      the user name
+   * @param userName the user name
    * @param avatarDefault the avatar default
-   * @param size          the size
+   * @param size the size
    * @return the avatar of the domain user
    */
   @ApiOperation(
@@ -182,9 +182,9 @@ public interface DomainUserWebfluxManagementApi {
   /**
    * Update domain user.
    *
-   * @param userName     the user name
+   * @param userName the user name
    * @param updateGroups the update groups flag (default is false)
-   * @param domainUser   the domain user
+   * @param domainUser the domain user
    * @return the updated domain user
    */
   @ApiOperation(
@@ -220,9 +220,9 @@ public interface DomainUserWebfluxManagementApi {
   /**
    * Update user password.
    *
-   * @param userName    the user name
-   * @param email       specifies whether to send an email or not (default is {@code false})
-   * @param language    the language of the email
+   * @param userName the user name
+   * @param email specifies whether to send an email or not (default is {@code false})
+   * @param language the language of the email
    * @param newPassword the new password
    * @return void response entity
    */

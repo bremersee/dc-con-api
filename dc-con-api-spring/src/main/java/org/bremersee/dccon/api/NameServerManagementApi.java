@@ -48,7 +48,7 @@ public interface NameServerManagementApi {
   /**
    * Query dns nodes.
    *
-   * @param query         the query, can be a host name, an IP or a MAC address
+   * @param query the query, can be a host name, an IP or a MAC address
    * @param unknownFilter the unknown filter
    * @return found dns nodes
    */
@@ -79,8 +79,8 @@ public interface NameServerManagementApi {
   /**
    * Gets dhcp leases.
    *
-   * @param all  if {@code true}, expired leases will also be returned, otherwise only active ones
-   *             (default is {@code false})
+   * @param all if {@code true}, expired leases will also be returned, otherwise only active
+   *     ones (default is {@code false})
    * @param sort the sort order (default is {@link DhcpLease#SORT_ORDER_BEGIN_HOSTNAME})
    * @return the dhcp leases
    */
@@ -194,9 +194,9 @@ public interface NameServerManagementApi {
   /**
    * Get dns nodes.
    *
-   * @param zoneName      the zone name
+   * @param zoneName the zone name
    * @param unknownFilter the unknown filter
-   * @param query         the query
+   * @param query the query
    * @return the dns nodes
    */
   @ApiOperation(
@@ -231,7 +231,7 @@ public interface NameServerManagementApi {
    * Save dns node.
    *
    * @param zoneName the dns zone name
-   * @param dnsNode  the dns node
+   * @param dnsNode the dns node
    * @return the saved dns node
    */
   @ApiOperation(
@@ -265,8 +265,8 @@ public interface NameServerManagementApi {
   /**
    * Get dns node.
    *
-   * @param zoneName      the dns zone name
-   * @param nodeName      the dns node name
+   * @param zoneName the dns zone name
+   * @param nodeName the dns node name
    * @param unknownFilter the unknown filter
    * @return the dns node
    */
@@ -337,7 +337,7 @@ public interface NameServerManagementApi {
   /**
    * Delete all dns nodes.
    *
-   * @param zoneName  the zone name
+   * @param zoneName the zone name
    * @param nodeNames the node names (if the list is empty, all dns nodes will be deleted)
    * @return void response entity
    */
