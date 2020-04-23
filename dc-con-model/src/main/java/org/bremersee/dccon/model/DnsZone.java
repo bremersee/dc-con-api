@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -29,6 +30,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS Zone.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "DNS Zone")
 @Validated
@@ -36,7 +39,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DnsZone extends CommonAttributes {
 
   private static final long serialVersionUID = 2L;
@@ -44,23 +46,36 @@ public class DnsZone extends CommonAttributes {
   @JsonProperty(value = "name", required = true)
   private String name = null;
 
+  @JsonProperty(value = "defaultZone")
+  private Boolean defaultZone;
+
+  @JsonProperty(value = "reverseZone")
+  private Boolean reverseZone;
+
   /**
    * Instantiates a new dns zone.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param name              the zone name
+   * @param created the created
+   * @param modified the modified
+   * @param name the zone name
+   * @param defaultZone the default zone
+   * @param reverseZone the reverse zone
    */
-  @Builder
+  @SuppressWarnings("unused")
+  @Builder(toBuilder = true)
   public DnsZone(
       String distinguishedName,
       OffsetDateTime created,
       OffsetDateTime modified,
-      String name) {
+      String name,
+      Boolean defaultZone,
+      Boolean reverseZone) {
 
     super(distinguishedName, created, modified);
     this.name = name;
+    this.defaultZone = Boolean.TRUE.equals(defaultZone);
+    this.reverseZone = Boolean.TRUE.equals(reverseZone);
   }
 
   /**
@@ -80,6 +95,48 @@ public class DnsZone extends CommonAttributes {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Gets default zone.
+   *
+   * @return the default zone
+   */
+  @ApiModelProperty(
+      value = "Specifies whether this zone is the default zone or not.",
+      accessMode = AccessMode.READ_ONLY)
+  public Boolean getDefaultZone() {
+    return Boolean.TRUE.equals(defaultZone);
+  }
+
+  /**
+   * Sets default zone.
+   *
+   * @param defaultZone the default zone
+   */
+  public void setDefaultZone(Boolean defaultZone) {
+    this.defaultZone = defaultZone;
+  }
+
+  /**
+   * Gets reverse zone.
+   *
+   * @return the reverse zone
+   */
+  @ApiModelProperty(
+      value = "Specifies whether this zone is a reverse zone or not.",
+      accessMode = AccessMode.READ_ONLY)
+  public Boolean getReverseZone() {
+    return Boolean.TRUE.equals(reverseZone);
+  }
+
+  /**
+   * Sets reverse zone.
+   *
+   * @param reverseZone the reverse zone
+   */
+  public void setReverseZone(Boolean reverseZone) {
+    this.reverseZone = reverseZone;
   }
 
 }

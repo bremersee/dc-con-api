@@ -28,13 +28,14 @@ import org.bremersee.dccon.model.DnsNode;
 import org.bremersee.dccon.model.DnsZone;
 import org.bremersee.dccon.model.UnknownFilter;
 import org.bremersee.exception.model.RestApiException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * The name server management api.
@@ -43,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Api(value = "NameServerManagement")
 @Validated
-public interface NameServerManagementApi {
+public interface NameServerWebfluxManagementApi {
 
   /**
    * Query dns nodes.
@@ -69,7 +70,7 @@ public interface NameServerManagementApi {
       value = "/api/dns",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DnsNode>> query(
+  Flux<DnsNode> query(
       @ApiParam(value = "The query, can be a host name, an IP or a MAC address.")
       @RequestParam(name = "q") String query,
 
@@ -100,13 +101,14 @@ public interface NameServerManagementApi {
   @RequestMapping(value = "/api/dns/dhcp-leases",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DhcpLease>> getDhcpLeases(
+  Flux<DhcpLease> getDhcpLeases(
       @ApiParam(value = "'true' returns also expired leases, 'false' only active ones.",
           defaultValue = "false")
       @RequestParam(value = "all", defaultValue = "false") Boolean all,
       @ApiParam(value = "The sort order.", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME)
       @RequestParam(value = "sort",
           defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
+
 
   /**
    * Get dns zones.
@@ -132,7 +134,7 @@ public interface NameServerManagementApi {
       value = "/api/dns/zones",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DnsZone>> getDnsZones();
+  Flux<DnsZone> getDnsZones();
 
   /**
    * Add dns zone.
@@ -158,7 +160,7 @@ public interface NameServerManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  ResponseEntity<DnsZone> addDnsZone(
+  Mono<DnsZone> addDnsZone(
       @ApiParam(value = "The dns zone to add.", required = true)
       @Valid @RequestBody DnsZone request);
 
@@ -186,7 +188,7 @@ public interface NameServerManagementApi {
       value = "/api/dns/zones/{zoneName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
-  ResponseEntity<Boolean> deleteDnsZone(
+  Mono<Boolean> deleteDnsZone(
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable(value = "zoneName") String zoneName);
 
@@ -217,7 +219,7 @@ public interface NameServerManagementApi {
   @RequestMapping(value = "/api/dns/zones/{zoneName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DnsNode>> getDnsNodes(
+  Flux<DnsNode> getDnsNodes(
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable(value = "zoneName") String zoneName,
 
@@ -255,7 +257,7 @@ public interface NameServerManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  ResponseEntity<DnsNode> saveDnsNode(
+  Mono<DnsNode> saveDnsNode(
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
@@ -290,7 +292,7 @@ public interface NameServerManagementApi {
       value = "/api/dns/zones/{zoneName}/{nodeName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<DnsNode> getDnsNode(
+  Mono<DnsNode> getDnsNode(
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
@@ -327,7 +329,7 @@ public interface NameServerManagementApi {
       value = "/api/dns/zones/{zoneName}/{nodeName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
-  ResponseEntity<Boolean> deleteDnsNode(
+  Mono<Boolean> deleteDnsNode(
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
@@ -359,7 +361,7 @@ public interface NameServerManagementApi {
       value = "/api/dns/zones/{zoneName}/nodes/all",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
-  ResponseEntity<Void> deleteAllDnsNodes(
+  Mono<Void> deleteAllDnsNodes(
       @ApiParam(value = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,50 +18,98 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * Password.
+ * Request body to change a password. Administrators can just set the new password. Normal users
+ * must also set the previous password.
+ *
+ * @author Christian Bremer
  */
+@ApiModel(description = "Request body to change a password. Administrators can just set the new "
+    + "password. Normal users must also set the previous password.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
-@ToString
+@ToString(exclude = {"value", "previousValue"})
 @NoArgsConstructor
-@AllArgsConstructor
 public class Password implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
   @JsonProperty(value = "value", required = true)
   private String value;
 
+  @JsonProperty(value = "previousValue")
+  private String previousValue;
+
   /**
-   * A password.
+   * Instantiates a new password request body.
    *
-   * @return value value
+   * @param value the new password
    */
-  @ApiModelProperty(required = true, value = "A password.")
+  public Password(String value) {
+    this.value = value;
+  }
+
+  /**
+   * Instantiates a new password request body.
+   *
+   * @param value the new password
+   * @param previousValue the previous password
+   */
+  @SuppressWarnings("unused")
+  @Builder(toBuilder = true)
+  public Password(String value, String previousValue) {
+    this.value = value;
+    this.previousValue = previousValue;
+  }
+
+  /**
+   * The new password.
+   *
+   * @return the new password
+   */
+  @ApiModelProperty(required = true, value = "The new password.")
   @NotNull
   public String getValue() {
     return value;
   }
 
   /**
-   * Sets value.
+   * Sets new password.
    *
-   * @param value the value
+   * @param value the new password
    */
   public void setValue(String value) {
     this.value = value;
   }
 
+  /**
+   * Gets previous password.
+   *
+   * @return the previous password
+   */
+  @ApiModelProperty(required = true, value = "The previous password.")
+  public String getPreviousValue() {
+    return previousValue;
+  }
+
+  /**
+   * Sets previous password.
+   *
+   * @param previousValue the previous password
+   */
+  public void setPreviousValue(String previousValue) {
+    this.previousValue = previousValue;
+  }
 }
 

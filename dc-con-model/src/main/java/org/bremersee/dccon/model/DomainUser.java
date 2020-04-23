@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * Domain user.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Domain user.")
 @Validated
@@ -41,9 +44,8 @@ import org.springframework.validation.annotation.Validated;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"password"})
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DomainUser extends CommonAttributes {
 
   /**
@@ -52,6 +54,10 @@ public class DomainUser extends CommonAttributes {
   public static final String DEFAULT_SORT_ORDER = "userName";
 
   private static final long serialVersionUID = 1L;
+
+  @ApiModelProperty(value = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
+  @JsonProperty("sid")
+  private Sid sid;
 
   @ApiModelProperty(value = "The user name of the domain user.", required = true)
   @JsonProperty(value = "userName", required = true)
@@ -86,9 +92,9 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("mobile")
   private String mobile;
 
-  @ApiModelProperty(value = "The groups of the domain user.")
-  @JsonProperty("groups")
-  private List<String> groups;
+  @ApiModelProperty(value = "A description of the domain user.")
+  @JsonProperty("description")
+  private String description;
 
   @ApiModelProperty(value = "The home directory of the domain user.")
   @JsonProperty("homeDirectory")
@@ -102,15 +108,21 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("loginShell")
   private String loginShell;
 
-  @ApiModelProperty(value = "The last logon time of the domain user.")
+  @ApiModelProperty(
+      value = "The last logon time of the domain user.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("lastLogon")
   private OffsetDateTime lastLogon;
 
-  @ApiModelProperty(value = "The logon count of the domain user.")
+  @ApiModelProperty(
+      value = "The logon count of the domain user.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("logonCount")
   private Integer logonCount;
 
-  @ApiModelProperty(value = "Date of the last password change.")
+  @ApiModelProperty(
+      value = "Date of the last password change.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty("passwordLastSet")
   private OffsetDateTime passwordLastSet;
 
@@ -118,42 +130,44 @@ public class DomainUser extends CommonAttributes {
   @JsonProperty("password")
   private String password;
 
-  @ApiModelProperty(value = "The avatar of the domain user.")
-  @JsonProperty("avatar")
-  private byte[] avatar;
+  @ApiModelProperty(value = "The groups of the domain user.")
+  @JsonProperty("groups")
+  private List<String> groups;
 
   /**
    * Instantiates a new domain user.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param userName          the user name
-   * @param enabled           the enabled
-   * @param firstName         the first name
-   * @param lastName          the last name
-   * @param displayName       the display name
-   * @param email             the email
-   * @param telephoneNumber   the telephone number
-   * @param mobile            the mobile
-   * @param groups            the groups
-   * @param homeDirectory     the home directory
+   * @param created the created
+   * @param modified the modified
+   * @param sid the windows/samba SID
+   * @param userName the user name
+   * @param enabled the enabled
+   * @param firstName the first name
+   * @param lastName the last name
+   * @param displayName the display name
+   * @param email the email
+   * @param telephoneNumber the telephone number
+   * @param mobile the mobile
+   * @param description the description
+   * @param homeDirectory the home directory
    * @param unixHomeDirectory the unix home directory
-   * @param loginShell        the login shell
-   * @param lastLogon         the last logon
-   * @param logonCount        the logon count
-   * @param passwordLastSet   the password last set
-   * @param password          the password
-   * @param avatar            the avatar
+   * @param loginShell the login shell
+   * @param lastLogon the last logon
+   * @param logonCount the logon count
+   * @param passwordLastSet the password last set
+   * @param password the password
+   * @param groups the groups
    */
-  @Builder
-  public DomainUser(String distinguishedName, OffsetDateTime created,
-      OffsetDateTime modified, String userName, Boolean enabled, String firstName,
-      String lastName, String displayName, String email, String telephoneNumber,
-      String mobile, List<String> groups, String homeDirectory, String unixHomeDirectory,
-      String loginShell, OffsetDateTime lastLogon, Integer logonCount,
-      OffsetDateTime passwordLastSet, String password, byte[] avatar) {
+  @SuppressWarnings("unused")
+  @Builder(toBuilder = true)
+  public DomainUser(String distinguishedName, OffsetDateTime created, OffsetDateTime modified,
+      Sid sid, String userName, Boolean enabled, String firstName, String lastName,
+      String displayName, String email, String telephoneNumber, String mobile, String description,
+      String homeDirectory, String unixHomeDirectory, String loginShell, OffsetDateTime lastLogon,
+      Integer logonCount, OffsetDateTime passwordLastSet, String password, List<String> groups) {
     super(distinguishedName, created, modified);
+    this.sid = sid;
     this.userName = userName;
     this.enabled = enabled;
     this.firstName = firstName;
@@ -162,7 +176,7 @@ public class DomainUser extends CommonAttributes {
     this.email = email;
     this.telephoneNumber = telephoneNumber;
     this.mobile = mobile;
-    this.groups = groups;
+    this.description = description;
     this.homeDirectory = homeDirectory;
     this.unixHomeDirectory = unixHomeDirectory;
     this.loginShell = loginShell;
@@ -170,7 +184,7 @@ public class DomainUser extends CommonAttributes {
     this.logonCount = logonCount;
     this.passwordLastSet = passwordLastSet;
     this.password = password;
-    this.avatar = avatar;
+    this.groups = groups;
   }
 
   /**

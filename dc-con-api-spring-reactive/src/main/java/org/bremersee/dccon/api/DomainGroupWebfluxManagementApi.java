@@ -21,17 +21,17 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.exception.model.RestApiException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * The domain group management api.
@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Api(value = "DomainGroupManagement")
 @Validated
-public interface DomainGroupManagementApi {
+public interface DomainGroupWebfluxManagementApi {
 
   /**
    * Get domain groups.
@@ -66,7 +66,7 @@ public interface DomainGroupManagementApi {
       value = "/api/groups",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DomainGroup>> getGroups(
+  Flux<DomainGroup> getGroups(
       @ApiParam(value = "The sort order.", defaultValue = DomainGroup.DEFAULT_SORT_ORDER)
       @RequestParam(value = "sort",
           defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort,
@@ -99,7 +99,7 @@ public interface DomainGroupManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.POST)
-  ResponseEntity<DomainGroup> addGroup(
+  Mono<DomainGroup> addGroup(
       @ApiParam(value = "The domain group to add.", required = true)
       @Valid @RequestBody DomainGroup group);
 
@@ -128,7 +128,7 @@ public interface DomainGroupManagementApi {
       value = "/api/groups/{groupName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<DomainGroup> getGroup(
+  Mono<DomainGroup> getGroup(
       @ApiParam(value = "The domain group name.", required = true)
       @PathVariable("groupName") String groupName);
 
@@ -158,7 +158,7 @@ public interface DomainGroupManagementApi {
       produces = {"application/json"},
       consumes = {"application/json"},
       method = RequestMethod.PUT)
-  ResponseEntity<DomainGroup> updateGroup(
+  Mono<DomainGroup> updateGroup(
       @ApiParam(value = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName,
 
@@ -166,7 +166,7 @@ public interface DomainGroupManagementApi {
       @Valid @RequestBody DomainGroup domainGroup);
 
   /**
-   * Checks whether a domain group exists.
+   * Domain group exists.
    *
    * @param groupName the group name
    * @return true if the group exists otherwise false
@@ -185,7 +185,7 @@ public interface DomainGroupManagementApi {
   @RequestMapping(value = "/api/groups/{groupName}/exists",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<Boolean> groupExists(
+  Mono<Boolean> groupExists(
       @ApiParam(value = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName);
 
@@ -209,7 +209,7 @@ public interface DomainGroupManagementApi {
   @RequestMapping(value = "/api/groups/{groupName}/in-use",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<Boolean> isGroupNameInUse(
+  Mono<Boolean> isGroupNameInUse(
       @ApiParam(value = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName);
 
@@ -236,7 +236,7 @@ public interface DomainGroupManagementApi {
       value = "/api/groups/{groupName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
-  ResponseEntity<Boolean> deleteGroup(
+  Mono<Boolean> deleteGroup(
       @ApiParam(value = "The domain group name.", required = true)
       @PathVariable("groupName") String groupName);
 

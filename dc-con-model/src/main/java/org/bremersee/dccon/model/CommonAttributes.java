@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * Common attributes.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Common attributes")
 @Validated
@@ -45,26 +48,26 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess"})
 public abstract class CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @JsonProperty(value = "distinguishedName")
-  private String distinguishedName = null;
+  String distinguishedName = null;
 
   @JsonProperty("created")
-  private OffsetDateTime created = null;
+  OffsetDateTime created = null;
 
   @JsonProperty("modified")
-  private OffsetDateTime modified = null;
+  OffsetDateTime modified = null;
 
   /**
    * Instantiates a new common attributes.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
+   * @param created the created
+   * @param modified the modified
    */
   public CommonAttributes(
       String distinguishedName,
@@ -81,7 +84,9 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return distinguishedName distinguished name
    */
-  @ApiModelProperty(value = "The distinguished name in the active directory.")
+  @ApiModelProperty(
+      value = "The distinguished name in the active directory.",
+      accessMode = AccessMode.READ_ONLY)
   public String getDistinguishedName() {
     return distinguishedName;
   }
@@ -100,7 +105,7 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return created created
    */
-  @ApiModelProperty(value = "The creation date.")
+  @ApiModelProperty(value = "The creation date.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getCreated() {
     return created;
   }
@@ -119,7 +124,7 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return modified modified
    */
-  @ApiModelProperty(value = "The last modification date.")
+  @ApiModelProperty(value = "The last modification date.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getModified() {
     return modified;
   }

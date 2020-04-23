@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 the original author or authors.
+ * Copyright 2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * Domain group.
+ *
+ * @author Christian Bremer
  */
 @ApiModel(description = "Domain group.")
 @Validated
@@ -40,7 +43,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
-@SuppressWarnings("unused")
 public class DomainGroup extends CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -54,6 +56,12 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   @NotNull
   private String name = null;
 
+  @JsonProperty("description")
+  private String description;
+
+  @JsonProperty("sid")
+  private Sid sid;
+
   @JsonProperty("members")
   private List<String> members = null;
 
@@ -61,22 +69,29 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * Instantiates a new Domain group.
    *
    * @param distinguishedName the distinguished name
-   * @param created           the created
-   * @param modified          the modified
-   * @param name              the name
-   * @param members           the members
+   * @param created the created
+   * @param modified the modified
+   * @param sid the windows/samba SID
+   * @param name the name
+   * @param description the description
+   * @param members the members
    */
-  @Builder
+  @SuppressWarnings("unused")
+  @Builder(toBuilder = true)
   public DomainGroup(
       String distinguishedName,
       OffsetDateTime created,
       OffsetDateTime modified,
+      Sid sid,
       String name,
+      String description,
       List<String> members) {
 
     super(distinguishedName, created, modified);
-    this.name = name;
-    this.members = members;
+    setSid(sid);
+    setName(name);
+    setDescription(description);
+    setMembers(members);
   }
 
   /**
@@ -96,6 +111,44 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Gets description.
+   *
+   * @return the description
+   */
+  @ApiModelProperty(value = "A description of the domain group.")
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Sets description.
+   *
+   * @param description the description
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * Gets sid.
+   *
+   * @return the sid
+   */
+  @ApiModelProperty(value = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
+  public Sid getSid() {
+    return sid;
+  }
+
+  /**
+   * Sets sid.
+   *
+   * @param sid the sid
+   */
+  public void setSid(Sid sid) {
+    this.sid = sid;
   }
 
   /**
