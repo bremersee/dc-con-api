@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DnsZone.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dc-con-model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.dccon.model</a> &gt; <span class="el_source">DnsZone.java</span></div><h1>DnsZone.java</h1><pre class="source lang-java linenums">/*
+ * Copyright 2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.bremersee.dccon.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
+import java.time.OffsetDateTime;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.validation.annotation.Validated;
+
+/**
+ * DNS Zone.
+ *
+ * @author Christian Bremer
+ */
+@ApiModel(description = &quot;DNS Zone&quot;)
+@Validated
+@JsonIgnoreProperties(ignoreUnknown = true)
+<span class="pc bpc" id="L39" title="18 of 32 branches missed.">@EqualsAndHashCode(callSuper = true)</span>
+<span class="fc" id="L40">@ToString(callSuper = true)</span>
+<span class="fc" id="L41">@NoArgsConstructor</span>
+public class DnsZone extends CommonAttributes {
+
+  private static final long serialVersionUID = 2L;
+
+<span class="fc" id="L46">  @JsonProperty(value = &quot;name&quot;, required = true)</span>
+  private String name = null;
+
+  @JsonProperty(value = &quot;defaultZone&quot;)
+  private Boolean defaultZone;
+
+  @JsonProperty(value = &quot;reverseZone&quot;)
+  private Boolean reverseZone;
+
+  /**
+   * Instantiates a new dns zone.
+   *
+   * @param distinguishedName the distinguished name
+   * @param created the created
+   * @param modified the modified
+   * @param name the zone name
+   * @param defaultZone the default zone
+   * @param reverseZone the reverse zone
+   */
+  @SuppressWarnings(&quot;unused&quot;)
+<span class="pc" id="L66">  @Builder(toBuilder = true)</span>
+  public DnsZone(
+      String distinguishedName,
+      OffsetDateTime created,
+      OffsetDateTime modified,
+      String name,
+      Boolean defaultZone,
+      Boolean reverseZone) {
+
+<span class="fc" id="L75">    super(distinguishedName, created, modified);</span>
+<span class="fc" id="L76">    this.name = name;</span>
+<span class="fc" id="L77">    this.defaultZone = Boolean.TRUE.equals(defaultZone);</span>
+<span class="fc" id="L78">    this.reverseZone = Boolean.TRUE.equals(reverseZone);</span>
+<span class="fc" id="L79">  }</span>
+
+  /**
+   * The zone name.
+   *
+   * @return zone name
+   */
+  @ApiModelProperty(value = &quot;The zone name.&quot;, required = true)
+  public String getName() {
+<span class="fc" id="L88">    return name;</span>
+  }
+
+  /**
+   * Sets zone name.
+   *
+   * @param name the zone name
+   */
+  public void setName(String name) {
+<span class="fc" id="L97">    this.name = name;</span>
+<span class="fc" id="L98">  }</span>
+
+  /**
+   * Gets default zone.
+   *
+   * @return the default zone
+   */
+  @ApiModelProperty(
+      value = &quot;Specifies whether this zone is the default zone or not.&quot;,
+      accessMode = AccessMode.READ_ONLY)
+  public Boolean getDefaultZone() {
+<span class="fc" id="L109">    return Boolean.TRUE.equals(defaultZone);</span>
+  }
+
+  /**
+   * Sets default zone.
+   *
+   * @param defaultZone the default zone
+   */
+  public void setDefaultZone(Boolean defaultZone) {
+<span class="fc" id="L118">    this.defaultZone = defaultZone;</span>
+<span class="fc" id="L119">  }</span>
+
+  /**
+   * Gets reverse zone.
+   *
+   * @return the reverse zone
+   */
+  @ApiModelProperty(
+      value = &quot;Specifies whether this zone is a reverse zone or not.&quot;,
+      accessMode = AccessMode.READ_ONLY)
+  public Boolean getReverseZone() {
+<span class="fc" id="L130">    return Boolean.TRUE.equals(reverseZone);</span>
+  }
+
+  /**
+   * Sets reverse zone.
+   *
+   * @param reverseZone the reverse zone
+   */
+  public void setReverseZone(Boolean reverseZone) {
+<span class="fc" id="L139">    this.reverseZone = reverseZone;</span>
+<span class="fc" id="L140">  }</span>
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
