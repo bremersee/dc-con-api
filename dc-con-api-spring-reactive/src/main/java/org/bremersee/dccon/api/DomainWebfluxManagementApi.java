@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,12 @@
 
 package org.bremersee.dccon.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.PasswordInformation;
 import org.bremersee.exception.model.RestApiException;
@@ -33,7 +35,7 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@Api(value = "DomainManagement")
+@Tag(name = "domain-management-controller", description = "The domain management API.")
 @Validated
 public interface DomainWebfluxManagementApi {
 
@@ -42,17 +44,23 @@ public interface DomainWebfluxManagementApi {
    *
    * @return the password information
    */
-  @ApiOperation(
-      value = "Get password information.",
-      nickname = "getPasswordInformation",
-      notes = "Get password information.",
-      response = PasswordInformation.class,
+  @Operation(
+      summary = "Get password information.",
+      operationId = "getPasswordInformation",
       tags = {"domain-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The password information.",
-          response = PasswordInformation.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The password information.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = PasswordInformation.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/domain/password-information",
@@ -65,17 +73,23 @@ public interface DomainWebfluxManagementApi {
    *
    * @return the random password
    */
-  @ApiOperation(
-      value = "Get a random password.",
-      nickname = "getRandomPassword",
-      notes = "Get a random password.",
-      response = Password.class,
+  @Operation(
+      summary = "Get a random password.",
+      operationId = "getRandomPassword",
       tags = {"domain-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The random password.",
-          response = Password.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "TThe random password.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Password.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/domain/random-password",

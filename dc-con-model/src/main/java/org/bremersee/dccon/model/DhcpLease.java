@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
@@ -34,7 +33,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "A dhcp lease of the dhcp server.")
+@Schema(description = "A dhcp lease of the dhcp server.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
@@ -52,6 +51,7 @@ public class DhcpLease implements Serializable {
   /**
    * The constant SORT_ORDER_IP_BEGIN_HOSTNAME.
    */
+  @SuppressWarnings("unused")
   public static final String SORT_ORDER_IP_BEGIN_HOSTNAME = "ip|begin,desc";
 
   @JsonProperty("mac")
@@ -82,8 +82,8 @@ public class DhcpLease implements Serializable {
    * @param end the end
    * @param manufacturer the manufacturer
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
+  @SuppressWarnings("unused")
   public DhcpLease(
       String mac,
       String ip,
@@ -104,7 +104,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the mac
    */
-  @ApiModelProperty(value = "The mac of the client.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The mac of the client.", accessMode = AccessMode.READ_ONLY)
   public String getMac() {
     return mac;
   }
@@ -123,7 +123,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the ip
    */
-  @ApiModelProperty(value = "The ip of the client.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The ip of the client.", accessMode = AccessMode.READ_ONLY)
   public String getIp() {
     return ip;
   }
@@ -142,7 +142,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the hostname
    */
-  @ApiModelProperty(value = "The host name of the client.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The host name of the client.", accessMode = AccessMode.READ_ONLY)
   public String getHostname() {
     return hostname;
   }
@@ -161,7 +161,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the begin
    */
-  @ApiModelProperty(value = "The start time of the lease.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The start time of the lease.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getBegin() {
     return begin;
   }
@@ -180,7 +180,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the end
    */
-  @ApiModelProperty(value = "The end time of the lease.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The end time of the lease.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getEnd() {
     return end;
   }
@@ -199,7 +199,7 @@ public class DhcpLease implements Serializable {
    *
    * @return the manufacturer
    */
-  @ApiModelProperty(value = "The manufacturer of the client.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The manufacturer of the client.", accessMode = AccessMode.READ_ONLY)
   public String getManufacturer() {
     return manufacturer;
   }

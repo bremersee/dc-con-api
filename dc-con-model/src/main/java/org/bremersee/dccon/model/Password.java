@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -34,7 +33,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "Request body to change a password. Administrators can just set the new "
+@Schema(description = "Request body to change a password. Administrators can just set the new "
     + "password. Normal users must also set the previous password.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -78,7 +77,7 @@ public class Password implements Serializable {
    *
    * @return the new password
    */
-  @ApiModelProperty(required = true, value = "The new password.")
+  @Schema(required = true, description = "The new password.")
   @NotNull
   public String getValue() {
     return value;
@@ -98,7 +97,7 @@ public class Password implements Serializable {
    *
    * @return the previous password
    */
-  @ApiModelProperty(required = true, value = "The previous password.")
+  @Schema(required = true, description = "The previous password.")
   public String getPreviousValue() {
     return previousValue;
   }

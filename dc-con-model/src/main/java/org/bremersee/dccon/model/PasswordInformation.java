@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -33,7 +32,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "The password information of the domain controller.")
+@Schema(description = "The password information of the domain controller.")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -44,42 +43,42 @@ public class PasswordInformation implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @ApiModelProperty(value = "The password complexity.")
+  @Schema(description = "The password complexity.")
   @JsonProperty("passwordComplexity")
   private PasswordComplexity passwordComplexity = PasswordComplexity.ON;
 
-  @ApiModelProperty(value = "Store plaintext passwords where account have 'store passwords with "
+  @Schema(description = "Store plaintext passwords where account have 'store passwords with "
       + "reversible encryption' set (on | off | default). Default is 'off'.")
   @JsonProperty("storePlaintextPasswords")
   private Boolean storePlaintextPasswords = Boolean.FALSE;
 
-  @ApiModelProperty(value = "The password history length. Default is 24.")
+  @Schema(description = "The password history length. Default is 24.")
   @JsonProperty("passwordHistoryLength")
   private Integer passwordHistoryLength = 24;
 
-  @ApiModelProperty(value = "The minimum password length. Default is 7.")
+  @Schema(description = "The minimum password length. Default is 7.")
   @JsonProperty("minimumPasswordLength")
   private Integer minimumPasswordLength = 7;
 
-  @ApiModelProperty(value = "The minimum password age in days. Default is 1.")
+  @Schema(description = "The minimum password age in days. Default is 1.")
   @JsonProperty("minimumPasswordAgeInDays")
   private Integer minimumPasswordAgeInDays = 1;
 
-  @ApiModelProperty(value = "The maximum password age in days. Default is 43.")
+  @Schema(description = "The maximum password age in days. Default is 43.")
   @JsonProperty("maximumPasswordAgeInDays")
   private Integer maximumPasswordAgeInDays = 43;
 
-  @ApiModelProperty(value = "The the length of time an account is locked out after exceeding the "
+  @Schema(description = "The the length of time an account is locked out after exceeding the "
       + "limit on bad password attempts. Default is 30.")
   @JsonProperty("accountLockoutDurationInMinutes")
   private Integer accountLockoutDurationInMinutes = 30;
 
-  @ApiModelProperty(value = "The number of bad password attempts allowed before locking out the "
+  @Schema(description = "The number of bad password attempts allowed before locking out the "
       + "account. Default is 0 (never lock out).")
   @JsonProperty("accountLockoutThreshold")
   private Integer accountLockoutThreshold = 0;
 
-  @ApiModelProperty(value = "After this time is elapsed, the recorded number of attempts restarts "
+  @Schema(description = "After this time is elapsed, the recorded number of attempts restarts "
       + "from zero. Default is 30.")
   @JsonProperty("resetAccountLockoutAfter")
   private Integer resetAccountLockoutAfter = 30;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -33,7 +32,7 @@ import lombok.ToString;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "The SID of the entity.")
+@Schema(description = "The SID of the entity.")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
 @ToString
@@ -66,8 +65,8 @@ public class Sid implements Serializable {
    *
    * @return the value
    */
-  @ApiModelProperty(
-      value = "The SID of the entity.",
+  @Schema(
+      description = "The SID of the entity.",
       accessMode = AccessMode.READ_ONLY)
   public String getValue() {
     return value;
@@ -87,8 +86,8 @@ public class Sid implements Serializable {
    *
    * @return the system entity
    */
-  @ApiModelProperty(
-      value = "Tells whether the entity is a system entity or not.",
+  @Schema(
+      description = "Tells whether the entity is a system entity or not.",
       accessMode = AccessMode.READ_ONLY)
   public Boolean getSystemEntity() {
     return systemEntity;

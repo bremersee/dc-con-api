@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,14 @@
 
 package org.bremersee.dccon.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.common.model.TwoLetterLanguageCode;
@@ -42,7 +45,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Christian Bremer
  */
-@Api(value = "DomainUserManagement")
+@Tag(name = "domain-user-management-controller", description = "The domain user API.")
 @Validated
 public interface DomainUserManagementApi {
 
@@ -53,29 +56,34 @@ public interface DomainUserManagementApi {
    * @param query the query
    * @return the domain users
    */
-  @ApiOperation(
-      value = "Get all domain users.",
-      nickname = "getUsers",
-      notes = "Get all domain users.",
-      response = DomainUser.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get all domain users.",
+      operationId = "getUsers",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The domain users.",
-          response = DomainUser.class, responseContainer = "List"),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "A list of domain users.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = DomainUser.class)))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/users",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<DomainUser>> getUsers(
-      @ApiParam(value = "The sort order.", defaultValue = DomainUser.DEFAULT_SORT_ORDER)
+      @Parameter(description = "The sort order.")
       @RequestParam(value = "sort",
           defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort,
 
-      @ApiParam(value = "A query.")
+      @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);
 
   /**
@@ -86,17 +94,29 @@ public interface DomainUserManagementApi {
    * @param domainUser the domain user to add
    * @return the added domain user
    */
-  @ApiOperation(
-      value = "Add domain user.",
-      nickname = "addUser",
-      response = DomainUser.class,
+  @Operation(
+      summary = "Add domain user.",
+      operationId = "addUser",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The added domain user.", response = DomainUser.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The added domain user.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DomainUser.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/users",
@@ -104,13 +124,13 @@ public interface DomainUserManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DomainUser> addUser(
-      @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
+      @Parameter(description = "Specifies whether to send an email or not.")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
 
-      @ApiParam(value = "The language of the email.", defaultValue = "de")
+      @Parameter(description = "The language of the email.")
       @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
 
-      @ApiParam(value = "The domain user to add.", required = true)
+      @Parameter(description = "The domain user to add.", required = true)
       @Valid @RequestBody DomainUser domainUser);
 
   /**
@@ -119,27 +139,42 @@ public interface DomainUserManagementApi {
    * @param userName the user name
    * @return the domain user
    */
-  @ApiOperation(
-      value = "Get a domain user by name.",
-      nickname = "getUser",
-      response = DomainUser.class,
+  @Operation(
+      summary = "Get a domain user by name.",
+      operationId = "getUser",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The domain user with the specified name.",
-          response = DomainUser.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "User not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The domain user with the specified name.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DomainUser.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/users/{userName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<DomainUser> getUser(
-      @ApiParam(value = "The user name of the domain user.", required = true)
+      @Parameter(description = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName);
 
   /**
@@ -150,33 +185,48 @@ public interface DomainUserManagementApi {
    * @param size the size
    * @return the avatar of the domain user
    */
-  @ApiOperation(
-      value = "Get avatar of domain user.",
-      nickname = "getUserAvatar",
-      response = byte[].class,
+  @Operation(
+      summary = "Get avatar of domain user.",
+      operationId = "getUserAvatar",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The avatar of the domain user.",
-          response = byte[].class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "Avatar not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The avatar of the domain user.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = byte[].class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/users/{userName}/avatar",
       produces = {MediaType.IMAGE_JPEG_VALUE},
       method = RequestMethod.GET)
   ResponseEntity<byte[]> getUserAvatar(
-      @ApiParam(value = "The user name of the domain user.", required = true)
+      @Parameter(description = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
-      @ApiParam(value = "Return a default avatar if no one exits.", defaultValue = "NOT_FOUND")
+      @Parameter(description = "Return a default avatar if no one exits.")
       @RequestParam(name = "d", defaultValue = "NOT_FOUND") AvatarDefault avatarDefault,
 
-      @ApiParam(value = "The size of the avatar.", defaultValue = "80")
+      @Parameter(description = "The size of the avatar.")
       @RequestParam(name = "s", defaultValue = "80") Integer size);
 
   /**
@@ -187,19 +237,35 @@ public interface DomainUserManagementApi {
    * @param domainUser the domain user
    * @return the updated domain user
    */
-  @ApiOperation(
-      value = "Updates a domain user.",
-      nickname = "updateUser",
-      response = DomainUser.class,
+  @Operation(
+      summary = "Updates a domain user.",
+      operationId = "updateUser",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The updated domain user.", response = DomainUser.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "User not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The updated domain user.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DomainUser.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/users/{userName}",
@@ -207,14 +273,13 @@ public interface DomainUserManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   ResponseEntity<DomainUser> updateUser(
-      @ApiParam(value = "The user name of the domain user.", required = true)
+      @Parameter(description = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
-      @ApiParam(value = "Specifies whether the groups should also be updated or not.",
-          defaultValue = "false")
+      @Parameter(description = "Specifies whether the groups should also be updated or not.")
       @RequestParam(name = "updateGroups", defaultValue = "false") Boolean updateGroups,
 
-      @ApiParam(value = "The domain user.", required = true)
+      @Parameter(description = "The domain user.", required = true)
       @Valid @RequestBody DomainUser domainUser);
 
   /**
@@ -226,18 +291,32 @@ public interface DomainUserManagementApi {
    * @param newPassword the new password
    * @return void response entity
    */
-  @ApiOperation(
-      value = "Updates the password of the domain user.",
-      nickname = "updateUserPassword",
+  @Operation(
+      summary = "Updates the password of the domain user.",
+      operationId = "updateUserPassword",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The password was successfully changed."),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "User not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The password was successfully changed."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/users/{userName}/password",
@@ -245,16 +324,16 @@ public interface DomainUserManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   ResponseEntity<Void> updateUserPassword(
-      @ApiParam(value = "The user name of the domain user.", required = true)
+      @Parameter(description = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName,
 
-      @ApiParam(value = "Specifies whether to send an email or not.", defaultValue = "false")
+      @Parameter(description = "Specifies whether to send an email or not.")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
 
-      @ApiParam(value = "The language of the email.", defaultValue = "de")
+      @Parameter(description = "The language of the email.")
       @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
 
-      @ApiParam(value = "The password of the domain user.", required = true)
+      @Parameter(description = "The password of the domain user.", required = true)
       @Valid @RequestBody Password newPassword);
 
   /**
@@ -263,22 +342,29 @@ public interface DomainUserManagementApi {
    * @param userName the user name
    * @return true if the user exists otherwise false
    */
-  @ApiOperation(
-      value = "Checks whether a domain user exists.",
-      nickname = "userExists",
-      response = Boolean.class,
+  @Operation(
+      summary = "Checks whether a domain user exists.",
+      operationId = "userExists",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "True if the user exists otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the user exists otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(value = "/api/users/{userName}/exists",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<Boolean> userExists(
-      @ApiParam(value = "The user name of the domain user.",
+      @Parameter(description = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
 
   /**
@@ -287,22 +373,29 @@ public interface DomainUserManagementApi {
    * @param userName the user name
    * @return true if the user name is in use otherwise false
    */
-  @ApiOperation(
-      value = "Checks whether a user name is in use or not.",
-      nickname = "isUserNameInUse",
-      response = Boolean.class,
+  @Operation(
+      summary = "Checks whether a user name is in use or not.",
+      operationId = "isUserNameInUse",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "True if the user name is in use otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the user name is in use otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(value = "/api/users/{userName}/in-use",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<Boolean> isUserNameInUse(
-      @ApiParam(value = "The user name of the domain user.",
+      @Parameter(description = "The user name of the domain user.",
           required = true) @PathVariable("userName") String userName);
 
   /**
@@ -311,24 +404,35 @@ public interface DomainUserManagementApi {
    * @param userName the user name
    * @return {@code true} if the domain user was deleted, otherwise {@code false}
    */
-  @ApiOperation(
-      value = "Delete domain user.",
-      nickname = "deleteUser",
+  @Operation(
+      summary = "Delete domain user.",
+      operationId = "deleteUser",
       tags = {"domain-user-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200,
-          message = "True if the domain user was successfully deleted, otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the domain user was successfully deleted, otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(value = "/api/users/{userName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
   ResponseEntity<Boolean> deleteUser(
-      @ApiParam(value = "The user name of the domain user.", required = true)
+      @Parameter(description = "The user name of the domain user.", required = true)
       @PathVariable("userName") String userName);
 
 }

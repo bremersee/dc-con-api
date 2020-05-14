@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.EqualsAndHashCode;
@@ -35,7 +34,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "Common attributes")
+@Schema(description = "Common attributes")
 @Validated
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "_type", visible = true)
 @JsonSubTypes({
@@ -48,7 +47,6 @@ import org.springframework.validation.annotation.Validated;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
-@SuppressWarnings({"WeakerAccess"})
 public abstract class CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -84,8 +82,8 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return distinguishedName distinguished name
    */
-  @ApiModelProperty(
-      value = "The distinguished name in the active directory.",
+  @Schema(
+      description = "The distinguished name in the active directory.",
       accessMode = AccessMode.READ_ONLY)
   public String getDistinguishedName() {
     return distinguishedName;
@@ -105,7 +103,7 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return created created
    */
-  @ApiModelProperty(value = "The creation date.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The creation date.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getCreated() {
     return created;
   }
@@ -124,7 +122,7 @@ public abstract class CommonAttributes implements Serializable {
    *
    * @return modified modified
    */
-  @ApiModelProperty(value = "The last modification date.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The last modification date.", accessMode = AccessMode.READ_ONLY)
   public OffsetDateTime getModified() {
     return modified;
   }

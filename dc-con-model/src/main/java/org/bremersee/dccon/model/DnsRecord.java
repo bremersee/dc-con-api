@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
@@ -36,7 +35,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "DNS Record")
+@Schema(description = "DNS Record")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
@@ -53,41 +52,41 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
    */
   public static final String SORT_ORDER_TIME_STAMP_DESC = "timeStamp,desc";
 
-  @ApiModelProperty(value = "The record type.", required = true)
+  @Schema(description = "The record type.", required = true)
   @JsonProperty(value = "recordType", required = true)
   private String recordType;
 
-  @ApiModelProperty(value = "The record value.")
+  @Schema(description = "The record value.")
   @JsonProperty(value = "recordValue")
   private String recordValue;
 
-  @ApiModelProperty(
-      value = "The record raw active directory value.",
+  @Schema(
+      description = "The record raw active directory value.",
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty("recordRawValue")
   private byte[] recordRawValue;
 
-  @ApiModelProperty(value = "The correlated record value.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The correlated record value.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("correlatedRecordValue")
   private String correlatedRecordValue;
 
-  @ApiModelProperty(value = "The version.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The version.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("version")
   private Integer version;
 
-  @ApiModelProperty(value = "The serial.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The serial.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("serial")
   private Integer serial;
 
-  @ApiModelProperty(value = "TTL in seconds.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "TTL in seconds.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("ttlSeconds")
   private Integer ttlSeconds;
 
-  @ApiModelProperty(value = "The time stamp.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The time stamp.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("timeStamp")
   private OffsetDateTime timeStamp;
 
-  @ApiModelProperty(value = "The dhcp lease.", accessMode = AccessMode.READ_ONLY)
+  @Schema(description = "The dhcp lease.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty("dhcpLease")
   private DhcpLease dhcpLease;
 

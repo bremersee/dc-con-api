@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,14 @@
 
 package org.bremersee.dccon.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DhcpLease;
@@ -41,7 +44,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author Christian Bremer
  */
-@Api(value = "NameServerManagement")
+@Tag(name = "name-server-management-controller", description = "Name server management API.")
 @Validated
 public interface NameServerManagementApi {
 
@@ -52,28 +55,39 @@ public interface NameServerManagementApi {
    * @param unknownFilter the unknown filter
    * @return found dns nodes
    */
-  @ApiOperation(
-      value = "Simple dns query.",
-      nickname = "query", notes = "Find dns nodes.",
-      response = DnsNode.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Simple dns query.",
+      operationId = "query",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The found dns nodes.",
-          response = DnsNode.class, responseContainer = "List"),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)})
+      @ApiResponse(
+          responseCode = "200",
+          description = "The found dns nodes.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = DnsNode.class)))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
   @RequestMapping(
       value = "/api/dns",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<DnsNode>> query(
-      @ApiParam(value = "The query, can be a host name, an IP or a MAC address.")
+      @Parameter(description = "The query, can be a host name, an IP or a MAC address.")
       @RequestParam(name = "q") String query,
 
-      @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
+      @Parameter(description = "The unknown filter.")
       @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
@@ -84,27 +98,37 @@ public interface NameServerManagementApi {
    * @param sort the sort order (default is {@link DhcpLease#SORT_ORDER_BEGIN_HOSTNAME})
    * @return the dhcp leases
    */
-  @ApiOperation(
-      value = "Get dhcp leases.",
-      nickname = "getDhcpLeases", notes = "Get dhcp leases.",
-      response = DhcpLease.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get dhcp leases.",
+      operationId = "getDhcpLeases",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "A list with dhcp leases.",
-          response = DhcpLease.class, responseContainer = "List"),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)})
+      @ApiResponse(
+          responseCode = "200",
+          description = "A list with dhcp leases.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = DhcpLease.class)))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
   @RequestMapping(value = "/api/dns/dhcp-leases",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<DhcpLease>> getDhcpLeases(
-      @ApiParam(value = "'true' returns also expired leases, 'false' only active ones.",
-          defaultValue = "false")
+      @Parameter(description = "'true' returns also expired leases, 'false' only active ones.")
       @RequestParam(value = "all", defaultValue = "false") Boolean all,
-      @ApiParam(value = "The sort order.", defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME)
+      @Parameter(description = "The sort order.")
       @RequestParam(value = "sort",
           defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
 
@@ -113,20 +137,29 @@ public interface NameServerManagementApi {
    *
    * @return the dns zones
    */
-  @ApiOperation(
-      value = "Get all dns zones.",
-      nickname = "getDnsZones",
-      notes = "Get all dns zones.",
-      response = DnsZone.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get all dns zones.",
+      operationId = "getDnsZones",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "A list with dns zones.",
-          response = DnsZone.class, responseContainer = "List"),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "A list with dns zones.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = DnsZone.class)))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones",
@@ -140,18 +173,29 @@ public interface NameServerManagementApi {
    * @param request the request
    * @return the added dns zone
    */
-  @ApiOperation(
-      value = "Add dns zone.",
-      nickname = "addDnsZone",
-      notes = "Add dns zone.",
+  @Operation(
+      summary = "Add dns zone.",
+      operationId = "addDnsZone",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The zone was successfully added.",
-          response = DnsZone.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The zone was successfully added.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DnsZone.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones",
@@ -159,7 +203,7 @@ public interface NameServerManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DnsZone> addDnsZone(
-      @ApiParam(value = "The dns zone to add.", required = true)
+      @Parameter(description = "The dns zone to add.", required = true)
       @Valid @RequestBody DnsZone request);
 
   /**
@@ -168,26 +212,36 @@ public interface NameServerManagementApi {
    * @param zoneName the zone name
    * @return {@code true} if the dns zone was deleted, otherwise {@code false}
    */
-  @ApiOperation(
-      value = "Delete dns zone.",
-      nickname = "deleteDnsZone",
-      notes = "Delete dns zone.",
+  @Operation(
+      summary = "Delete dns zone.",
+      operationId = "deleteDnsZone",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200,
-          message = "True if the dns zone was successfully deleted, otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the dns zone was successfully deleted, otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones/{zoneName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
   ResponseEntity<Boolean> deleteDnsZone(
-      @ApiParam(value = "The dns zone name.", required = true)
+      @Parameter(description = "The dns zone name.", required = true)
       @PathVariable(value = "zoneName") String zoneName);
 
 
@@ -199,32 +253,47 @@ public interface NameServerManagementApi {
    * @param query the query
    * @return the dns nodes
    */
-  @ApiOperation(
-      value = "Get all dns nodes of a zone.",
-      nickname = "getDnsNodes", notes = "Get all dns nodes of a zone.",
-      response = DnsNode.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get all dns nodes of a zone.",
+      operationId = "getDnsNodes",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "A list with dns nodes.",
-          response = DnsNode.class, responseContainer = "List"),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "DNS zone not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)})
+      @ApiResponse(
+          responseCode = "200",
+          description = "A list with dns nodes.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = DnsNode.class)))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
   @RequestMapping(value = "/api/dns/zones/{zoneName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<List<DnsNode>> getDnsNodes(
-      @ApiParam(value = "The dns zone name.", required = true)
+      @Parameter(description = "The dns zone name.", required = true)
       @PathVariable(value = "zoneName") String zoneName,
 
-      @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
+      @Parameter(description = "The unknown filter.")
       @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter,
 
-      @ApiParam(value = "A query.")
+      @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);
 
   /**
@@ -234,21 +303,38 @@ public interface NameServerManagementApi {
    * @param dnsNode the dns node
    * @return the saved dns node
    */
-  @ApiOperation(
-      value = "Save dns node.",
-      nickname = "saveDnsNode",
-      notes = "Save dns node.",
+  @Operation(
+      summary = "Save dns node.",
+      operationId = "saveDnsNode",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The dns node was successfully saved.",
-          response = DnsNode.class),
-      @ApiResponse(code = 204, message = "The dns node was deleted due to no records."),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "DNS zone not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The dns node was successfully saved.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DnsNode.class))),
+      @ApiResponse(
+          responseCode = "204",
+          description = "The dns node was deleted due to no records."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones/{zoneName}",
@@ -256,10 +342,10 @@ public interface NameServerManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   ResponseEntity<DnsNode> saveDnsNode(
-      @ApiParam(value = "The dns zone name.", required = true)
+      @Parameter(description = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
-      @ApiParam(value = "The dns node to save.", required = true)
+      @Parameter(description = "The dns node to save.", required = true)
       @Valid @RequestBody DnsNode dnsNode);
 
   /**
@@ -270,34 +356,48 @@ public interface NameServerManagementApi {
    * @param unknownFilter the unknown filter
    * @return the dns node
    */
-  @ApiOperation(
-      value = "Get dns node.",
-      nickname = "getDnsNode",
-      notes = "Get dns node.",
+  @Operation(
+      summary = "Get dns node.",
+      operationId = "getDnsNode",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200,
-          message = "The dns node.",
-          response = DnsNode.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "DNS node not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The dns node.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DnsNode.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones/{zoneName}/{nodeName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   ResponseEntity<DnsNode> getDnsNode(
-      @ApiParam(value = "The dns zone name.", required = true)
+      @Parameter(description = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
-      @ApiParam(value = "The dns node name.", required = true)
+      @Parameter(description = "The dns node name.", required = true)
       @PathVariable("nodeName") String nodeName,
 
-      @ApiParam(value = "The unknown filter.", defaultValue = "NO_UNKNOWN")
+      @Parameter(description = "The unknown filter.")
       @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
@@ -307,31 +407,45 @@ public interface NameServerManagementApi {
    * @param nodeName the dns node name
    * @return {@code true} if the dns node was removed; {@code false} if dns node didn't exist
    */
-  @ApiOperation(
-      value = "Delete dns node.",
-      nickname = "deleteDnsNode",
-      notes = "Delete dns node.",
+  @Operation(
+      summary = "Delete dns node.",
+      operationId = "deleteDnsNode",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200,
-          message = "True if the dns node was removed; false if dns node didn't exist.",
-          response = Boolean.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "DNS zone not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the dns node was removed; false if dns node didn't exist.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "DNS zone not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones/{zoneName}/{nodeName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
   ResponseEntity<Boolean> deleteDnsNode(
-      @ApiParam(value = "The dns zone name.", required = true)
+      @Parameter(description = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
-      @ApiParam(value = "The dns node name.", required = true)
+      @Parameter(description = "The dns node name.", required = true)
       @PathVariable("nodeName") String nodeName);
 
   /**
@@ -341,29 +455,42 @@ public interface NameServerManagementApi {
    * @param nodeNames the node names (if the list is empty, all dns nodes will be deleted)
    * @return void response entity
    */
-  @ApiOperation(
-      value = "Delete all dns nodes.",
-      nickname = "deleteAllDnsNodes",
-      notes = "Delete all dns nodes.",
+  @Operation(
+      summary = "Delete all dns nodes.",
+      operationId = "deleteAllDnsNodes",
       tags = {"name-server-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "All dns nodes were deleted."),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "DNS zone not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "All dns nodes were deleted."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "DNS zone not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/dns/zones/{zoneName}/nodes/all",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
   ResponseEntity<Void> deleteAllDnsNodes(
-      @ApiParam(value = "The dns zone name.", required = true)
+      @Parameter(description = "The dns zone name.", required = true)
       @PathVariable("zoneName") String zoneName,
 
-      @ApiParam(value = "The dns node names.")
+      @Parameter(description = "The dns node names.")
       @RequestParam(value = "nodeNames", required = false) List<String> nodeNames);
 
 }

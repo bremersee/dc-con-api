@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -34,7 +33,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "DNS node")
+@Schema(description = "DNS node")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = true)
@@ -76,8 +75,8 @@ public class DnsNode extends CommonAttributes {
    *
    * @return the entry name
    */
-  @ApiModelProperty(
-      value = "The entry name (host name or part of the ip address).",
+  @Schema(
+      description = "The entry name (host name or part of the ip address).",
       required = true)
   public String getName() {
     return name;
@@ -97,7 +96,7 @@ public class DnsNode extends CommonAttributes {
    *
    * @return the name server records
    */
-  @ApiModelProperty(value = "The name server records.")
+  @Schema(description = "The name server records.")
   public Set<DnsRecord> getRecords() {
     if (records == null) {
       records = new LinkedHashSet<>();
