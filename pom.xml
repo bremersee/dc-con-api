@@ -30,7 +30,7 @@
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
     <common-model.version>2.0.0</common-model.version>
-    <common-base.version>2.1.1</common-base.version>
+    <common-base.version>2.1.2</common-base.version>
   </properties>
 
   <scm>
