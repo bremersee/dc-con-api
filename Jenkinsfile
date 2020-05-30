@@ -4,14 +4,17 @@ pipeline {
   }
   environment {
     CODECOV_TOKEN = credentials('dc-con-api-codecov-token')
-    DEPLOY = true
-    SNAPSHOT_SITE = true
+    DEPLOY = false
+    SNAPSHOT_SITE = false
     RELEASE_SITE = true
     DEPLOY_FEATURE = true
   }
   tools {
     jdk 'jdk11'
     maven 'm3'
+  }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '8', artifactNumToKeepStr: '8'))
   }
   stages {
     stage('Tools') {
