@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * The domain user management api.
@@ -281,6 +282,51 @@ public interface DomainUserManagementApi {
 
       @Parameter(description = "The domain user.", required = true)
       @Valid @RequestBody DomainUser domainUser);
+
+  /**
+   * Update user avatar response entity.
+   *
+   * @param userName the user name
+   * @param avatar the avatar
+   * @return the response entity
+   */
+  @Operation(
+      summary = "Updates avatar of the domain user.",
+      operationId = "updateUserAvatar",
+      tags = {"domain-user-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          description = "The avatar was successfully updated."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
+  @RequestMapping(
+      value = "/api/users/{userName}/avatar",
+      consumes = {"multipart/form-data"},
+      method = RequestMethod.POST)
+  ResponseEntity<Void> updateUserAvatar(
+      @Parameter(description = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName,
+
+      @Parameter(description = "The avatar.", required = true)
+      @RequestParam("avatar") MultipartFile avatar);
 
   /**
    * Update user password.

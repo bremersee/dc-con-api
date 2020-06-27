@@ -31,6 +31,7 @@ import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.multipart.FilePart;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -281,6 +282,51 @@ public interface DomainUserWebfluxManagementApi {
 
       @Parameter(description = "The domain user.", required = true)
       @Valid @RequestBody DomainUser domainUser);
+
+  /**
+   * Update user avatar response entity.
+   *
+   * @param userName the user name
+   * @param avatar the avatar
+   * @return the response entity
+   */
+  @Operation(
+      summary = "Updates avatar of the domain user.",
+      operationId = "updateUserAvatar",
+      tags = {"domain-user-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          description = "The avatar was successfully updated."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
+  @RequestMapping(
+      value = "/api/users/{userName}/avatar",
+      consumes = {"multipart/form-data"},
+      method = RequestMethod.POST)
+  Mono<Void> updateUserAvatar(
+      @Parameter(description = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName,
+
+      @Parameter(description = "The avatar.", required = true)
+      @RequestParam("avatar") Flux<FilePart> avatar);
 
   /**
    * Update user password.
