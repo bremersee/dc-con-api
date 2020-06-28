@@ -284,51 +284,6 @@ public interface DomainUserManagementApi {
       @Valid @RequestBody DomainUser domainUser);
 
   /**
-   * Update user avatar response entity.
-   *
-   * @param userName the user name
-   * @param avatar the avatar
-   * @return the response entity
-   */
-  @Operation(
-      summary = "Updates avatar of the domain user.",
-      operationId = "updateUserAvatar",
-      tags = {"domain-user-management-controller"})
-  @ApiResponses(value = {
-      @ApiResponse(
-          responseCode = "200",
-          description = "The avatar was successfully updated."),
-      @ApiResponse(
-          responseCode = "400",
-          description = "Bad request.",
-          content = @Content(
-              schema = @Schema(
-                  implementation = RestApiException.class))),
-      @ApiResponse(
-          responseCode = "404",
-          description = "Not found.",
-          content = @Content(
-              schema = @Schema(
-                  implementation = RestApiException.class))),
-      @ApiResponse(
-          responseCode = "500",
-          description = "Fatal server error.",
-          content = @Content(
-              schema = @Schema(
-                  implementation = RestApiException.class)))
-  })
-  @RequestMapping(
-      value = "/api/users/{userName}/avatar",
-      consumes = {"multipart/form-data"},
-      method = RequestMethod.POST)
-  ResponseEntity<Void> updateUserAvatar(
-      @Parameter(description = "The user name of the domain user.", required = true)
-      @PathVariable("userName") String userName,
-
-      @Parameter(description = "The avatar.", required = true)
-      @RequestParam("avatar") MultipartFile avatar);
-
-  /**
    * Update user password.
    *
    * @param userName the user name
@@ -381,6 +336,91 @@ public interface DomainUserManagementApi {
 
       @Parameter(description = "The password of the domain user.", required = true)
       @Valid @RequestBody Password newPassword);
+
+  /**
+   * Update user avatar response entity.
+   *
+   * @param userName the user name
+   * @param avatar the avatar
+   * @return the response entity
+   */
+  @Operation(
+      summary = "Updates avatar of the domain user.",
+      operationId = "updateUserAvatar",
+      tags = {"domain-user-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          description = "The avatar was successfully updated."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
+  @RequestMapping(
+      value = "/api/users/{userName}/avatar",
+      consumes = {"multipart/form-data"},
+      method = RequestMethod.POST)
+  ResponseEntity<Void> updateUserAvatar(
+      @Parameter(description = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName,
+
+      @Parameter(description = "The avatar.", required = true)
+      @RequestParam("avatar") MultipartFile avatar);
+
+  /**
+   * Remove user avatar response entity.
+   *
+   * @param userName the user name
+   * @return the response entity
+   */
+  @Operation(
+      summary = "Removes avatar of the domain user.",
+      operationId = "removeUserAvatar",
+      tags = {"domain-user-management-controller"})
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          description = "The avatar was successfully removed."),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
+  })
+  @RequestMapping(
+      value = "/api/users/{userName}/avatar",
+      method = RequestMethod.DELETE)
+  ResponseEntity<Void> removeUserAvatar(
+      @Parameter(description = "The user name of the domain user.", required = true)
+      @PathVariable("userName") String userName);
 
   /**
    * Checks whether a domain user exists.
