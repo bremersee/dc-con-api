@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DnsRecord.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dc-con-model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.dccon.model</a> &gt; <span class="el_source">DnsRecord.java</span></div><h1>DnsRecord.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
@@ -36,14 +35,14 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = &quot;DNS Record&quot;)
+@Schema(description = &quot;DNS Record&quot;)
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
-<span class="fc" id="L43">@Setter</span>
-<span class="pc bpc" id="L44" title="9 of 22 branches missed.">@EqualsAndHashCode(of = {&quot;recordType&quot;, &quot;recordValue&quot;})</span>
-<span class="fc" id="L45">@ToString(exclude = {&quot;recordRawValue&quot;})</span>
-<span class="fc" id="L46">@NoArgsConstructor</span>
+<span class="fc" id="L42">@Setter</span>
+<span class="pc bpc" id="L43" title="9 of 22 branches missed.">@EqualsAndHashCode(of = {&quot;recordType&quot;, &quot;recordValue&quot;})</span>
+<span class="fc" id="L44">@ToString(exclude = {&quot;recordRawValue&quot;})</span>
+<span class="fc" id="L45">@NoArgsConstructor</span>
 public class DnsRecord implements Serializable, Comparable&lt;DnsRecord&gt; {
 
   private static final long serialVersionUID = 1L;
@@ -53,43 +52,43 @@ public class DnsRecord implements Serializable, Comparable&lt;DnsRecord&gt; {
    */
   public static final String SORT_ORDER_TIME_STAMP_DESC = &quot;timeStamp,desc&quot;;
 
-  @ApiModelProperty(value = &quot;The record type.&quot;, required = true)
+  @Schema(description = &quot;The record type.&quot;, required = true)
   @JsonProperty(value = &quot;recordType&quot;, required = true)
-<span class="fc" id="L58">  private String recordType;</span>
+<span class="fc" id="L57">  private String recordType;</span>
 
-  @ApiModelProperty(value = &quot;The record value.&quot;)
+  @Schema(description = &quot;The record value.&quot;)
   @JsonProperty(value = &quot;recordValue&quot;)
-<span class="fc" id="L62">  private String recordValue;</span>
+<span class="fc" id="L61">  private String recordValue;</span>
 
-  @ApiModelProperty(
-      value = &quot;The record raw active directory value.&quot;,
+  @Schema(
+      description = &quot;The record raw active directory value.&quot;,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;recordRawValue&quot;)
-<span class="fc" id="L68">  private byte[] recordRawValue;</span>
+<span class="fc" id="L67">  private byte[] recordRawValue;</span>
 
-  @ApiModelProperty(value = &quot;The correlated record value.&quot;, accessMode = AccessMode.READ_ONLY)
+  @Schema(description = &quot;The correlated record value.&quot;, accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;correlatedRecordValue&quot;)
-<span class="fc" id="L72">  private String correlatedRecordValue;</span>
+<span class="fc" id="L71">  private String correlatedRecordValue;</span>
 
-  @ApiModelProperty(value = &quot;The version.&quot;, accessMode = AccessMode.READ_ONLY)
+  @Schema(description = &quot;The version.&quot;, accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;version&quot;)
-<span class="fc" id="L76">  private Integer version;</span>
+<span class="fc" id="L75">  private Integer version;</span>
 
-  @ApiModelProperty(value = &quot;The serial.&quot;, accessMode = AccessMode.READ_ONLY)
+  @Schema(description = &quot;The serial.&quot;, accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;serial&quot;)
-<span class="fc" id="L80">  private Integer serial;</span>
+<span class="fc" id="L79">  private Integer serial;</span>
 
-  @ApiModelProperty(value = &quot;TTL in seconds.&quot;, accessMode = AccessMode.READ_ONLY)
+  @Schema(description = &quot;TTL in seconds.&quot;, accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;ttlSeconds&quot;)
-<span class="fc" id="L84">  private Integer ttlSeconds;</span>
+<span class="fc" id="L83">  private Integer ttlSeconds;</span>
 
-  @ApiModelProperty(value = &quot;The time stamp.&quot;, accessMode = AccessMode.READ_ONLY)
+  @Schema(description = &quot;The time stamp.&quot;, accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;timeStamp&quot;)
-<span class="fc" id="L88">  private OffsetDateTime timeStamp;</span>
+<span class="fc" id="L87">  private OffsetDateTime timeStamp;</span>
 
-  @ApiModelProperty(value = &quot;The dhcp lease.&quot;, accessMode = AccessMode.READ_ONLY)
+  @Schema(description = &quot;The dhcp lease.&quot;, accessMode = AccessMode.READ_ONLY)
   @JsonProperty(&quot;dhcpLease&quot;)
-<span class="fc" id="L92">  private DhcpLease dhcpLease;</span>
+<span class="fc" id="L91">  private DhcpLease dhcpLease;</span>
 
   /**
    * Instantiates a new Dns record.
@@ -105,39 +104,39 @@ public class DnsRecord implements Serializable, Comparable&lt;DnsRecord&gt; {
    * @param dhcpLease the dhcp lease
    */
   @SuppressWarnings(&quot;unused&quot;)
-<span class="pc" id="L108">  @Builder(toBuilder = true)</span>
+<span class="pc" id="L107">  @Builder(toBuilder = true)</span>
   public DnsRecord(String recordType, String recordValue, byte[] recordRawValue,
       String correlatedRecordValue, Integer version, Integer serial, Integer ttlSeconds,
-<span class="fc" id="L111">      OffsetDateTime timeStamp, DhcpLease dhcpLease) {</span>
-<span class="fc" id="L112">    this.recordType = recordType;</span>
-<span class="fc" id="L113">    this.recordValue = recordValue;</span>
-<span class="fc" id="L114">    this.recordRawValue = recordRawValue;</span>
-<span class="fc" id="L115">    this.correlatedRecordValue = correlatedRecordValue;</span>
-<span class="fc" id="L116">    this.version = version;</span>
-<span class="fc" id="L117">    this.serial = serial;</span>
-<span class="fc" id="L118">    this.ttlSeconds = ttlSeconds;</span>
-<span class="fc" id="L119">    this.timeStamp = timeStamp;</span>
-<span class="fc" id="L120">    this.dhcpLease = dhcpLease;</span>
-<span class="fc" id="L121">  }</span>
+<span class="fc" id="L110">      OffsetDateTime timeStamp, DhcpLease dhcpLease) {</span>
+<span class="fc" id="L111">    this.recordType = recordType;</span>
+<span class="fc" id="L112">    this.recordValue = recordValue;</span>
+<span class="fc" id="L113">    this.recordRawValue = recordRawValue;</span>
+<span class="fc" id="L114">    this.correlatedRecordValue = correlatedRecordValue;</span>
+<span class="fc" id="L115">    this.version = version;</span>
+<span class="fc" id="L116">    this.serial = serial;</span>
+<span class="fc" id="L117">    this.ttlSeconds = ttlSeconds;</span>
+<span class="fc" id="L118">    this.timeStamp = timeStamp;</span>
+<span class="fc" id="L119">    this.dhcpLease = dhcpLease;</span>
+<span class="fc" id="L120">  }</span>
 
   public boolean hasRecordRawValue() {
-<span class="pc bpc" id="L124" title="1 of 4 branches missed.">    return recordRawValue != null &amp;&amp; recordRawValue.length &gt; 0;</span>
+<span class="pc bpc" id="L123" title="1 of 4 branches missed.">    return recordRawValue != null &amp;&amp; recordRawValue.length &gt; 0;</span>
   }
 
   @Override
   public int compareTo(DnsRecord o) {
-<span class="fc bfc" id="L129" title="All 2 branches covered.">    if (o == null) {</span>
-<span class="fc" id="L130">      return -1;</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">    if (o == null) {</span>
+<span class="fc" id="L129">      return -1;</span>
     }
-<span class="fc bfc" id="L132" title="All 2 branches covered.">    String s1 = getRecordType() != null ? getRecordType() : &quot;&quot;;</span>
-<span class="fc bfc" id="L133" title="All 2 branches covered.">    String s2 = o.getRecordType() != null ? o.getRecordType() : &quot;&quot;;</span>
-<span class="fc" id="L134">    int result = s1.compareToIgnoreCase(s2);</span>
-<span class="fc bfc" id="L135" title="All 2 branches covered.">    if (result != 0) {</span>
-<span class="fc" id="L136">      return result;</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">    String s1 = getRecordType() != null ? getRecordType() : &quot;&quot;;</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">    String s2 = o.getRecordType() != null ? o.getRecordType() : &quot;&quot;;</span>
+<span class="fc" id="L133">    int result = s1.compareToIgnoreCase(s2);</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">    if (result != 0) {</span>
+<span class="fc" id="L135">      return result;</span>
     }
-<span class="fc bfc" id="L138" title="All 2 branches covered.">    s1 = getRecordValue() != null ? getRecordValue() : &quot;&quot;;</span>
-<span class="fc bfc" id="L139" title="All 2 branches covered.">    s2 = o.getRecordValue() != null ? o.getRecordValue() : &quot;&quot;;</span>
-<span class="fc" id="L140">    return s1.compareToIgnoreCase(s2);</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">    s1 = getRecordValue() != null ? getRecordValue() : &quot;&quot;;</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    s2 = o.getRecordValue() != null ? o.getRecordValue() : &quot;&quot;;</span>
+<span class="fc" id="L139">    return s1.compareToIgnoreCase(s2);</span>
   }
 }
 

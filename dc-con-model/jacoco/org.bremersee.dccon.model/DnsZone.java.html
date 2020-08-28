@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DnsZone.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dc-con-model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.dccon.model</a> &gt; <span class="el_source">DnsZone.java</span></div><h1>DnsZone.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -33,17 +32,17 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = &quot;DNS Zone&quot;)
+@Schema(description = &quot;DNS Zone&quot;)
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
-<span class="pc bpc" id="L39" title="18 of 32 branches missed.">@EqualsAndHashCode(callSuper = true)</span>
-<span class="fc" id="L40">@ToString(callSuper = true)</span>
-<span class="fc" id="L41">@NoArgsConstructor</span>
+<span class="pc bpc" id="L38" title="18 of 32 branches missed.">@EqualsAndHashCode(callSuper = true)</span>
+<span class="fc" id="L39">@ToString(callSuper = true)</span>
+<span class="fc" id="L40">@NoArgsConstructor</span>
 public class DnsZone extends CommonAttributes {
 
   private static final long serialVersionUID = 2L;
 
-<span class="fc" id="L46">  @JsonProperty(value = &quot;name&quot;, required = true)</span>
+<span class="fc" id="L45">  @JsonProperty(value = &quot;name&quot;, required = true)</span>
   private String name = null;
 
   @JsonProperty(value = &quot;defaultZone&quot;)
@@ -63,7 +62,7 @@ public class DnsZone extends CommonAttributes {
    * @param reverseZone the reverse zone
    */
   @SuppressWarnings(&quot;unused&quot;)
-<span class="pc" id="L66">  @Builder(toBuilder = true)</span>
+<span class="pc" id="L65">  @Builder(toBuilder = true)</span>
   public DnsZone(
       String distinguishedName,
       OffsetDateTime created,
@@ -72,20 +71,20 @@ public class DnsZone extends CommonAttributes {
       Boolean defaultZone,
       Boolean reverseZone) {
 
-<span class="fc" id="L75">    super(distinguishedName, created, modified);</span>
-<span class="fc" id="L76">    this.name = name;</span>
-<span class="fc" id="L77">    this.defaultZone = Boolean.TRUE.equals(defaultZone);</span>
-<span class="fc" id="L78">    this.reverseZone = Boolean.TRUE.equals(reverseZone);</span>
-<span class="fc" id="L79">  }</span>
+<span class="fc" id="L74">    super(distinguishedName, created, modified);</span>
+<span class="fc" id="L75">    this.name = name;</span>
+<span class="fc" id="L76">    this.defaultZone = Boolean.TRUE.equals(defaultZone);</span>
+<span class="fc" id="L77">    this.reverseZone = Boolean.TRUE.equals(reverseZone);</span>
+<span class="fc" id="L78">  }</span>
 
   /**
    * The zone name.
    *
    * @return zone name
    */
-  @ApiModelProperty(value = &quot;The zone name.&quot;, required = true)
+  @Schema(description = &quot;The zone name.&quot;, required = true)
   public String getName() {
-<span class="fc" id="L88">    return name;</span>
+<span class="fc" id="L87">    return name;</span>
   }
 
   /**
@@ -94,19 +93,19 @@ public class DnsZone extends CommonAttributes {
    * @param name the zone name
    */
   public void setName(String name) {
-<span class="fc" id="L97">    this.name = name;</span>
-<span class="fc" id="L98">  }</span>
+<span class="fc" id="L96">    this.name = name;</span>
+<span class="fc" id="L97">  }</span>
 
   /**
    * Gets default zone.
    *
    * @return the default zone
    */
-  @ApiModelProperty(
-      value = &quot;Specifies whether this zone is the default zone or not.&quot;,
+  @Schema(
+      description = &quot;Specifies whether this zone is the default zone or not.&quot;,
       accessMode = AccessMode.READ_ONLY)
   public Boolean getDefaultZone() {
-<span class="fc" id="L109">    return Boolean.TRUE.equals(defaultZone);</span>
+<span class="fc" id="L108">    return Boolean.TRUE.equals(defaultZone);</span>
   }
 
   /**
@@ -115,19 +114,19 @@ public class DnsZone extends CommonAttributes {
    * @param defaultZone the default zone
    */
   public void setDefaultZone(Boolean defaultZone) {
-<span class="fc" id="L118">    this.defaultZone = defaultZone;</span>
-<span class="fc" id="L119">  }</span>
+<span class="fc" id="L117">    this.defaultZone = defaultZone;</span>
+<span class="fc" id="L118">  }</span>
 
   /**
    * Gets reverse zone.
    *
    * @return the reverse zone
    */
-  @ApiModelProperty(
-      value = &quot;Specifies whether this zone is a reverse zone or not.&quot;,
+  @Schema(
+      description = &quot;Specifies whether this zone is a reverse zone or not.&quot;,
       accessMode = AccessMode.READ_ONLY)
   public Boolean getReverseZone() {
-<span class="fc" id="L130">    return Boolean.TRUE.equals(reverseZone);</span>
+<span class="fc" id="L129">    return Boolean.TRUE.equals(reverseZone);</span>
   }
 
   /**
@@ -136,8 +135,8 @@ public class DnsZone extends CommonAttributes {
    * @param reverseZone the reverse zone
    */
   public void setReverseZone(Boolean reverseZone) {
-<span class="fc" id="L139">    this.reverseZone = reverseZone;</span>
-<span class="fc" id="L140">  }</span>
+<span class="fc" id="L138">    this.reverseZone = reverseZone;</span>
+<span class="fc" id="L139">  }</span>
 
 }
 

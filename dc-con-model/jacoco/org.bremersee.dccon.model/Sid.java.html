@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Sid.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">dc-con-model</a> &gt; <a href="index.source.html" class="el_package">org.bremersee.dccon.model</a> &gt; <span class="el_source">Sid.java</span></div><h1>Sid.java</h1><pre class="source lang-java linenums">/*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -33,16 +32,16 @@ import lombok.ToString;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = &quot;The SID of the entity.&quot;)
+@Schema(description = &quot;The SID of the entity.&quot;)
 @JsonIgnoreProperties(ignoreUnknown = true)
-<span class="pc bpc" id="L38" title="9 of 22 branches missed.">@EqualsAndHashCode</span>
-<span class="fc" id="L39">@ToString</span>
-<span class="fc" id="L40">@NoArgsConstructor</span>
+<span class="pc bpc" id="L37" title="9 of 22 branches missed.">@EqualsAndHashCode</span>
+<span class="fc" id="L38">@ToString</span>
+<span class="fc" id="L39">@NoArgsConstructor</span>
 public class Sid implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-<span class="fc" id="L45">  @JsonProperty(value = &quot;value&quot;, required = true)</span>
+<span class="fc" id="L44">  @JsonProperty(value = &quot;value&quot;, required = true)</span>
   private String value = null;
 
   @JsonProperty(value = &quot;systemEntity&quot;)
@@ -55,22 +54,22 @@ public class Sid implements Serializable {
    * @param systemEntity the system entity
    */
   @SuppressWarnings(&quot;unused&quot;)
-<span class="pc" id="L58">  @Builder(toBuilder = true)</span>
-<span class="fc" id="L59">  public Sid(String value, Boolean systemEntity) {</span>
-<span class="fc" id="L60">    setValue(value);</span>
-<span class="fc" id="L61">    setSystemEntity(systemEntity);</span>
-<span class="fc" id="L62">  }</span>
+<span class="pc" id="L57">  @Builder(toBuilder = true)</span>
+<span class="fc" id="L58">  public Sid(String value, Boolean systemEntity) {</span>
+<span class="fc" id="L59">    setValue(value);</span>
+<span class="fc" id="L60">    setSystemEntity(systemEntity);</span>
+<span class="fc" id="L61">  }</span>
 
   /**
    * Gets value.
    *
    * @return the value
    */
-  @ApiModelProperty(
-      value = &quot;The SID of the entity.&quot;,
+  @Schema(
+      description = &quot;The SID of the entity.&quot;,
       accessMode = AccessMode.READ_ONLY)
   public String getValue() {
-<span class="fc" id="L73">    return value;</span>
+<span class="fc" id="L72">    return value;</span>
   }
 
   /**
@@ -79,19 +78,19 @@ public class Sid implements Serializable {
    * @param value the value
    */
   public void setValue(String value) {
-<span class="fc" id="L82">    this.value = value;</span>
-<span class="fc" id="L83">  }</span>
+<span class="fc" id="L81">    this.value = value;</span>
+<span class="fc" id="L82">  }</span>
 
   /**
    * Gets system entity.
    *
    * @return the system entity
    */
-  @ApiModelProperty(
-      value = &quot;Tells whether the entity is a system entity or not.&quot;,
+  @Schema(
+      description = &quot;Tells whether the entity is a system entity or not.&quot;,
       accessMode = AccessMode.READ_ONLY)
   public Boolean getSystemEntity() {
-<span class="fc" id="L94">    return systemEntity;</span>
+<span class="fc" id="L93">    return systemEntity;</span>
   }
 
   /**
@@ -100,8 +99,8 @@ public class Sid implements Serializable {
    * @param systemEntity the system entity
    */
   public void setSystemEntity(Boolean systemEntity) {
-<span class="fc" id="L103">    this.systemEntity = systemEntity;</span>
-<span class="fc" id="L104">  }</span>
+<span class="fc" id="L102">    this.systemEntity = systemEntity;</span>
+<span class="fc" id="L103">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

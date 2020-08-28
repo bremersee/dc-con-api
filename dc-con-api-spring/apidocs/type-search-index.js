@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.bremersee.dccon.api","l":"DomainGroupManagementApi"},{"p":"org.bremersee.dccon.api","l":"DomainManagementApi"},{"p":"org.bremersee.dccon.api","l":"DomainUserManagementApi"},{"p":"org.bremersee.dccon.api","l":"NameServerManagementApi"}]
