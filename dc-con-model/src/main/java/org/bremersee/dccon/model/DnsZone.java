@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModelProperty.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -33,7 +32,7 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@ApiModel(description = "DNS Zone")
+@Schema(description = "DNS Zone")
 @Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = true)
@@ -83,7 +82,7 @@ public class DnsZone extends CommonAttributes {
    *
    * @return zone name
    */
-  @ApiModelProperty(value = "The zone name.", required = true)
+  @Schema(description = "The zone name.", required = true)
   public String getName() {
     return name;
   }
@@ -102,8 +101,8 @@ public class DnsZone extends CommonAttributes {
    *
    * @return the default zone
    */
-  @ApiModelProperty(
-      value = "Specifies whether this zone is the default zone or not.",
+  @Schema(
+      description = "Specifies whether this zone is the default zone or not.",
       accessMode = AccessMode.READ_ONLY)
   public Boolean getDefaultZone() {
     return Boolean.TRUE.equals(defaultZone);
@@ -123,8 +122,8 @@ public class DnsZone extends CommonAttributes {
    *
    * @return the reverse zone
    */
-  @ApiModelProperty(
-      value = "Specifies whether this zone is a reverse zone or not.",
+  @Schema(
+      description = "Specifies whether this zone is a reverse zone or not.",
       accessMode = AccessMode.READ_ONLY)
   public Boolean getReverseZone() {
     return Boolean.TRUE.equals(reverseZone);

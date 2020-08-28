@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,14 @@
 
 package org.bremersee.dccon.api;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.exception.model.RestApiException;
@@ -38,7 +41,7 @@ import reactor.core.publisher.Mono;
  *
  * @author Christian Bremer
  */
-@Api(value = "DomainGroupManagement")
+@Tag(name = "domain-group-management-controller", description = "The domain group API.")
 @Validated
 public interface DomainGroupWebfluxManagementApi {
 
@@ -49,29 +52,34 @@ public interface DomainGroupWebfluxManagementApi {
    * @param query the query
    * @return the groups
    */
-  @ApiOperation(
-      value = "Get all domain groups.",
-      nickname = "getGroups",
-      notes = "Get all domain groups.",
-      response = DomainGroup.class,
-      responseContainer = "List",
+  @Operation(
+      summary = "Get all domain groups.",
+      operationId = "getGroups",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "A list of domain groups.",
-          response = DomainGroup.class, responseContainer = "List"),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "A list of domain groups.",
+          content = @Content(
+              array = @ArraySchema(
+                  schema = @Schema(implementation = DomainGroup.class)))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups",
       produces = {"application/json"},
       method = RequestMethod.GET)
   Flux<DomainGroup> getGroups(
-      @ApiParam(value = "The sort order.", defaultValue = DomainGroup.DEFAULT_SORT_ORDER)
+      @Parameter(description = "The sort order.")
       @RequestParam(value = "sort",
           defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort,
 
-      @ApiParam(value = "A query.")
+      @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);
 
   /**
@@ -80,19 +88,35 @@ public interface DomainGroupWebfluxManagementApi {
    * @param group the domain group to add
    * @return the added domain group
    */
-  @ApiOperation(
-      value = "Add domain group.",
-      nickname = "addGroup",
-      response = DomainGroup.class,
+  @Operation(
+      summary = "Add domain group.",
+      operationId = "addGroup",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The added domain group.", response = DomainGroup.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 406, message = "Already exists",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The added domain group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DomainGroup.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "406",
+          description = "Already exists.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups",
@@ -100,7 +124,7 @@ public interface DomainGroupWebfluxManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.POST)
   Mono<DomainGroup> addGroup(
-      @ApiParam(value = "The domain group to add.", required = true)
+      @Parameter(description = "The domain group to add.", required = true)
       @Valid @RequestBody DomainGroup group);
 
   /**
@@ -109,27 +133,42 @@ public interface DomainGroupWebfluxManagementApi {
    * @param groupName the group name
    * @return the domain group
    */
-  @ApiOperation(
-      value = "Get a domain group by name.",
-      nickname = "getGroupByName",
-      response = DomainGroup.class,
+  @Operation(
+      summary = "Get a domain group by name.",
+      operationId = "getGroupByName",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The domain group with the specified name.",
-          response = DomainGroup.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "Not found",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The domain group with the specified name.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DomainGroup.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups/{groupName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<DomainGroup> getGroup(
-      @ApiParam(value = "The domain group name.", required = true)
+      @Parameter(description = "The domain group name.", required = true)
       @PathVariable("groupName") String groupName);
 
   /**
@@ -139,19 +178,35 @@ public interface DomainGroupWebfluxManagementApi {
    * @param domainGroup the domain group
    * @return the updated domain group
    */
-  @ApiOperation(
-      value = "Updates a domain group.",
-      nickname = "updateGroup",
-      response = DomainGroup.class,
+  @Operation(
+      summary = "Updates a domain group.",
+      operationId = "updateGroup",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "The updated domain group.", response = DomainGroup.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 404, message = "Group not found.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "The updated domain group.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = DomainGroup.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "404",
+          description = "Not found.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups/{groupName}",
@@ -159,10 +214,10 @@ public interface DomainGroupWebfluxManagementApi {
       consumes = {"application/json"},
       method = RequestMethod.PUT)
   Mono<DomainGroup> updateGroup(
-      @ApiParam(value = "The name of the domain group.", required = true)
+      @Parameter(description = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName,
 
-      @ApiParam(value = "The domain group.", required = true)
+      @Parameter(description = "The domain group.", required = true)
       @Valid @RequestBody DomainGroup domainGroup);
 
   /**
@@ -171,22 +226,29 @@ public interface DomainGroupWebfluxManagementApi {
    * @param groupName the group name
    * @return true if the group exists otherwise false
    */
-  @ApiOperation(
-      value = "Checks whether a domain group exists.",
-      nickname = "groupExists",
-      response = Boolean.class,
+  @Operation(
+      summary = "Checks whether a domain group exists.",
+      operationId = "groupExists",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "True if the group exists otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the group exists otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(value = "/api/groups/{groupName}/exists",
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<Boolean> groupExists(
-      @ApiParam(value = "The name of the domain group.", required = true)
+      @Parameter(description = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName);
 
   /**
@@ -195,22 +257,29 @@ public interface DomainGroupWebfluxManagementApi {
    * @param groupName the group name
    * @return true if the group name is in use otherwise false
    */
-  @ApiOperation(
-      value = "Checks whether a group is in use or not.",
-      nickname = "isGroupNameInUse",
-      response = Boolean.class,
+  @Operation(
+      summary = "Checks whether a group is in use or not.",
+      operationId = "isGroupNameInUse",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "True if the group name is in use otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the group name is in use otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(value = "/api/groups/{groupName}/in-use",
       produces = {"application/json"},
       method = RequestMethod.GET)
   Mono<Boolean> isGroupNameInUse(
-      @ApiParam(value = "The name of the domain group.", required = true)
+      @Parameter(description = "The name of the domain group.", required = true)
       @PathVariable("groupName") String groupName);
 
   /**
@@ -219,25 +288,36 @@ public interface DomainGroupWebfluxManagementApi {
    * @param groupName the group name
    * @return {@code true} if the domain group was deleted, otherwise {@code false}
    */
-  @ApiOperation(
-      value = "Delete domain group.",
-      nickname = "deleteGroup",
+  @Operation(
+      summary = "Delete domain group.",
+      operationId = "deleteGroup",
       tags = {"domain-group-management-controller"})
   @ApiResponses(value = {
-      @ApiResponse(code = 200,
-          message = "True if the domain group was successfully deleted, otherwise false.",
-          response = Boolean.class),
-      @ApiResponse(code = 400, message = "Bad request.",
-          response = RestApiException.class),
-      @ApiResponse(code = 500, message = "Fatal server error.",
-          response = RestApiException.class)
+      @ApiResponse(
+          responseCode = "200",
+          description = "True if the domain group was successfully deleted, otherwise false.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = Boolean.class))),
+      @ApiResponse(
+          responseCode = "400",
+          description = "Bad request.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class))),
+      @ApiResponse(
+          responseCode = "500",
+          description = "Fatal server error.",
+          content = @Content(
+              schema = @Schema(
+                  implementation = RestApiException.class)))
   })
   @RequestMapping(
       value = "/api/groups/{groupName}",
       produces = {"application/json"},
       method = RequestMethod.DELETE)
   Mono<Boolean> deleteGroup(
-      @ApiParam(value = "The domain group name.", required = true)
+      @Parameter(description = "The domain group name.", required = true)
       @PathVariable("groupName") String groupName);
 
 }

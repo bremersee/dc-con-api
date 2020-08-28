@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 the original author or authors.
+ * Copyright 2019-2020 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,12 @@
  */
 
 package org.bremersee.dccon.api;
+
+import static org.bremersee.test.web.RestApiAssertionType.METHOD_MUST_NOT_BE_NULL;
+import static org.bremersee.test.web.RestApiTesterExclusion.exclusionBuilder;
+import static org.bremersee.test.web.RestApiTesterPath.PathType.CLASS;
+import static org.bremersee.test.web.RestApiTesterPath.PathType.METHOD;
+import static org.bremersee.test.web.RestApiTesterPath.pathBuilder;
 
 import org.bremersee.test.web.RestApiTester;
 import org.junit.jupiter.api.Test;
@@ -33,7 +39,22 @@ class DomainUserWebfluxManagementApiTest {
   void assertRestApiAnnotations() {
     RestApiTester.assertSameApi(
         DomainUserManagementApi.class,
-        DomainUserWebfluxManagementApi.class);
+        DomainUserWebfluxManagementApi.class,
+        exclusionBuilder()
+            .path(pathBuilder()
+                .add(CLASS, "DomainUserManagementApi")
+                .add(METHOD, "updateUserAvatar")
+                .build())
+            .type(METHOD_MUST_NOT_BE_NULL)
+            .build(),
+        exclusionBuilder()
+            .path(pathBuilder()
+                .add(CLASS, "DomainUserWebfluxManagementApi")
+                .add(METHOD, "updateUserAvatar")
+                .build())
+            .type(METHOD_MUST_NOT_BE_NULL)
+            .build()
+    );
   }
 
 }
