@@ -29,9 +29,35 @@
     <github.repo>dc-con-api</github.repo>
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
-    <common-model.version>2.3.0</common-model.version>
-    <common-base.version>2.4.0-SNAPSHOT</common-base.version>
+    <common-model.version>2.3.1</common-model.version>
+    <common-base.version>2.3.3</common-base.version>
   </properties>
+
+  <developers>
+    <developer>
+      <id>bremersee</id>
+      <name>Christian Bremer</name>
+      <organization>bremersee.org</organization>
+      <organizationUrl>http://bremersee.org</organizationUrl>
+      <email>christian@bremersee.org</email>
+      <timezone>+1</timezone>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <organization>
+    <name>bremersee.org</name>
+    <url>http://bremersee.org</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
 
   <scm>
     <connection>scm:git:ssh://git@github.com:bremersee/dc-con-api.git</connection>
