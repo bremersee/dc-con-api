@@ -38,7 +38,7 @@
       <id>bremersee</id>
       <name>Christian Bremer</name>
       <organization>bremersee.org</organization>
-      <organizationUrl>http://bremersee.org</organizationUrl>
+      <organizationUrl>https://bremersee.org</organizationUrl>
       <email>christian@bremersee.org</email>
       <timezone>+1</timezone>
       <roles>
@@ -49,13 +49,13 @@
 
   <organization>
     <name>bremersee.org</name>
-    <url>http://bremersee.org</url>
+    <url>https://bremersee.org</url>
   </organization>
 
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
 
