@@ -18,6 +18,7 @@ package org.bremersee.dccon.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,10 +28,15 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DhcpLease;
+import org.bremersee.dccon.model.DhcpLeasePage;
 import org.bremersee.dccon.model.DnsNode;
+import org.bremersee.dccon.model.DnsNodePage;
 import org.bremersee.dccon.model.DnsZone;
+import org.bremersee.dccon.model.DnsZonePage;
 import org.bremersee.dccon.model.UnknownFilter;
 import org.bremersee.exception.model.RestApiException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,6 +57,7 @@ public interface NameServerManagementApi {
   /**
    * Query dns nodes.
    *
+   * @param pageable the pageable
    * @param query the query, can be a host name, an IP or a MAC address
    * @param unknownFilter the unknown filter
    * @return found dns nodes
@@ -58,7 +65,23 @@ public interface NameServerManagementApi {
   @Operation(
       summary = "Simple dns query.",
       operationId = "query",
-      tags = {"name-server-management-controller"})
+      tags = {"name-server-management-controller"},
+      parameters = {
+          @Parameter(name = "page",
+              description = "The page number starting with 0.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "size",
+              description = "The page size.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "sort",
+              description = "The sort order.",
+              example = "name,asc",
+              in = ParameterIn.QUERY,
+              array = @ArraySchema(schema = @Schema(type = "string")))
+      }
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -83,7 +106,11 @@ public interface NameServerManagementApi {
       value = "/api/dns",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DnsNode>> query(
+  ResponseEntity<DnsNodePage> query(
+
+      @Parameter(hidden = true)
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
+
       @Parameter(description = "The query, can be a host name, an IP or a MAC address.")
       @RequestParam(name = "q") String query,
 
@@ -93,15 +120,31 @@ public interface NameServerManagementApi {
   /**
    * Gets dhcp leases.
    *
+   * @param pageable the pageable
    * @param all if {@code true}, expired leases will also be returned, otherwise only active
    *     ones (default is {@code false})
-   * @param sort the sort order (default is {@link DhcpLease#SORT_ORDER_BEGIN_HOSTNAME})
    * @return the dhcp leases
    */
   @Operation(
       summary = "Get dhcp leases.",
       operationId = "getDhcpLeases",
-      tags = {"name-server-management-controller"})
+      tags = {"name-server-management-controller"},
+      parameters = {
+          @Parameter(name = "page",
+              description = "The page number starting with 0.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "size",
+              description = "The page size.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "sort",
+              description = "The sort order.",
+              example = "name,asc",
+              in = ParameterIn.QUERY,
+              array = @ArraySchema(schema = @Schema(type = "string")))
+      }
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -125,22 +168,40 @@ public interface NameServerManagementApi {
   @RequestMapping(value = "/api/dns/dhcp-leases",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DhcpLease>> getDhcpLeases(
+  ResponseEntity<DhcpLeasePage> getDhcpLeases(
+      @Parameter(hidden = true)
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "ip,asc") Pageable pageable,
+
       @Parameter(description = "'true' returns also expired leases, 'false' only active ones.")
-      @RequestParam(value = "all", defaultValue = "false") Boolean all,
-      @Parameter(description = "The sort order.")
-      @RequestParam(value = "sort",
-          defaultValue = DhcpLease.SORT_ORDER_BEGIN_HOSTNAME) String sort);
+      @RequestParam(value = "all", defaultValue = "false") Boolean all);
 
   /**
    * Get dns zones.
    *
+   * @param pageable the pageable
+   * @param reverseOnly the reverse only
    * @return the dns zones
    */
   @Operation(
       summary = "Get all dns zones.",
       operationId = "getDnsZones",
-      tags = {"name-server-management-controller"})
+      tags = {"name-server-management-controller"},
+      parameters = {
+          @Parameter(name = "page",
+              description = "The page number starting with 0.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "size",
+              description = "The page size.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "sort",
+              description = "The sort order.",
+              example = "name,asc",
+              in = ParameterIn.QUERY,
+              array = @ArraySchema(schema = @Schema(type = "string")))
+      }
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -165,7 +226,14 @@ public interface NameServerManagementApi {
       value = "/api/dns/zones",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DnsZone>> getDnsZones();
+  ResponseEntity<DnsZonePage> getDnsZones(
+
+      @Parameter(hidden = true)
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
+
+      @Parameter(description = "'true' returns only reverse zone, 'false' only normal zones, "
+          + "absence of the parameter both zones.")
+      @RequestParam(value = "reverse", required = false) Boolean reverseOnly);
 
   /**
    * Add dns zone.
@@ -249,14 +317,31 @@ public interface NameServerManagementApi {
    * Get dns nodes.
    *
    * @param zoneName the zone name
-   * @param unknownFilter the unknown filter
+   * @param pageable the pageable
    * @param query the query
+   * @param unknownFilter the unknown filter
    * @return the dns nodes
    */
   @Operation(
       summary = "Get all dns nodes of a zone.",
       operationId = "getDnsNodes",
-      tags = {"name-server-management-controller"})
+      tags = {"name-server-management-controller"},
+      parameters = {
+          @Parameter(name = "page",
+              description = "The page number starting with 0.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "size",
+              description = "The page size.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "sort",
+              description = "The sort order.",
+              example = "name,asc",
+              in = ParameterIn.QUERY,
+              array = @ArraySchema(schema = @Schema(type = "string")))
+      }
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -286,15 +371,18 @@ public interface NameServerManagementApi {
   @RequestMapping(value = "/api/dns/zones/{zoneName}",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DnsNode>> getDnsNodes(
+  ResponseEntity<DnsNodePage> getDnsNodes(
       @Parameter(description = "The dns zone name.", required = true)
       @PathVariable(value = "zoneName") String zoneName,
 
-      @Parameter(description = "The unknown filter.")
-      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter,
+      @Parameter(hidden = true)
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
 
       @Parameter(description = "A query.")
-      @RequestParam(name = "q", required = false) String query);
+      @RequestParam(name = "q", required = false) String query,
+
+      @Parameter(description = "The unknown filter.")
+      @RequestParam(name = "filter", defaultValue = "NO_UNKNOWN") UnknownFilter unknownFilter);
 
   /**
    * Save dns node.

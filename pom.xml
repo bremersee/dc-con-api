@@ -7,12 +7,12 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>2.3.1</version>
+    <version>2.4.0-SNAPSHOT</version>
     <relativePath/>
   </parent>
 
   <artifactId>dc-con-api</artifactId>
-  <version>2.3.0-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>dc-con-api</name>
@@ -29,8 +29,10 @@
     <github.repo>dc-con-api</github.repo>
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
-    <common-model.version>2.3.1</common-model.version>
-    <common-base.version>2.3.3</common-base.version>
+
+    <common-base.version>2.4.0-SNAPSHOT</common-base.version>
+    <common-model.version>2.4.0-SNAPSHOT</common-model.version>
+    <pagebuilder.version>2.1.0-SNAPSHOT</pagebuilder.version>
   </properties>
 
   <developers>
@@ -96,6 +98,11 @@
         <groupId>org.bremersee</groupId>
         <artifactId>common-model</artifactId>
         <version>${common-model.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bremersee</groupId>
+        <artifactId>pagebuilder</artifactId>
+        <version>${pagebuilder.version}</version>
       </dependency>
       <dependency>
         <groupId>org.bremersee</groupId>

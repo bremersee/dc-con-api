@@ -18,19 +18,22 @@ package org.bremersee.dccon.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
 import javax.validation.Valid;
 import org.bremersee.common.model.TwoLetterLanguageCode;
 import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
+import org.bremersee.dccon.model.DomainUserPage;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.exception.model.RestApiException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -53,21 +56,36 @@ public interface DomainUserManagementApi {
   /**
    * Get domain users.
    *
-   * @param sort the sort
+   * @param pageable the pageable
    * @param query the query
    * @return the domain users
    */
   @Operation(
       summary = "Get all domain users.",
       operationId = "getUsers",
-      tags = {"domain-user-management-controller"})
+      tags = {"domain-user-management-controller"},
+      parameters = {
+          @Parameter(name = "page",
+              description = "The page number starting with 0.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "size",
+              description = "The page size.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "sort",
+              description = "The sort order.",
+              example = "userName,asc",
+              in = ParameterIn.QUERY,
+              array = @ArraySchema(schema = @Schema(type = "string")))
+      }
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
           description = "A list of domain users.",
           content = @Content(
-              array = @ArraySchema(
-                  schema = @Schema(implementation = DomainUser.class)))),
+              schema = @Schema(implementation = DomainUserPage.class))),
       @ApiResponse(
           responseCode = "500",
           description = "Fatal server error.",
@@ -79,10 +97,9 @@ public interface DomainUserManagementApi {
       value = "/api/users",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  ResponseEntity<List<DomainUser>> getUsers(
-      @Parameter(description = "The sort order.")
-      @RequestParam(value = "sort",
-          defaultValue = DomainUser.DEFAULT_SORT_ORDER) String sort,
+  ResponseEntity<DomainUserPage> getUsers(
+      @Parameter(hidden = true)
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "userName,asc") Pageable pageable,
 
       @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);

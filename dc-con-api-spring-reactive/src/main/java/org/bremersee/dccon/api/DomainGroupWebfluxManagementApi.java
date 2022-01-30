@@ -18,6 +18,7 @@ package org.bremersee.dccon.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,14 +27,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
+import org.bremersee.dccon.model.DomainGroupPage;
 import org.bremersee.exception.model.RestApiException;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -48,21 +51,36 @@ public interface DomainGroupWebfluxManagementApi {
   /**
    * Get domain groups.
    *
-   * @param sort the sort order
+   * @param pageable the pageable
    * @param query the query
    * @return the groups
    */
   @Operation(
       summary = "Get all domain groups.",
       operationId = "getGroups",
-      tags = {"domain-group-management-controller"})
+      tags = {"domain-group-management-controller"},
+      parameters = {
+          @Parameter(name = "page",
+              description = "The page number starting with 0.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "size",
+              description = "The page size.",
+              in = ParameterIn.QUERY,
+              schema = @Schema(type = "integer")),
+          @Parameter(name = "sort",
+              description = "The sort order.",
+              example = "name,asc",
+              in = ParameterIn.QUERY,
+              array = @ArraySchema(schema = @Schema(type = "string")))
+      }
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
           description = "A list of domain groups.",
           content = @Content(
-              array = @ArraySchema(
-                  schema = @Schema(implementation = DomainGroup.class)))),
+              schema = @Schema(implementation = DomainGroupPage.class))),
       @ApiResponse(
           responseCode = "500",
           description = "Fatal server error.",
@@ -74,10 +92,9 @@ public interface DomainGroupWebfluxManagementApi {
       value = "/api/groups",
       produces = {"application/json"},
       method = RequestMethod.GET)
-  Flux<DomainGroup> getGroups(
-      @Parameter(description = "The sort order.")
-      @RequestParam(value = "sort",
-          defaultValue = DomainGroup.DEFAULT_SORT_ORDER) String sort,
+  Mono<DomainGroupPage> getGroups(
+      @Parameter(hidden = true)
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
 
       @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);
