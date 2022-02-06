@@ -16,8 +16,10 @@
 
 package org.bremersee.dccon.api;
 
+import java.io.IOException;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
+import org.bremersee.test.TestReadWriteUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * The type Open api test.
+ * The open api test.
  *
  * @author Christian Bremer
  */
@@ -56,16 +58,17 @@ class OpenApiTest {
    * Test open api.
    *
    * @param softly the softly
+   * @throws IOException the io exception
    */
   @Test
-  void testOpenApi(SoftAssertions softly) {
+  void testOpenApi(SoftAssertions softly) throws IOException {
     RestTemplate restTemplate = restTemplateBuilder.build();
     ResponseEntity<String> response = restTemplate.getForEntity(
         "http://localhost:" + port + "/v3/api-docs.yaml",
         String.class);
     String actual = response.getBody();
     softly.assertThat(actual).isNotNull();
-    System.out.println(actual);
+    TestReadWriteUtils.writeToTargetFolder(actual, "dc-con-api.yml");
   }
 
 }
