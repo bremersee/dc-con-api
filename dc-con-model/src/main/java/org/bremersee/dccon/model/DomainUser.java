@@ -42,7 +42,7 @@ import org.springframework.validation.annotation.Validated;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"password"})
 @ToString(callSuper = true, exclude = {"password"})
 @NoArgsConstructor
 public class DomainUser extends CommonAttributes {
@@ -54,83 +54,173 @@ public class DomainUser extends CommonAttributes {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The constant SID.
+   */
+  public static final String SID = "sid";
+
   @Schema(description = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("sid")
+  @JsonProperty(SID)
   private Sid sid;
 
+  /**
+   * The constant USER_NAME.
+   */
+  public static final String USER_NAME = "userName";
+
   @Schema(description = "The user name of the domain user.", required = true)
-  @JsonProperty(value = "userName", required = true)
+  @JsonProperty(value = USER_NAME, required = true)
   @NotNull
   private String userName;
 
+  /**
+   * The constant ENABLED.
+   */
+  public static final String ENABLED = "enabled";
+
   @Schema(description = "Specifies whether the user is enabled or not.")
-  @JsonProperty("enabled")
+  @JsonProperty(ENABLED)
   private Boolean enabled = Boolean.FALSE;
 
+  /**
+   * The constant FIRST_NAME.
+   */
+  public static final String FIRST_NAME = "firstName";
+
   @Schema(description = "The first name of the domain user.")
-  @JsonProperty("firstName")
+  @JsonProperty(FIRST_NAME)
   private String firstName;
 
+  /**
+   * The constant LAST_NAME.
+   */
+  public static final String LAST_NAME = "lastName";
+
   @Schema(description = "The last name of the domain user.")
-  @JsonProperty("lastName")
+  @JsonProperty(LAST_NAME)
   private String lastName;
 
+  /**
+   * The constant DISPLAY_NAME.
+   */
+  public static final String DISPLAY_NAME = "displayName";
+
   @Schema(description = "The display name.")
-  @JsonProperty("displayName")
+  @JsonProperty(DISPLAY_NAME)
   private String displayName;
 
+  /**
+   * The constant EMAIL.
+   */
+  public static final String EMAIL = "email";
+
   @Schema(description = "The email address of the domain user.")
-  @JsonProperty("email")
+  @JsonProperty(EMAIL)
   private String email;
 
+  /**
+   * The constant TELEPHONE_NUMBER.
+   */
+  public static final String TELEPHONE_NUMBER = "telephoneNumber";
+
   @Schema(description = "The telephone number of the domain user.")
-  @JsonProperty("telephoneNumber")
+  @JsonProperty(TELEPHONE_NUMBER)
   private String telephoneNumber;
 
+  /**
+   * The constant MOBILE.
+   */
+  public static final String MOBILE = "mobile";
+
   @Schema(description = "The mobile number of the domain user.")
-  @JsonProperty("mobile")
+  @JsonProperty(MOBILE)
   private String mobile;
 
+  /**
+   * The constant DESCRIPTION.
+   */
+  public static final String DESCRIPTION = "description";
+
   @Schema(description = "A description of the domain user.")
-  @JsonProperty("description")
+  @JsonProperty(DESCRIPTION)
   private String description;
 
+  /**
+   * The constant HOME_DIRECTORY.
+   */
+  public static final String HOME_DIRECTORY = "homeDirectory";
+
   @Schema(description = "The home directory of the domain user.")
-  @JsonProperty("homeDirectory")
+  @JsonProperty(HOME_DIRECTORY)
   private String homeDirectory;
 
+  /**
+   * The constant UNIX_HOME_DIRECTORY.
+   */
+  public static final String UNIX_HOME_DIRECTORY = "unixHomeDirectory";
+
   @Schema(description = "The unix home directory of the domain user.")
-  @JsonProperty("unixHomeDirectory")
+  @JsonProperty(UNIX_HOME_DIRECTORY)
   private String unixHomeDirectory;
 
+  /**
+   * The constant LOGIN_SHELL.
+   */
+  public static final String LOGIN_SHELL = "loginShell";
+
   @Schema(description = "The login shell of the domain user.")
-  @JsonProperty("loginShell")
+  @JsonProperty(LOGIN_SHELL)
   private String loginShell;
+
+  /**
+   * The constant LAST_LOGON.
+   */
+  public static final String LAST_LOGON = "lastLogon";
 
   @Schema(
       description = "The last logon time of the domain user.",
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("lastLogon")
+  @JsonProperty(LAST_LOGON)
   private OffsetDateTime lastLogon;
+
+  /**
+   * The constant LOGON_COUNT.
+   */
+  public static final String LOGON_COUNT = "logonCount";
 
   @Schema(
       description = "The logon count of the domain user.",
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("logonCount")
+  @JsonProperty(LOGON_COUNT)
   private Integer logonCount;
+
+  /**
+   * The constant PASSWORD_LAST_SET.
+   */
+  public static final String PASSWORD_LAST_SET = "passwordLastSet";
 
   @Schema(
       description = "Date of the last password change.",
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("passwordLastSet")
+  @JsonProperty(PASSWORD_LAST_SET)
   private OffsetDateTime passwordLastSet;
 
+  /**
+   * The constant PASSWORD.
+   */
+  public static final String PASSWORD = "password";
+
   @Schema(description = "The password of the domain user.")
-  @JsonProperty("password")
+  @JsonProperty(PASSWORD)
   private String password;
 
+  /**
+   * The constant GROUPS.
+   */
+  public static final String GROUPS = "groups";
+
   @Schema(description = "The groups of the domain user.")
-  @JsonProperty("groups")
+  @JsonProperty(GROUPS)
   private List<String> groups;
 
   /**

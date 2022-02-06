@@ -49,8 +49,8 @@
     </dependency>
 
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
+      <groupId>org.bremersee</groupId>
+      <artifactId>common-base-test</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

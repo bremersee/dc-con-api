@@ -28,6 +28,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.lang.NonNull;
 import org.springframework.validation.annotation.Validated;
 
 /**
@@ -48,46 +49,86 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The constant SORT_ORDER_TIME_STAMP_DESC.
+   * The constant RECORD_TYPE.
    */
-  public static final String SORT_ORDER_TIME_STAMP_DESC = "timeStamp,desc";
+  public static final String RECORD_TYPE = "recordType";
 
   @Schema(description = "The record type.", required = true)
-  @JsonProperty(value = "recordType", required = true)
+  @JsonProperty(value = RECORD_TYPE, required = true)
   private String recordType;
 
+  /**
+   * The constant RECORD_VALUE.
+   */
+  public static final String RECORD_VALUE = "recordValue";
+
   @Schema(description = "The record value.")
-  @JsonProperty(value = "recordValue")
+  @JsonProperty(value = RECORD_VALUE)
   private String recordValue;
+
+  /**
+   * The constant RECORD_RAW_VALUE.
+   */
+  public static final String RECORD_RAW_VALUE = "recordRawValue";
 
   @Schema(
       description = "The record raw active directory value.",
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("recordRawValue")
+  @JsonProperty(RECORD_RAW_VALUE)
   private byte[] recordRawValue;
 
+  /**
+   * The constant CORRELATED_RECORD_VALUE.
+   */
+  public static final String CORRELATED_RECORD_VALUE = "correlatedRecordValue";
+
   @Schema(description = "The correlated record value.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("correlatedRecordValue")
+  @JsonProperty(CORRELATED_RECORD_VALUE)
   private String correlatedRecordValue;
 
+  /**
+   * The constant VERSION.
+   */
+  public static final String VERSION = "version";
+
   @Schema(description = "The version.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("version")
+  @JsonProperty(VERSION)
   private Integer version;
 
+  /**
+   * The constant SERIAL.
+   */
+  public static final String SERIAL = "serial";
+
   @Schema(description = "The serial.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("serial")
+  @JsonProperty(SERIAL)
   private Integer serial;
 
+  /**
+   * The constant TTL_SECONDS.
+   */
+  public static final String TTL_SECONDS = "ttlSeconds";
+
   @Schema(description = "TTL in seconds.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("ttlSeconds")
+  @JsonProperty(TTL_SECONDS)
   private Integer ttlSeconds;
 
+  /**
+   * The constant TIME_STAMP.
+   */
+  public static final String TIME_STAMP = "timeStamp";
+
   @Schema(description = "The time stamp.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("timeStamp")
+  @JsonProperty(TIME_STAMP)
   private OffsetDateTime timeStamp;
 
+  /**
+   * The constant DHCP_LEASE.
+   */
+  public static final String DHCP_LEASE = "dhcpLease";
+
   @Schema(description = "The dhcp lease.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("dhcpLease")
+  @JsonProperty(DHCP_LEASE)
   private DhcpLease dhcpLease;
 
   /**
@@ -119,15 +160,17 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
     this.dhcpLease = dhcpLease;
   }
 
+  /**
+   * Has record raw value boolean.
+   *
+   * @return the boolean
+   */
   public boolean hasRecordRawValue() {
     return recordRawValue != null && recordRawValue.length > 0;
   }
 
   @Override
-  public int compareTo(DnsRecord o) {
-    if (o == null) {
-      return -1;
-    }
+  public int compareTo(@NonNull DnsRecord o) {
     String s1 = getRecordType() != null ? getRecordType() : "";
     String s2 = o.getRecordType() != null ? o.getRecordType() : "";
     int result = s1.compareToIgnoreCase(s2);

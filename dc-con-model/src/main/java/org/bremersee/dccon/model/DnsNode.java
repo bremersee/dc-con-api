@@ -43,10 +43,20 @@ public class DnsNode extends CommonAttributes {
 
   private static final long serialVersionUID = 2L;
 
-  @JsonProperty(value = "name", required = true)
+  /**
+   * The constant NAME.
+   */
+  public static final String NAME = "name";
+
+  @JsonProperty(value = NAME, required = true)
   private String name;
 
-  @JsonProperty("records")
+  /**
+   * The constant RECORDS.
+   */
+  public static final String RECORDS = "records";
+
+  @JsonProperty(RECORDS)
   private Set<DnsRecord> records;
 
   /**
@@ -64,7 +74,8 @@ public class DnsNode extends CommonAttributes {
       String distinguishedName,
       OffsetDateTime created,
       OffsetDateTime modified,
-      String name, Set<DnsRecord> records) {
+      String name,
+      Set<DnsRecord> records) {
     super(distinguishedName, created, modified);
     this.name = name;
     this.records = records;

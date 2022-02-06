@@ -99,7 +99,7 @@ public interface DomainUserManagementApi {
       method = RequestMethod.GET)
   ResponseEntity<DomainUserPage> getUsers(
       @Parameter(hidden = true)
-      @PageableDefault(size = Integer.MAX_VALUE, sort = "userName,asc") Pageable pageable,
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "userName") Pageable pageable,
 
       @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);

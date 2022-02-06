@@ -94,7 +94,7 @@ public interface DomainGroupManagementApi {
       method = RequestMethod.GET)
   ResponseEntity<DomainGroupPage> getGroups(
       @Parameter(hidden = true)
-      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name") Pageable pageable,
 
       @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query);

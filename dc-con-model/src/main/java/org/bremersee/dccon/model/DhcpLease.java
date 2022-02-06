@@ -44,32 +44,51 @@ public class DhcpLease implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The constant SORT_ORDER_BEGIN_HOSTNAME.
+   * The constant MAC.
    */
-  public static final String SORT_ORDER_BEGIN_HOSTNAME = "begin,desc|hostname";
+  public static final String MAC = "mac";
 
-  /**
-   * The constant SORT_ORDER_IP_BEGIN_HOSTNAME.
-   */
-  @SuppressWarnings("unused")
-  public static final String SORT_ORDER_IP_BEGIN_HOSTNAME = "ip|begin,desc";
-
-  @JsonProperty("mac")
+  @JsonProperty(MAC)
   private String mac;
 
-  @JsonProperty("ip")
+  /**
+   * The constant IP.
+   */
+  public static final String IP = "ip";
+
+  @JsonProperty(IP)
   private String ip;
 
-  @JsonProperty("hostname")
+  /**
+   * The constant HOSTNAME.
+   */
+  public static final String HOSTNAME = "hostname";
+
+  @JsonProperty(HOSTNAME)
   private String hostname;
 
-  @JsonProperty("begin")
+  /**
+   * The constant BEGIN.
+   */
+  public static final String BEGIN = "begin";
+
+  @JsonProperty(BEGIN)
   private OffsetDateTime begin;
 
-  @JsonProperty("end")
+  /**
+   * The constant END.
+   */
+  public static final String END = "end";
+
+  @JsonProperty(END)
   private OffsetDateTime end;
 
-  @JsonProperty("manufacturer")
+  /**
+   * The constant MANUFACTURER.
+   */
+  public static final String MANUFACTURER = "manufacturer";
+
+  @JsonProperty(MANUFACTURER)
   private String manufacturer;
 
   /**

@@ -109,7 +109,7 @@ public interface NameServerManagementApi {
   ResponseEntity<DnsNodePage> query(
 
       @Parameter(hidden = true)
-      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name") Pageable pageable,
 
       @Parameter(description = "The query, can be a host name, an IP or a MAC address.")
       @RequestParam(name = "q") String query,
@@ -170,7 +170,7 @@ public interface NameServerManagementApi {
       method = RequestMethod.GET)
   ResponseEntity<DhcpLeasePage> getDhcpLeases(
       @Parameter(hidden = true)
-      @PageableDefault(size = Integer.MAX_VALUE, sort = "ip,asc") Pageable pageable,
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "ip") Pageable pageable,
 
       @Parameter(description = "'true' returns also expired leases, 'false' only active ones.")
       @RequestParam(value = "all", defaultValue = "false") Boolean all);
@@ -229,7 +229,7 @@ public interface NameServerManagementApi {
   ResponseEntity<DnsZonePage> getDnsZones(
 
       @Parameter(hidden = true)
-      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name") Pageable pageable,
 
       @Parameter(description = "'true' returns only reverse zone, 'false' only normal zones, "
           + "absence of the parameter both zones.")
@@ -376,7 +376,7 @@ public interface NameServerManagementApi {
       @PathVariable(value = "zoneName") String zoneName,
 
       @Parameter(hidden = true)
-      @PageableDefault(size = Integer.MAX_VALUE, sort = "name,asc") Pageable pageable,
+      @PageableDefault(size = Integer.MAX_VALUE, sort = "name") Pageable pageable,
 
       @Parameter(description = "A query.")
       @RequestParam(name = "q", required = false) String query,

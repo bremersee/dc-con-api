@@ -18,8 +18,9 @@ package org.bremersee.dccon.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import io.swagger.v3.oas.annotations.media.DiscriminatorMapping;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serializable;
@@ -34,15 +35,21 @@ import org.springframework.validation.annotation.Validated;
  *
  * @author Christian Bremer
  */
-@Schema(description = "Common attributes")
+@Schema(
+    description = "Common attributes",
+    discriminatorProperty = "_type",
+    discriminatorMapping = {
+        @DiscriminatorMapping(
+            value = "org.bremersee.dccon.model.DnsNode", schema = DnsNode.class),
+        @DiscriminatorMapping(
+            value = "org.bremersee.dccon.model.DnsZone", schema = DnsZone.class),
+        @DiscriminatorMapping(
+            value = "org.bremersee.dccon.model.DomainGroup", schema = DomainGroup.class),
+        @DiscriminatorMapping(
+            value = "org.bremersee.dccon.model.DomainUser", schema = DomainUser.class)
+    })
 @Validated
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "_type", visible = true)
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = DnsZone.class, name = "DnsZone"),
-    @JsonSubTypes.Type(value = DnsNode.class, name = "DnsNode"),
-    @JsonSubTypes.Type(value = DomainUser.class, name = "DomainUser"),
-    @JsonSubTypes.Type(value = DomainGroup.class, name = "DomainGroup")
-})
+@JsonTypeInfo(use = Id.CLASS, property = "_type", visible = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode
 @ToString
@@ -51,13 +58,37 @@ public abstract class CommonAttributes implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty(value = "distinguishedName")
+  /**
+   * The constant DISTINGUISHED_NAME.
+   */
+  public static final String DISTINGUISHED_NAME = "distinguishedName";
+
+  /**
+   * The Distinguished name.
+   */
+  @JsonProperty(value = DISTINGUISHED_NAME)
   String distinguishedName = null;
 
-  @JsonProperty("created")
+  /**
+   * The constant CREATED.
+   */
+  public static final String CREATED = "created";
+
+  /**
+   * The Created.
+   */
+  @JsonProperty(CREATED)
   OffsetDateTime created = null;
 
-  @JsonProperty("modified")
+  /**
+   * The constant MODIFIED.
+   */
+  public static final String MODIFIED = "modified";
+
+  /**
+   * The Modified.
+   */
+  @JsonProperty(MODIFIED)
   OffsetDateTime modified = null;
 
   /**

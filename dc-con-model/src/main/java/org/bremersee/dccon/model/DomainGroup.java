@@ -47,21 +47,36 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
-   * The constant DEFAULT_SORT_ORDER.
+   * The constant NAME.
    */
-  public static final String DEFAULT_SORT_ORDER = "name";
+  public static final String NAME = "name";
 
-  @JsonProperty(value = "name", required = true)
+  @JsonProperty(value = NAME, required = true)
   @NotNull
   private String name = null;
 
-  @JsonProperty("description")
+  /**
+   * The constant DESCRIPTION.
+   */
+  public static final String DESCRIPTION = "description";
+
+  @JsonProperty(DESCRIPTION)
   private String description;
 
-  @JsonProperty("sid")
+  /**
+   * The constant SID.
+   */
+  public static final String SID = "sid";
+
+  @JsonProperty(SID)
   private Sid sid;
 
-  @JsonProperty("members")
+  /**
+   * The constant MEMBERS.
+   */
+  public static final String MEMBERS = "members";
+
+  @JsonProperty(MEMBERS)
   private List<String> members = null;
 
   /**

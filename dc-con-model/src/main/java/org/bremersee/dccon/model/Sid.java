@@ -41,10 +41,20 @@ public class Sid implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty(value = "value", required = true)
+  /**
+   * The constant VALUE.
+   */
+  public static final String VALUE = "value";
+
+  @JsonProperty(value = VALUE, required = true)
   private String value = null;
 
-  @JsonProperty(value = "systemEntity")
+  /**
+   * The constant SYSTEM_ENTITY.
+   */
+  public static final String SYSTEM_ENTITY = "systemEntity";
+
+  @JsonProperty(value = SYSTEM_ENTITY)
   private Boolean systemEntity;
 
   /**

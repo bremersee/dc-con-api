@@ -42,13 +42,28 @@ public class DnsZone extends CommonAttributes {
 
   private static final long serialVersionUID = 2L;
 
-  @JsonProperty(value = "name", required = true)
-  private String name = null;
+  /**
+   * The constant NAME.
+   */
+  public static final String NAME = "name";
 
-  @JsonProperty(value = "defaultZone")
+  @JsonProperty(value = NAME, required = true)
+  private String name;
+
+  /**
+   * The constant DEFAULT_ZONE.
+   */
+  public static final String DEFAULT_ZONE = "defaultZone";
+
+  @JsonProperty(value = DEFAULT_ZONE)
   private Boolean defaultZone;
 
-  @JsonProperty(value = "reverseZone")
+  /**
+   * The constant REVERSE_ZONE.
+   */
+  public static final String REVERSE_ZONE = "reverseZone";
+
+  @JsonProperty(value = REVERSE_ZONE)
   private Boolean reverseZone;
 
   /**

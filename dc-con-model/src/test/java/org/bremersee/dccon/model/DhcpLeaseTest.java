@@ -16,132 +16,146 @@
 
 package org.bremersee.dccon.model;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.time.OffsetDateTime;
 import java.util.UUID;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The dhcp lease test.
  *
  * @author Christian Bremer
  */
+@ExtendWith(SoftAssertionsExtension.class)
 class DhcpLeaseTest {
 
   /**
    * Gets mac.
+   *
+   * @param softly the softly
    */
   @Test
-  void getMac() {
+  void getMac(SoftAssertions softly) {
     String value = UUID.randomUUID().toString();
     DhcpLease model = new DhcpLease();
     model.setMac(value);
-    assertEquals(value, model.getMac());
+    softly.assertThat(model.getMac()).isEqualTo(value);
 
     model = DhcpLease.builder().mac(value).build();
-    assertEquals(value, model.getMac());
+    softly.assertThat(model.getMac()).isEqualTo(value);
 
-    assertNotEquals(model, null);
-    assertNotEquals(model, new Object());
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().mac(value).build());
+    softly.assertThat(model).isNotEqualTo(null);
+    softly.assertThat(model).isNotEqualTo(new Object());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().mac(value).build());
 
-    assertTrue(model.toString().contains(value));
+    softly.assertThat(model.toString()).contains(value);
   }
 
   /**
    * Gets ip.
+   *
+   * @param softly the softly
    */
   @Test
-  void getIp() {
+  void getIp(SoftAssertions softly) {
     String value = UUID.randomUUID().toString();
     DhcpLease model = new DhcpLease();
     model.setIp(value);
-    assertEquals(value, model.getIp());
+    softly.assertThat(model.getIp()).isEqualTo(value);
 
     model = DhcpLease.builder().ip(value).build();
-    assertEquals(value, model.getIp());
+    softly.assertThat(model.getIp()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().ip(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().ip(value).build());
 
-    assertTrue(model.toString().contains(value));
+    softly.assertThat(model.toString()).contains(value);
   }
 
   /**
    * Gets hostname.
+   *
+   * @param softly the softly
    */
   @Test
-  void getHostname() {
+  void getHostname(SoftAssertions softly) {
     String value = UUID.randomUUID().toString();
     DhcpLease model = new DhcpLease();
     model.setHostname(value);
-    assertEquals(value, model.getHostname());
+    softly.assertThat(model.getHostname()).isEqualTo(value);
 
     model = DhcpLease.builder().hostname(value).build();
-    assertEquals(value, model.getHostname());
+    softly.assertThat(model.getHostname()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().hostname(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().hostname(value).build());
 
-    assertTrue(model.toString().contains(value));
+    softly.assertThat(model.toString()).contains(value);
   }
 
   /**
    * Gets begin.
+   *
+   * @param softly the softly
    */
   @Test
-  void getBegin() {
+  void getBegin(SoftAssertions softly) {
     OffsetDateTime value = OffsetDateTime.now();
     DhcpLease model = new DhcpLease();
     model.setBegin(value);
-    assertEquals(value, model.getBegin());
+    softly.assertThat(model.getBegin()).isEqualTo(value);
 
     model = DhcpLease.builder().begin(value).build();
-    assertEquals(value, model.getBegin());
+    softly.assertThat(model.getBegin()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().begin(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().begin(value).build());
 
-    assertTrue(model.toString().contains(value.toString()));
+    softly.assertThat(model.toString()).contains(value.toString());
   }
 
   /**
    * Gets end.
+   *
+   * @param softly the softly
    */
   @Test
-  void getEnd() {
+  void getEnd(SoftAssertions softly) {
     OffsetDateTime value = OffsetDateTime.now();
     DhcpLease model = new DhcpLease();
     model.setEnd(value);
-    assertEquals(value, model.getEnd());
+    softly.assertThat(model.getEnd()).isEqualTo(value);
 
     model = DhcpLease.builder().end(value).build();
-    assertEquals(value, model.getEnd());
+    softly.assertThat(model.getEnd()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().end(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().end(value).build());
 
-    assertTrue(model.toString().contains(value.toString()));
+    softly.assertThat(model.toString()).contains(value.toString());
   }
 
   /**
    * Gets manufacturer.
+   *
+   * @param softly the softly
    */
   @Test
-  void getManufacturer() {
+  void getManufacturer(SoftAssertions softly) {
     String value = UUID.randomUUID().toString();
     DhcpLease model = new DhcpLease();
     model.setManufacturer(value);
-    assertEquals(value, model.getManufacturer());
+    softly.assertThat(model.getManufacturer()).isEqualTo(value);
 
     model = DhcpLease.builder().manufacturer(value).build();
-    assertEquals(value, model.getManufacturer());
+    softly.assertThat(model.getManufacturer()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().manufacturer(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().manufacturer(value).build());
 
-    assertTrue(model.toString().contains(value));
+    softly.assertThat(model.toString()).contains(value);
   }
 }

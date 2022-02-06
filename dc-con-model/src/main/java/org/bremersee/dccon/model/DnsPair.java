@@ -47,26 +47,41 @@ public class DnsPair implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * The constant ZONE_NAME.
+   */
+  public static final String ZONE_NAME = "zoneName";
+
   @Schema(
       description = "The zone name of the dns node.",
       required = true,
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty(value = "zoneName", required = true)
+  @JsonProperty(value = ZONE_NAME, required = true)
   @NotNull
   private String zoneName;
+
+  /**
+   * The constant NODE.
+   */
+  public static final String NODE = "node";
 
   @Schema(
       description = "A dns node.",
       required = true,
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty(value = "node", required = true)
+  @JsonProperty(value = NODE, required = true)
   @NotNull
   private DnsNode node;
+
+  /**
+   * The constant NODE_EXISTS.
+   */
+  public static final String NODE_EXISTS = "nodeExists";
 
   @Schema(
       description = "Information about the existence of the dns node.",
       accessMode = AccessMode.READ_ONLY)
-  @JsonProperty(value = "nodeExists")
+  @JsonProperty(value = NODE_EXISTS)
   private Boolean nodeExists;
 
   /**

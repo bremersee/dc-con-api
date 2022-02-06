@@ -17,30 +17,35 @@
 package org.bremersee.dccon.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.UUID;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The avatar default test.
  *
  * @author Christian Bremer
  */
+@ExtendWith(SoftAssertionsExtension.class)
 class AvatarDefaultTest {
 
   /**
    * From value.
+   *
+   * @param softly the softly
    */
   @Test
-  void fromValue() {
+  void fromValue(SoftAssertions softly) {
     for (AvatarDefault expected : AvatarDefault.values()) {
       AvatarDefault actual = AvatarDefault.fromValue(expected.toString(), null);
       assertEquals(expected, actual);
     }
-    assertNull(AvatarDefault.fromValue(UUID.randomUUID().toString(), null));
-    assertEquals(
-        AvatarDefault.MP,
-        AvatarDefault.fromValue(UUID.randomUUID().toString(), AvatarDefault.MP));
+    softly.assertThat(AvatarDefault.fromValue(UUID.randomUUID().toString(), null))
+        .isNull();
+    softly.assertThat(AvatarDefault.fromValue(UUID.randomUUID().toString(), AvatarDefault.MP))
+        .isEqualTo(AvatarDefault.MP);
   }
 }

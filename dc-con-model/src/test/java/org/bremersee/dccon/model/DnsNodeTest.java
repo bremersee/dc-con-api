@@ -16,105 +16,107 @@
 
 package org.bremersee.dccon.model;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.nio.charset.StandardCharsets;
 import java.time.OffsetDateTime;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * The dns node test.
  *
  * @author Christian Bremer
  */
+@ExtendWith(SoftAssertionsExtension.class)
 class DnsNodeTest {
 
   /**
    * Gets distinguished name.
    */
   @Test
-  void getDistinguishedName() {
+  void getDistinguishedName(SoftAssertions softly) {
     String value = UUID.randomUUID().toString();
     DnsNode model = new DnsNode();
     model.setDistinguishedName(value);
-    assertEquals(value, model.getDistinguishedName());
+    softly.assertThat(model.getDistinguishedName()).isEqualTo(value);
 
     model = DnsNode.builder().distinguishedName(value).build();
-    assertEquals(value, model.getDistinguishedName());
+    softly.assertThat(model.getDistinguishedName()).isEqualTo(value);
 
-    assertNotEquals(model, null);
-    assertNotEquals(model, new Object());
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().distinguishedName(value).build());
+    softly.assertThat(model).isNotEqualTo(null);
+    softly.assertThat(model).isNotEqualTo(new Object());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().distinguishedName(value).build());
 
-    assertTrue(model.toString().contains(value));
+    softly.assertThat(model.toString()).contains(value);
   }
 
   /**
    * Gets created.
    */
   @Test
-  void getCreated() {
+  void getCreated(SoftAssertions softly) {
     OffsetDateTime value = OffsetDateTime.now();
     DnsNode model = new DnsNode();
     model.setCreated(value);
-    assertEquals(value, model.getCreated());
+    softly.assertThat(model.getCreated()).isEqualTo(value);
 
     model = DnsNode.builder().created(value).build();
-    assertEquals(value, model.getCreated());
+    softly.assertThat(model.getCreated()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().created(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().created(value).build());
 
-    assertTrue(model.toString().contains(value.toString()));
+    softly.assertThat(model.toString()).contains(value.toString());
   }
 
   /**
    * Gets modified.
    */
   @Test
-  void getModified() {
+  void getModified(SoftAssertions softly) {
     OffsetDateTime value = OffsetDateTime.now();
     DnsNode model = new DnsNode();
     model.setModified(value);
-    assertEquals(value, model.getModified());
+    softly.assertThat(model.getModified()).isEqualTo(value);
 
     model = DnsNode.builder().modified(value).build();
-    assertEquals(value, model.getModified());
+    softly.assertThat(model.getModified()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().modified(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().modified(value).build());
 
-    assertTrue(model.toString().contains(value.toString()));
+    softly.assertThat(model.toString()).contains(value.toString());
   }
 
   /**
    * Gets name.
    */
   @Test
-  void getName() {
+  void getName(SoftAssertions softly) {
     String value = UUID.randomUUID().toString();
     DnsNode model = new DnsNode();
     model.setName(value);
-    assertEquals(value, model.getName());
+    softly.assertThat(model.getName()).isEqualTo(value);
 
     model = DnsNode.builder().name(value).build();
-    assertEquals(value, model.getName());
+    softly.assertThat(model.getName()).isEqualTo(value);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().name(value).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().name(value).build());
 
-    assertTrue(model.toString().contains(value));
+    softly.assertThat(model.toString()).contains(value);
   }
 
   /**
    * Gets records.
    */
   @Test
-  void getRecords() {
+  void getRecords(SoftAssertions softly) {
     DnsRecord value = DnsRecord.builder()
         .correlatedRecordValue(UUID.randomUUID().toString())
         .recordRawValue(UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8))
@@ -128,14 +130,14 @@ class DnsNodeTest {
     Set<DnsRecord> values = Collections.singleton(value);
     DnsNode model = new DnsNode();
     model.setRecords(values);
-    assertEquals(values, model.getRecords());
+    softly.assertThat(model.getRecords()).isEqualTo(values);
 
     model = DnsNode.builder().records(values).build();
-    assertEquals(values, model.getRecords());
+    softly.assertThat(model.getRecords()).isEqualTo(values);
 
-    assertEquals(model, model);
-    assertEquals(model, model.toBuilder().records(values).build());
+    softly.assertThat(model).isEqualTo(model);
+    softly.assertThat(model).isEqualTo(model.toBuilder().records(values).build());
 
-    assertTrue(model.toString().contains(value.toString()));
+    softly.assertThat(model.toString()).contains(values.toString());
   }
 }
