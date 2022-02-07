@@ -80,7 +80,7 @@ public interface DomainWebfluxManagementApi {
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
-          description = "TThe random password.",
+          description = "The random password.",
           content = @Content(
               schema = @Schema(
                   implementation = Password.class))),

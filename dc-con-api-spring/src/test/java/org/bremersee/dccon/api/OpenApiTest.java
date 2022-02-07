@@ -57,7 +57,7 @@ class OpenApiTest {
   /**
    * Test open api.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    * @throws IOException the io exception
    */
   @Test

@@ -34,7 +34,7 @@ class DhcpLeaseTest {
   /**
    * Gets mac.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    */
   @Test
   void getMac(SoftAssertions softly) {
@@ -57,7 +57,7 @@ class DhcpLeaseTest {
   /**
    * Gets ip.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    */
   @Test
   void getIp(SoftAssertions softly) {
@@ -78,7 +78,7 @@ class DhcpLeaseTest {
   /**
    * Gets hostname.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    */
   @Test
   void getHostname(SoftAssertions softly) {
@@ -99,7 +99,7 @@ class DhcpLeaseTest {
   /**
    * Gets begin.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    */
   @Test
   void getBegin(SoftAssertions softly) {
@@ -120,7 +120,7 @@ class DhcpLeaseTest {
   /**
    * Gets end.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    */
   @Test
   void getEnd(SoftAssertions softly) {
@@ -141,7 +141,7 @@ class DhcpLeaseTest {
   /**
    * Gets manufacturer.
    *
-   * @param softly the softly
+   * @param softly the soft assertions
    */
   @Test
   void getManufacturer(SoftAssertions softly) {

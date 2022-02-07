@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 the original author or authors.
+ * Copyright 2022 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,36 +16,41 @@
 
 package org.bremersee.dccon.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.UUID;
+import java.util.List;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
+import org.bremersee.comparator.model.SortOrder;
+import org.bremersee.comparator.model.SortOrders;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 
 /**
- * The avatar default test.
+ * The domain group page test.
  *
  * @author Christian Bremer
  */
 @ExtendWith(SoftAssertionsExtension.class)
-class AvatarDefaultTest {
+class DomainGroupPageTest {
 
   /**
-   * From value.
+   * Test constructors.
    *
    * @param softly the soft assertions
    */
   @Test
-  void fromValue(SoftAssertions softly) {
-    for (AvatarDefault expected : AvatarDefault.values()) {
-      AvatarDefault actual = AvatarDefault.fromValue(expected.toString(), null);
-      assertEquals(expected, actual);
-    }
-    softly.assertThat(AvatarDefault.fromValue(UUID.randomUUID().toString(), null))
-        .isNull();
-    softly.assertThat(AvatarDefault.fromValue(UUID.randomUUID().toString(), AvatarDefault.MP))
-        .isEqualTo(AvatarDefault.MP);
+  void testConstructors(SoftAssertions softly) {
+    softly.assertThat(new DomainGroupPage(
+            List.of(), 0, 0, 0))
+        .isNotNull();
+    softly.assertThat(new DomainGroupPage(
+            List.of(), 0, 0, 0, SortOrders.by(SortOrder.by(DomainGroup.NAME))))
+        .isNotNull();
+    softly.assertThat(new DomainGroupPage(
+            List.of(), 0, 0, 0, Sort.by(DomainGroup.NAME)))
+        .isNotNull();
+    softly.assertThat(new DomainGroupPage(Page.empty()))
+        .isNotNull();
   }
 }

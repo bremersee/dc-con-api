@@ -16,9 +16,12 @@
 
 package org.bremersee.dccon.api;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.bremersee.dccon.api.openapi.DomainManagementRestController;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -30,5 +33,19 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration
 @ComponentScan(basePackageClasses = {DomainManagementRestController.class})
 public class OpenApiTestConfiguration {
+
+  /**
+   * Dc con open api.
+   *
+   * @return the open api
+   */
+  @Bean
+  public OpenAPI dcConOpenApi() {
+    return new OpenAPI()
+        .info(new Info()
+            .title("DC-CON API")
+            .version("junit")
+            .description("A domain controller connector API."));
+  }
 
 }
