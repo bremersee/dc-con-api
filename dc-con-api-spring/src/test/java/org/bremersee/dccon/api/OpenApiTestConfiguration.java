@@ -45,7 +45,7 @@ public class OpenApiTestConfiguration {
         .info(new Info()
             .title("DC-CON API")
             .version("junit")
-            .description("A domain controller connector API."));
+            .description("A samba domain controller connector API."));
   }
 
 }
