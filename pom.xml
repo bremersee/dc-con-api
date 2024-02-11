@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>3.0.0-SNAPSHOT</version>
     <relativePath/>
   </parent>
 
@@ -30,9 +30,8 @@
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
 
-    <common-base.version>2.4.0-SNAPSHOT</common-base.version>
-    <common-model.version>2.4.0-SNAPSHOT</common-model.version>
-    <pagebuilder.version>2.1.0-SNAPSHOT</pagebuilder.version>
+    <common-exception.version>1.0.0-SNAPSHOT</common-exception.version>
+    <pagebuilder.version>3.0.0-SNAPSHOT</pagebuilder.version>
   </properties>
 
   <developers>
@@ -91,28 +90,13 @@
     <dependencies>
       <dependency>
         <groupId>org.bremersee</groupId>
-        <artifactId>dc-con-model</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>common-model</artifactId>
-        <version>${common-model.version}</version>
+        <artifactId>common-exception-model</artifactId>
+        <version>${common-exception.version}</version>
       </dependency>
       <dependency>
         <groupId>org.bremersee</groupId>
         <artifactId>pagebuilder</artifactId>
         <version>${pagebuilder.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>common-base</artifactId>
-        <version>${common-base.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>common-base-test</artifactId>
-        <version>${common-base.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

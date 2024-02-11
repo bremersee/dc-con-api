@@ -19,13 +19,13 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * The password information of the domain controller.
@@ -33,7 +33,6 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "The password information of the domain controller.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 @Getter
@@ -41,6 +40,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 public class PasswordInformation implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Schema(description = "The password complexity.")
@@ -96,7 +96,6 @@ public class PasswordInformation implements Serializable {
    * @param accountLockoutThreshold the account lockout threshold
    * @param resetAccountLockoutAfter the reset account lockout after
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public PasswordInformation(
       PasswordComplexity passwordComplexity,

@@ -19,7 +19,6 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
-import javax.validation.Valid;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -34,13 +33,11 @@ import org.springframework.data.domain.Sort;
  *
  * @author Christian Bremer
  */
-@SuppressWarnings("SameNameButDifferent")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Schema(description = "A page of dns nodes.")
-@Valid
 public class DnsNodePage extends JsonPageDto<DnsNode> {
 
   /**

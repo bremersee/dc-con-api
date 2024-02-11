@@ -19,13 +19,15 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import java.io.Serial;
 import java.io.Serializable;
-import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * Request body to change a password. Administrators can just set the new password. Normal users
@@ -35,18 +37,28 @@ import org.springframework.validation.annotation.Validated;
  */
 @Schema(description = "Request body to change a password. Administrators can just set the new "
     + "password. Normal users must also set the previous password.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 @EqualsAndHashCode
 @ToString(exclude = {"value", "previousValue"})
 @NoArgsConstructor
 public class Password implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 2L;
 
+  /**
+   * The new password.
+   */
+  @Schema(requiredMode = RequiredMode.REQUIRED, description = "The new password.")
   @JsonProperty(value = "value", required = true)
   private String value;
 
+  /**
+   * The previous password.
+   */
+  @Schema(requiredMode = RequiredMode.REQUIRED, description = "The previous password.")
   @JsonProperty(value = "previousValue")
   private String previousValue;
 
@@ -65,50 +77,11 @@ public class Password implements Serializable {
    * @param value the new password
    * @param previousValue the previous password
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public Password(String value, String previousValue) {
     this.value = value;
     this.previousValue = previousValue;
   }
 
-  /**
-   * The new password.
-   *
-   * @return the new password
-   */
-  @Schema(required = true, description = "The new password.")
-  @NotNull
-  public String getValue() {
-    return value;
-  }
-
-  /**
-   * Sets new password.
-   *
-   * @param value the new password
-   */
-  public void setValue(String value) {
-    this.value = value;
-  }
-
-  /**
-   * Gets previous password.
-   *
-   * @return the previous password
-   */
-  @Schema(required = true, description = "The previous password.")
-  public String getPreviousValue() {
-    return previousValue;
-  }
-
-  /**
-   * Sets previous password.
-   *
-   * @param previousValue the previous password
-   */
-  public void setPreviousValue(String previousValue) {
-    this.previousValue = previousValue;
-  }
 }
 

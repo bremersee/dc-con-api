@@ -59,7 +59,6 @@ public enum PasswordComplexity {
    * @param value the value
    * @return the password complexity
    */
-  @SuppressWarnings("unused")
   @JsonCreator
   public static PasswordComplexity fromValue(String value) {
     for (PasswordComplexity pc : PasswordComplexity.values()) {

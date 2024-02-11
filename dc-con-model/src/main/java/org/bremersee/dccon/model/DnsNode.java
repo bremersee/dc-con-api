@@ -19,14 +19,18 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import java.io.Serial;
 import java.time.OffsetDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS node.
@@ -34,13 +38,15 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "DNS node")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class DnsNode extends CommonAttributes {
 
+  @Serial
   private static final long serialVersionUID = 2L;
 
   /**
@@ -48,6 +54,12 @@ public class DnsNode extends CommonAttributes {
    */
   public static final String NAME = "name";
 
+  /**
+   * The node name. It can be the host name or a part of the ip address (e. g. 1.178 or 178).
+   */
+  @Schema(
+      description = "The entry name (host name or part of the ip address).",
+      requiredMode = RequiredMode.REQUIRED)
   @JsonProperty(value = NAME, required = true)
   private String name;
 
@@ -56,6 +68,10 @@ public class DnsNode extends CommonAttributes {
    */
   public static final String RECORDS = "records";
 
+  /**
+   * The name server records.
+   */
+  @Schema(description = "The name server records.")
   @JsonProperty(RECORDS)
   private Set<DnsRecord> records;
 
@@ -68,7 +84,6 @@ public class DnsNode extends CommonAttributes {
    * @param name the name
    * @param records the records
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsNode(
       String distinguishedName,
@@ -82,27 +97,6 @@ public class DnsNode extends CommonAttributes {
   }
 
   /**
-   * The node name. It can be the host name or a part of the ip address (e. g. 1.178 or 178).
-   *
-   * @return the entry name
-   */
-  @Schema(
-      description = "The entry name (host name or part of the ip address).",
-      required = true)
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets node name.
-   *
-   * @param name the entry name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
    * The name server records.
    *
    * @return the name server records
@@ -113,15 +107,6 @@ public class DnsNode extends CommonAttributes {
       records = new LinkedHashSet<>();
     }
     return records;
-  }
-
-  /**
-   * Sets name server records.
-   *
-   * @param records the name server records
-   */
-  public void setRecords(Set<DnsRecord> records) {
-    this.records = records;
   }
 
 }

@@ -25,7 +25,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.PasswordInformation;
 import org.bremersee.exception.model.RestApiException;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import reactor.core.publisher.Mono;
@@ -36,7 +35,6 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @Tag(name = "domain-management-controller", description = "The domain management API.")
-@Validated
 public interface DomainWebfluxManagementApi {
 
   /**

@@ -26,7 +26,6 @@ import org.bremersee.dccon.model.Password;
 import org.bremersee.dccon.model.PasswordInformation;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Christian Bremer
  */
 @Tag(name = "domain-management-controller", description = "The domain management API.")
-@Validated
 public interface DomainManagementApi {
 
   /**

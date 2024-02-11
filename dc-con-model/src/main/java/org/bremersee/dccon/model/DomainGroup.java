@@ -20,16 +20,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * Domain group.
@@ -37,13 +40,15 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "Domain group.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = true)
+@Getter
+@Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class DomainGroup extends CommonAttributes implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -51,6 +56,10 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public static final String NAME = "name";
 
+  /**
+   * The name of the domain group.
+   */
+  @Schema(description = "The name of the domain group.", requiredMode = RequiredMode.REQUIRED)
   @JsonProperty(value = NAME, required = true)
   @NotNull
   private String name = null;
@@ -60,6 +69,10 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public static final String DESCRIPTION = "description";
 
+  /**
+   * Gets description.
+   */
+  @Schema(description = "A description of the domain group.")
   @JsonProperty(DESCRIPTION)
   private String description;
 
@@ -68,6 +81,10 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public static final String SID = "sid";
 
+  /**
+   * Gets sid.
+   */
+  @Schema(description = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(SID)
   private Sid sid;
 
@@ -76,6 +93,10 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   public static final String MEMBERS = "members";
 
+  /**
+   * The members of the domain group.
+   */
+  @Schema(description = "The members of the domain group.")
   @JsonProperty(MEMBERS)
   private List<String> members = null;
 
@@ -90,7 +111,6 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    * @param description the description
    * @param members the members
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DomainGroup(
       String distinguishedName,
@@ -109,82 +129,15 @@ public class DomainGroup extends CommonAttributes implements Serializable {
   }
 
   /**
-   * The name of the domain group.
-   *
-   * @return name name
-   */
-  @Schema(description = "The name of the domain group.", required = true)
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets name.
-   *
-   * @param name the name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Gets description.
-   *
-   * @return the description
-   */
-  @Schema(description = "A description of the domain group.")
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Sets description.
-   *
-   * @param description the description
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Gets sid.
-   *
-   * @return the sid
-   */
-  @Schema(description = "The windows/samba SID.", accessMode = AccessMode.READ_ONLY)
-  public Sid getSid() {
-    return sid;
-  }
-
-  /**
-   * Sets sid.
-   *
-   * @param sid the sid
-   */
-  public void setSid(Sid sid) {
-    this.sid = sid;
-  }
-
-  /**
    * The members of the domain group.
    *
-   * @return members members
+   * @return the members
    */
-  @Schema(description = "The members of the domain group.")
   public List<String> getMembers() {
     if (members == null) {
       members = new ArrayList<>();
     }
     return members;
-  }
-
-  /**
-   * Sets members.
-   *
-   * @param members the members
-   */
-  public void setMembers(List<String> members) {
-    this.members = members;
   }
 
 }

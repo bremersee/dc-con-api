@@ -25,8 +25,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import javax.validation.Valid;
-import org.bremersee.common.model.TwoLetterLanguageCode;
+import java.util.Locale;
+import jakarta.validation.Valid;
 import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.DomainUserPage;
@@ -36,7 +36,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.multipart.FilePart;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +50,6 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @Tag(name = "domain-user-management-controller", description = "The domain user API.")
-@Validated
 public interface DomainUserWebfluxManagementApi {
 
   /**
@@ -116,7 +114,15 @@ public interface DomainUserWebfluxManagementApi {
   @Operation(
       summary = "Add domain user.",
       operationId = "addUser",
-      tags = {"domain-user-management-controller"})
+      tags = {"domain-user-management-controller"},
+      parameters = {
+          @Parameter(
+              name = "lang",
+              in = ParameterIn.QUERY,
+              description = "The language of the email.",
+              example = "en",
+              schema = @Schema(type = "string"))
+      })
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -146,8 +152,8 @@ public interface DomainUserWebfluxManagementApi {
       @Parameter(description = "Specifies whether to send an email or not.")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
 
-      @Parameter(description = "The language of the email.")
-      @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
+      @Parameter(hidden = true)
+      @RequestParam(name = "lang", defaultValue = "en") Locale language,
 
       @Parameter(description = "The domain user to add.", required = true)
       @Valid @RequestBody DomainUser domainUser);
@@ -313,7 +319,15 @@ public interface DomainUserWebfluxManagementApi {
   @Operation(
       summary = "Updates the password of the domain user.",
       operationId = "updateUserPassword",
-      tags = {"domain-user-management-controller"})
+      tags = {"domain-user-management-controller"},
+      parameters = {
+          @Parameter(
+              name = "lang",
+              in = ParameterIn.QUERY,
+              description = "The language of the email.",
+              example = "en",
+              schema = @Schema(type = "string"))
+      })
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -349,8 +363,8 @@ public interface DomainUserWebfluxManagementApi {
       @Parameter(description = "Specifies whether to send an email or not.")
       @RequestParam(name = "email", defaultValue = "false") Boolean email,
 
-      @Parameter(description = "The language of the email.")
-      @RequestParam(name = "lang", defaultValue = "en") TwoLetterLanguageCode language,
+      @Parameter(hidden = true)
+      @RequestParam(name = "lang", defaultValue = "en") Locale language,
 
       @Parameter(description = "The password of the domain user.", required = true)
       @Valid @RequestBody Password newPassword);

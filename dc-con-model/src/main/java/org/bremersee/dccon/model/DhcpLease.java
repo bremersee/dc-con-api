@@ -20,13 +20,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * The dhcp lease.
@@ -34,13 +33,12 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "A dhcp lease of the dhcp server.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
-@EqualsAndHashCode
-@ToString
+@Data
 @NoArgsConstructor
 public class DhcpLease implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -48,6 +46,10 @@ public class DhcpLease implements Serializable {
    */
   public static final String MAC = "mac";
 
+  /**
+   * Gets mac.
+   */
+  @Schema(description = "The mac of the client.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(MAC)
   private String mac;
 
@@ -56,6 +58,10 @@ public class DhcpLease implements Serializable {
    */
   public static final String IP = "ip";
 
+  /**
+   * Gets ip.
+   */
+  @Schema(description = "The ip of the client.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(IP)
   private String ip;
 
@@ -64,6 +70,10 @@ public class DhcpLease implements Serializable {
    */
   public static final String HOSTNAME = "hostname";
 
+  /**
+   * Gets hostname.
+   */
+  @Schema(description = "The host name of the client.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(HOSTNAME)
   private String hostname;
 
@@ -72,6 +82,10 @@ public class DhcpLease implements Serializable {
    */
   public static final String BEGIN = "begin";
 
+  /**
+   * Gets begin.
+   */
+  @Schema(description = "The start time of the lease.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(BEGIN)
   private OffsetDateTime begin;
 
@@ -80,6 +94,10 @@ public class DhcpLease implements Serializable {
    */
   public static final String END = "end";
 
+  /**
+   * Gets end.
+   */
+  @Schema(description = "The end time of the lease.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(END)
   private OffsetDateTime end;
 
@@ -88,6 +106,10 @@ public class DhcpLease implements Serializable {
    */
   public static final String MANUFACTURER = "manufacturer";
 
+  /**
+   * Gets manufacturer.
+   */
+  @Schema(description = "The manufacturer of the client.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(MANUFACTURER)
   private String manufacturer;
 
@@ -102,7 +124,6 @@ public class DhcpLease implements Serializable {
    * @param manufacturer the manufacturer
    */
   @Builder(toBuilder = true)
-  @SuppressWarnings("unused")
   public DhcpLease(
       String mac,
       String ip,
@@ -118,117 +139,4 @@ public class DhcpLease implements Serializable {
     this.manufacturer = manufacturer;
   }
 
-  /**
-   * Gets mac.
-   *
-   * @return the mac
-   */
-  @Schema(description = "The mac of the client.", accessMode = AccessMode.READ_ONLY)
-  public String getMac() {
-    return mac;
-  }
-
-  /**
-   * Sets mac.
-   *
-   * @param mac the mac
-   */
-  public void setMac(String mac) {
-    this.mac = mac;
-  }
-
-  /**
-   * Gets ip.
-   *
-   * @return the ip
-   */
-  @Schema(description = "The ip of the client.", accessMode = AccessMode.READ_ONLY)
-  public String getIp() {
-    return ip;
-  }
-
-  /**
-   * Sets ip.
-   *
-   * @param ip the ip
-   */
-  public void setIp(String ip) {
-    this.ip = ip;
-  }
-
-  /**
-   * Gets hostname.
-   *
-   * @return the hostname
-   */
-  @Schema(description = "The host name of the client.", accessMode = AccessMode.READ_ONLY)
-  public String getHostname() {
-    return hostname;
-  }
-
-  /**
-   * Sets hostname.
-   *
-   * @param hostname the hostname
-   */
-  public void setHostname(String hostname) {
-    this.hostname = hostname;
-  }
-
-  /**
-   * Gets begin.
-   *
-   * @return the begin
-   */
-  @Schema(description = "The start time of the lease.", accessMode = AccessMode.READ_ONLY)
-  public OffsetDateTime getBegin() {
-    return begin;
-  }
-
-  /**
-   * Sets begin.
-   *
-   * @param begin the begin
-   */
-  public void setBegin(OffsetDateTime begin) {
-    this.begin = begin;
-  }
-
-  /**
-   * Gets end.
-   *
-   * @return the end
-   */
-  @Schema(description = "The end time of the lease.", accessMode = AccessMode.READ_ONLY)
-  public OffsetDateTime getEnd() {
-    return end;
-  }
-
-  /**
-   * Sets end.
-   *
-   * @param end the end
-   */
-  public void setEnd(OffsetDateTime end) {
-    this.end = end;
-  }
-
-  /**
-   * Gets manufacturer.
-   *
-   * @return the manufacturer
-   */
-  @Schema(description = "The manufacturer of the client.", accessMode = AccessMode.READ_ONLY)
-  public String getManufacturer() {
-    return manufacturer;
-  }
-
-  /**
-   * Sets manufacturer.
-   *
-   * @param manufacturer the manufacturer
-   */
-  public void setManufacturer(String manufacturer) {
-    this.manufacturer = manufacturer;
-  }
 }

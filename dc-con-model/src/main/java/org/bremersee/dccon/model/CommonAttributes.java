@@ -23,12 +23,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import io.swagger.v3.oas.annotations.media.DiscriminatorMapping;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * Common attributes.
@@ -48,14 +47,13 @@ import org.springframework.validation.annotation.Validated;
         @DiscriminatorMapping(
             value = "org.bremersee.dccon.model.DomainUser", schema = DomainUser.class)
     })
-@Validated
 @JsonTypeInfo(use = Id.CLASS, property = "_type", visible = true)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@EqualsAndHashCode
-@ToString
+@Data
 @NoArgsConstructor
 public abstract class CommonAttributes implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -64,10 +62,13 @@ public abstract class CommonAttributes implements Serializable {
   public static final String DISTINGUISHED_NAME = "distinguishedName";
 
   /**
-   * The Distinguished name.
+   * The distinguished name in the active directory.
    */
+  @Schema(
+      description = "The distinguished name in the active directory.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = DISTINGUISHED_NAME)
-  String distinguishedName = null;
+  String distinguishedName;
 
   /**
    * The constant CREATED.
@@ -75,10 +76,11 @@ public abstract class CommonAttributes implements Serializable {
   public static final String CREATED = "created";
 
   /**
-   * The Created.
+   * The creation date.
    */
+  @Schema(description = "The creation date.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(CREATED)
-  OffsetDateTime created = null;
+  OffsetDateTime created;
 
   /**
    * The constant MODIFIED.
@@ -86,10 +88,11 @@ public abstract class CommonAttributes implements Serializable {
   public static final String MODIFIED = "modified";
 
   /**
-   * The Modified.
+   * The last modification date.
    */
+  @Schema(description = "The last modification date.", accessMode = AccessMode.READ_ONLY)
   @JsonProperty(MODIFIED)
-  OffsetDateTime modified = null;
+  OffsetDateTime modified;
 
   /**
    * Instantiates a new common attributes.
@@ -105,65 +108,6 @@ public abstract class CommonAttributes implements Serializable {
 
     this.distinguishedName = distinguishedName;
     this.created = created;
-    this.modified = modified;
-  }
-
-  /**
-   * The distinguished name in the active directory.
-   *
-   * @return distinguishedName distinguished name
-   */
-  @Schema(
-      description = "The distinguished name in the active directory.",
-      accessMode = AccessMode.READ_ONLY)
-  public String getDistinguishedName() {
-    return distinguishedName;
-  }
-
-  /**
-   * Sets distinguished name.
-   *
-   * @param distinguishedName the distinguished name
-   */
-  public void setDistinguishedName(String distinguishedName) {
-    this.distinguishedName = distinguishedName;
-  }
-
-  /**
-   * The creation date.
-   *
-   * @return created created
-   */
-  @Schema(description = "The creation date.", accessMode = AccessMode.READ_ONLY)
-  public OffsetDateTime getCreated() {
-    return created;
-  }
-
-  /**
-   * Sets creation date.
-   *
-   * @param created the creation date
-   */
-  public void setCreated(OffsetDateTime created) {
-    this.created = created;
-  }
-
-  /**
-   * The last modification date.
-   *
-   * @return modified modified
-   */
-  @Schema(description = "The last modification date.", accessMode = AccessMode.READ_ONLY)
-  public OffsetDateTime getModified() {
-    return modified;
-  }
-
-  /**
-   * Sets last modification date.
-   *
-   * @param modified the last modification date
-   */
-  public void setModified(OffsetDateTime modified) {
     this.modified = modified;
   }
 

@@ -49,15 +49,10 @@ public enum UnknownFilter {
   public boolean matches(DnsRecord dnsRecord) {
     return Optional.ofNullable(dnsRecord)
         .map(DnsRecord::getRecordType)
-        .map(recordType -> {
-          switch (this) {
-            case NO_UNKNOWN:
-              return !recordType.equalsIgnoreCase("UNKNOWN");
-            case UNKNOWN:
-              return recordType.equalsIgnoreCase("UNKNOWN");
-            default:
-              return true;
-          }
+        .map(recordType -> switch (this) {
+          case NO_UNKNOWN -> !recordType.equalsIgnoreCase("UNKNOWN");
+          case UNKNOWN -> recordType.equalsIgnoreCase("UNKNOWN");
+          default -> true;
         })
         .orElse(false);
   }

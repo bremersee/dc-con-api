@@ -20,25 +20,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 /**
- * The windows/samba SID. Well known (system) SIDs are listed
- * <a href="https://support.microsoft.com/en-us/help/243330/well-known-security-identifiers-in-windows-operating-systems">here</a>.
+ * The windows/samba SID. Well known (system) SIDs are listed <a
+ * href="https://support.microsoft.com/en-us/help/243330/well-known-security-identifiers-in-windows-operating-systems">here</a>.
  *
  * @author Christian Bremer
  */
 @Schema(description = "The SID of the entity.")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@EqualsAndHashCode
-@ToString
+@Data
 @NoArgsConstructor
 public class Sid implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -46,6 +46,12 @@ public class Sid implements Serializable {
    */
   public static final String VALUE = "value";
 
+  /**
+   * The SID of the entity.
+   */
+  @Schema(
+      description = "The SID of the entity.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = VALUE, required = true)
   private String value = null;
 
@@ -63,32 +69,10 @@ public class Sid implements Serializable {
    * @param value the value
    * @param systemEntity the system entity
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public Sid(String value, Boolean systemEntity) {
     setValue(value);
     setSystemEntity(systemEntity);
-  }
-
-  /**
-   * Gets value.
-   *
-   * @return the value
-   */
-  @Schema(
-      description = "The SID of the entity.",
-      accessMode = AccessMode.READ_ONLY)
-  public String getValue() {
-    return value;
-  }
-
-  /**
-   * Sets value.
-   *
-   * @param value the value
-   */
-  public void setValue(String value) {
-    this.value = value;
   }
 
   /**
@@ -100,16 +84,7 @@ public class Sid implements Serializable {
       description = "Tells whether the entity is a system entity or not.",
       accessMode = AccessMode.READ_ONLY)
   public Boolean getSystemEntity() {
-    return systemEntity;
-  }
-
-  /**
-   * Sets system entity.
-   *
-   * @param systemEntity the system entity
-   */
-  public void setSystemEntity(Boolean systemEntity) {
-    this.systemEntity = systemEntity;
+    return Boolean.TRUE.equals(systemEntity);
   }
 
 }

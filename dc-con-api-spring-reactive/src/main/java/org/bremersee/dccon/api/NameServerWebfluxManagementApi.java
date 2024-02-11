@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DhcpLeasePage;
 import org.bremersee.dccon.model.DnsNode;
@@ -37,7 +37,6 @@ import org.bremersee.dccon.model.UnknownFilter;
 import org.bremersee.exception.model.RestApiException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +50,6 @@ import reactor.core.publisher.Mono;
  * @author Christian Bremer
  */
 @Tag(name = "name-server-management-controller", description = "Name server management API.")
-@Validated
 public interface NameServerWebfluxManagementApi {
 
   /**

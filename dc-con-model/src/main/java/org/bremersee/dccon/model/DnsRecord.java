@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 import lombok.Builder;
@@ -29,7 +30,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.lang.NonNull;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS Record.
@@ -37,7 +37,6 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "DNS Record")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
@@ -46,6 +45,7 @@ import org.springframework.validation.annotation.Validated;
 @NoArgsConstructor
 public class DnsRecord implements Serializable, Comparable<DnsRecord> {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -144,7 +144,6 @@ public class DnsRecord implements Serializable, Comparable<DnsRecord> {
    * @param timeStamp the time stamp
    * @param dhcpLease the dhcp lease
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsRecord(String recordType, String recordValue, byte[] recordRawValue,
       String correlatedRecordValue, Integer version, Integer serial, Integer ttlSeconds,

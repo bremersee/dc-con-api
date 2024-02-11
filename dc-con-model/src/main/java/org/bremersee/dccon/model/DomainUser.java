@@ -20,17 +20,18 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * Domain user.
@@ -38,7 +39,6 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "Domain user.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter
@@ -52,6 +52,7 @@ public class DomainUser extends CommonAttributes {
    */
   public static final String DEFAULT_SORT_ORDER = "userName";
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -68,7 +69,7 @@ public class DomainUser extends CommonAttributes {
    */
   public static final String USER_NAME = "userName";
 
-  @Schema(description = "The user name of the domain user.", required = true)
+  @Schema(description = "The user name of the domain user.", requiredMode = RequiredMode.REQUIRED)
   @JsonProperty(value = USER_NAME, required = true)
   @NotNull
   private String userName;
@@ -230,7 +231,7 @@ public class DomainUser extends CommonAttributes {
    * @param created the created
    * @param modified the modified
    * @param sid the windows/samba SID
-   * @param userName the user name
+   * @param userName the username
    * @param enabled the enabled
    * @param firstName the first name
    * @param lastName the last name
@@ -248,7 +249,6 @@ public class DomainUser extends CommonAttributes {
    * @param password the password
    * @param groups the groups
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DomainUser(String distinguishedName, OffsetDateTime created, OffsetDateTime modified,
       Sid sid, String userName, Boolean enabled, String firstName, String lastName,
@@ -304,15 +304,6 @@ public class DomainUser extends CommonAttributes {
       groups = new ArrayList<>();
     }
     return groups;
-  }
-
-  /**
-   * Sets groups.
-   *
-   * @param groups the groups
-   */
-  public void setGroups(List<String> groups) {
-    this.groups = groups;
   }
 
 }

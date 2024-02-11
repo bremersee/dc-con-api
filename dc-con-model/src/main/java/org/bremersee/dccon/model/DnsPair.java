@@ -20,15 +20,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import jakarta.validation.constraints.NotNull;
+import java.io.Serial;
 import java.io.Serializable;
-import javax.validation.constraints.NotNull;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * The pair of zone name and dns node.
@@ -36,15 +34,12 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "A dns node and t's zone.")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
+@Data
 @NoArgsConstructor
 public class DnsPair implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
 
   /**
@@ -54,7 +49,7 @@ public class DnsPair implements Serializable {
 
   @Schema(
       description = "The zone name of the dns node.",
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = ZONE_NAME, required = true)
   @NotNull
@@ -67,7 +62,7 @@ public class DnsPair implements Serializable {
 
   @Schema(
       description = "A dns node.",
-      required = true,
+      requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = NODE, required = true)
   @NotNull
@@ -91,7 +86,6 @@ public class DnsPair implements Serializable {
    * @param node the node
    * @param nodeExists {@code true} if the dns node exists, otherwise {@code false}
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsPair(String zoneName, DnsNode node, Boolean nodeExists) {
     this.zoneName = zoneName;

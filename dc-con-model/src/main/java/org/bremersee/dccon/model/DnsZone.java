@@ -20,12 +20,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import java.io.Serial;
 import java.time.OffsetDateTime;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
-import org.springframework.validation.annotation.Validated;
 
 /**
  * DNS Zone.
@@ -33,13 +36,15 @@ import org.springframework.validation.annotation.Validated;
  * @author Christian Bremer
  */
 @Schema(description = "DNS Zone")
-@Validated
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @NoArgsConstructor
 public class DnsZone extends CommonAttributes {
 
+  @Serial
   private static final long serialVersionUID = 2L;
 
   /**
@@ -47,6 +52,10 @@ public class DnsZone extends CommonAttributes {
    */
   public static final String NAME = "name";
 
+  /**
+   * The zone name.
+   */
+  @Schema(description = "The zone name.", requiredMode = RequiredMode.REQUIRED)
   @JsonProperty(value = NAME, required = true)
   private String name;
 
@@ -55,6 +64,9 @@ public class DnsZone extends CommonAttributes {
    */
   public static final String DEFAULT_ZONE = "defaultZone";
 
+  @Schema(
+      description = "Specifies whether this zone is the default zone or not.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = DEFAULT_ZONE)
   private Boolean defaultZone;
 
@@ -63,6 +75,9 @@ public class DnsZone extends CommonAttributes {
    */
   public static final String REVERSE_ZONE = "reverseZone";
 
+  @Schema(
+      description = "Specifies whether this zone is a reverse zone or not.",
+      accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = REVERSE_ZONE)
   private Boolean reverseZone;
 
@@ -76,7 +91,6 @@ public class DnsZone extends CommonAttributes {
    * @param defaultZone the default zone
    * @param reverseZone the reverse zone
    */
-  @SuppressWarnings("unused")
   @Builder(toBuilder = true)
   public DnsZone(
       String distinguishedName,
@@ -93,43 +107,12 @@ public class DnsZone extends CommonAttributes {
   }
 
   /**
-   * The zone name.
-   *
-   * @return zone name
-   */
-  @Schema(description = "The zone name.", required = true)
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets zone name.
-   *
-   * @param name the zone name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
    * Gets default zone.
    *
    * @return the default zone
    */
-  @Schema(
-      description = "Specifies whether this zone is the default zone or not.",
-      accessMode = AccessMode.READ_ONLY)
   public Boolean getDefaultZone() {
     return Boolean.TRUE.equals(defaultZone);
-  }
-
-  /**
-   * Sets default zone.
-   *
-   * @param defaultZone the default zone
-   */
-  public void setDefaultZone(Boolean defaultZone) {
-    this.defaultZone = defaultZone;
   }
 
   /**
@@ -137,20 +120,8 @@ public class DnsZone extends CommonAttributes {
    *
    * @return the reverse zone
    */
-  @Schema(
-      description = "Specifies whether this zone is a reverse zone or not.",
-      accessMode = AccessMode.READ_ONLY)
   public Boolean getReverseZone() {
     return Boolean.TRUE.equals(reverseZone);
-  }
-
-  /**
-   * Sets reverse zone.
-   *
-   * @param reverseZone the reverse zone
-   */
-  public void setReverseZone(Boolean reverseZone) {
-    this.reverseZone = reverseZone;
   }
 
 }
