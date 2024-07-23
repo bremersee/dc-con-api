@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
@@ -61,7 +60,6 @@ public class DomainGroup extends CommonAttributes implements Serializable {
    */
   @Schema(description = "The name of the domain group.", requiredMode = RequiredMode.REQUIRED)
   @JsonProperty(value = NAME, required = true)
-  @NotNull
   private String name = null;
 
   /**

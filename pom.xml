@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.bremersee</groupId>
     <artifactId>common-parent</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.1.1</version>
     <relativePath/>
   </parent>
 
@@ -30,8 +30,7 @@
     <!--suppress UnresolvedMavenProperty -->
     <gh-pages-staging-dir>${maven.multiModuleProjectDirectory}/target/staging</gh-pages-staging-dir>
 
-    <common-exception.version>1.0.0-SNAPSHOT</common-exception.version>
-    <pagebuilder.version>3.0.0-SNAPSHOT</pagebuilder.version>
+    <lib-bundle.version>0.1.0</lib-bundle.version>
   </properties>
 
   <developers>
@@ -90,13 +89,10 @@
     <dependencies>
       <dependency>
         <groupId>org.bremersee</groupId>
-        <artifactId>common-exception-model</artifactId>
-        <version>${common-exception.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bremersee</groupId>
-        <artifactId>pagebuilder</artifactId>
-        <version>${pagebuilder.version}</version>
+        <artifactId>lib-bundle</artifactId>
+        <version>${lib-bundle.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -25,7 +25,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import org.bremersee.dccon.model.DomainGroup;
 import org.bremersee.dccon.model.DomainGroupPage;
 import org.bremersee.exception.model.RestApiException;
@@ -140,7 +139,7 @@ public interface DomainGroupManagementApi {
       method = RequestMethod.POST)
   ResponseEntity<DomainGroup> addGroup(
       @Parameter(description = "The domain group to add.", required = true)
-      @Valid @RequestBody DomainGroup group);
+      @RequestBody DomainGroup group);
 
   /**
    * Get domain group by name.
@@ -233,7 +232,7 @@ public interface DomainGroupManagementApi {
       @PathVariable("groupName") String groupName,
 
       @Parameter(description = "The domain group.", required = true)
-      @Valid @RequestBody DomainGroup domainGroup);
+      @RequestBody DomainGroup domainGroup);
 
   /**
    * Checks whether a domain group exists.

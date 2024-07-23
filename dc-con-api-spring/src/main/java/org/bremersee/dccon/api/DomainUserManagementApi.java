@@ -26,7 +26,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Locale;
-import jakarta.validation.Valid;
 import org.bremersee.dccon.model.AvatarDefault;
 import org.bremersee.dccon.model.DomainUser;
 import org.bremersee.dccon.model.DomainUserPage;
@@ -155,7 +154,7 @@ public interface DomainUserManagementApi {
       @RequestParam(name = "lang", defaultValue = "en") Locale language,
 
       @Parameter(description = "The domain user to add.", required = true)
-      @Valid @RequestBody DomainUser domainUser);
+      @RequestBody DomainUser domainUser);
 
   /**
    * Get domain user.
@@ -304,7 +303,7 @@ public interface DomainUserManagementApi {
       @RequestParam(name = "updateGroups", defaultValue = "false") Boolean updateGroups,
 
       @Parameter(description = "The domain user.", required = true)
-      @Valid @RequestBody DomainUser domainUser);
+      @RequestBody DomainUser domainUser);
 
   /**
    * Update user password.
@@ -366,7 +365,7 @@ public interface DomainUserManagementApi {
       @RequestParam(name = "lang", defaultValue = "en") Locale language,
 
       @Parameter(description = "The password of the domain user.", required = true)
-      @Valid @RequestBody Password newPassword);
+      @RequestBody Password newPassword);
 
   /**
    * Update user avatar response entity.

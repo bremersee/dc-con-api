@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -71,7 +70,6 @@ public class DomainUser extends CommonAttributes {
 
   @Schema(description = "The user name of the domain user.", requiredMode = RequiredMode.REQUIRED)
   @JsonProperty(value = USER_NAME, required = true)
-  @NotNull
   private String userName;
 
   /**

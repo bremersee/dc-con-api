@@ -26,7 +26,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import jakarta.validation.Valid;
 import org.bremersee.dccon.model.DhcpLease;
 import org.bremersee.dccon.model.DhcpLeasePage;
 import org.bremersee.dccon.model.DnsNode;
@@ -271,7 +270,7 @@ public interface NameServerWebfluxManagementApi {
       method = RequestMethod.POST)
   Mono<DnsZone> addDnsZone(
       @Parameter(description = "The dns zone to add.", required = true)
-      @Valid @RequestBody DnsZone request);
+      @RequestBody DnsZone request);
 
   /**
    * Delete dns zone.
@@ -433,7 +432,7 @@ public interface NameServerWebfluxManagementApi {
       @PathVariable("zoneName") String zoneName,
 
       @Parameter(description = "The dns node to save.", required = true)
-      @Valid @RequestBody DnsNode dnsNode);
+      @RequestBody DnsNode dnsNode);
 
   /**
    * Get dns node.

@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import lombok.Builder;
@@ -52,7 +51,6 @@ public class DnsPair implements Serializable {
       requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = ZONE_NAME, required = true)
-  @NotNull
   private String zoneName;
 
   /**
@@ -65,7 +63,6 @@ public class DnsPair implements Serializable {
       requiredMode = RequiredMode.REQUIRED,
       accessMode = AccessMode.READ_ONLY)
   @JsonProperty(value = NODE, required = true)
-  @NotNull
   private DnsNode node;
 
   /**
