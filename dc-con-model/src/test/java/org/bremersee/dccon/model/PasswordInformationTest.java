@@ -223,14 +223,34 @@ class PasswordInformationTest {
    */
   @Test
   void getPasswordRegexWithComplexityIsOff() {
+    String expected = "^(?=.{8,70}$).*";
+    String template = expected;
     PasswordInformation target = PasswordInformation.builder()
         .passwordComplexity(PasswordComplexity.OFF)
-        .minimumPasswordLength(8)
+        .simplePasswordRegexTemplate(template)
         .build();
     String actual = target.getPasswordRegex();
-    String expected = "^(?=.{8,75}$).*";
     assertEquals(expected, actual);
     assertNotNull(target.getPasswordPattern());
+
+    template = "^(?=.{%s,%s}$).*";
+    target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.OFF)
+        .simplePasswordRegexTemplate(template)
+        .minimumPasswordLength(8)
+        .maximumPasswordLength(70)
+        .build();
+    actual = target.getPasswordRegex();
+    assertEquals(expected, actual);
+
+    target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.OFF)
+        .simplePasswordRegexTemplate(null)
+        .minimumPasswordLength(8)
+        .maximumPasswordLength(70)
+        .build();
+    actual = target.getPasswordRegex();
+    assertEquals(expected, actual);
   }
 
   /**
@@ -238,16 +258,38 @@ class PasswordInformationTest {
    */
   @Test
   void getPasswordRegexWithComplexityIsOn() {
-    PasswordInformation target = PasswordInformation.builder()
-        .passwordComplexity(PasswordComplexity.ON)
-        .minimumPasswordLength(12)
-        .build();
-    String actual = target.getPasswordRegex();
-    String expected = "(?=^.{12,75}$)"
+    String expected = "(?=^.{12,80}$)"
         + "((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])"
         + "|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
+    String template = expected;
+    PasswordInformation target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.ON)
+        .complexPasswordRegexTemplate(template)
+        .build();
+    String actual = target.getPasswordRegex();
     assertEquals(expected, actual);
     assertNotNull(target.getPasswordPattern());
+
+    template = "(?=^.{%s,%s}$)"
+        + "((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])"
+        + "|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
+    target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.ON)
+        .complexPasswordRegexTemplate(template)
+        .minimumPasswordLength(12)
+        .maximumPasswordLength(80)
+        .build();
+    actual = target.getPasswordRegex();
+    assertEquals(expected, actual);
+
+    target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.ON)
+        .complexPasswordRegexTemplate(null)
+        .minimumPasswordLength(12)
+        .maximumPasswordLength(80)
+        .build();
+    actual = target.getPasswordRegex();
+    assertEquals(expected, actual);
   }
 
 }

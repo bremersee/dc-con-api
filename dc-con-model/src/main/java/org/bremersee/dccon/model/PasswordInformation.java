@@ -19,6 +19,7 @@ package org.bremersee.dccon.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
@@ -45,11 +46,11 @@ import lombok.ToString;
 public class PasswordInformation implements Serializable {
 
   @Serial
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
 
-  private static final String SIMPLE_PASSWORD_REGEX = "^(?=.{%d,75}$).*";
+  private static final String SIMPLE_PASSWORD_REGEX = "^(?=.{%d,%d}$).*";
 
-  private static final String COMPLEX_PASSWORD_REGEX = "(?=^.{%d,75}$)"
+  private static final String COMPLEX_PASSWORD_REGEX = "(?=^.{%d,%d}$)"
       + "((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])"
       + "|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
 
@@ -69,6 +70,10 @@ public class PasswordInformation implements Serializable {
   @Schema(description = "The minimum password length. Default is 7.")
   @JsonProperty("minimumPasswordLength")
   private Integer minimumPasswordLength = 7;
+
+  @Schema(description = "The maximum password length. Default is 75.")
+  @JsonProperty("maximumPasswordLength")
+  private Integer maximumPasswordLength = 75;
 
   @Schema(description = "The minimum password age in days. Default is 1.")
   @JsonProperty("minimumPasswordAgeInDays")
@@ -93,18 +98,29 @@ public class PasswordInformation implements Serializable {
   @JsonProperty("resetAccountLockoutAfter")
   private Integer resetAccountLockoutAfter = 30;
 
+  @Hidden
+  @JsonIgnore
+  private String simplePasswordRegexTemplate = SIMPLE_PASSWORD_REGEX;
+
+  @Hidden
+  @JsonIgnore
+  private String complexPasswordRegexTemplate = COMPLEX_PASSWORD_REGEX;
+
   /**
-   * Instantiates a new Password information.
+   * Instantiates a new password information.
    *
    * @param passwordComplexity the password complexity
    * @param storePlaintextPasswords the store plaintext passwords
    * @param passwordHistoryLength the password history length
    * @param minimumPasswordLength the minimum password length
+   * @param maximumPasswordLength the maximum password length
    * @param minimumPasswordAgeInDays the minimum password age in days
    * @param maximumPasswordAgeInDays the maximum password age in days
    * @param accountLockoutDurationInMinutes the account lockout duration in minutes
    * @param accountLockoutThreshold the account lockout threshold
    * @param resetAccountLockoutAfter the reset account lockout after
+   * @param simplePasswordRegexTemplate the simple password regex template
+   * @param complexPasswordRegexTemplate the complex password regex template
    */
   @Builder(toBuilder = true)
   public PasswordInformation(
@@ -112,20 +128,26 @@ public class PasswordInformation implements Serializable {
       Boolean storePlaintextPasswords,
       Integer passwordHistoryLength,
       Integer minimumPasswordLength,
+      Integer maximumPasswordLength,
       Integer minimumPasswordAgeInDays,
       Integer maximumPasswordAgeInDays,
       Integer accountLockoutDurationInMinutes,
       Integer accountLockoutThreshold,
-      Integer resetAccountLockoutAfter) {
+      Integer resetAccountLockoutAfter,
+      String simplePasswordRegexTemplate,
+      String complexPasswordRegexTemplate) {
     setPasswordComplexity(passwordComplexity);
     setStorePlaintextPasswords(storePlaintextPasswords);
     setPasswordHistoryLength(passwordHistoryLength);
     setMinimumPasswordLength(minimumPasswordLength);
+    setMaximumPasswordLength(maximumPasswordLength);
     setMinimumPasswordAgeInDays(minimumPasswordAgeInDays);
     setMaximumPasswordAgeInDays(maximumPasswordAgeInDays);
     setAccountLockoutDurationInMinutes(accountLockoutDurationInMinutes);
     setAccountLockoutThreshold(accountLockoutThreshold);
     setResetAccountLockoutAfter(resetAccountLockoutAfter);
+    setSimplePasswordRegexTemplate(simplePasswordRegexTemplate);
+    setComplexPasswordRegexTemplate(complexPasswordRegexTemplate);
   }
 
   /**
@@ -139,21 +161,37 @@ public class PasswordInformation implements Serializable {
     }
   }
 
+  /**
+   * Gets password regex.
+   *
+   * @return the password regex
+   */
   @Schema(description = "The password regex.", accessMode = AccessMode.READ_ONLY)
-  @JsonProperty("passwordRegex")
+  @JsonProperty(value = "passwordRegex", access = Access.READ_ONLY)
   public String getPasswordRegex() {
-    final int minLength = getMinimumPasswordLength() != null
+    int minLength = getMinimumPasswordLength() != null
         ? getMinimumPasswordLength()
         : 7;
-    final String regex;
+    int maxLength = getMaximumPasswordLength() != null
+        ? getMaximumPasswordLength()
+        : 75;
+    String template;
     if (PasswordComplexity.OFF == getPasswordComplexity()) {
-      regex = String.format(SIMPLE_PASSWORD_REGEX, minLength);
+      template = getSimplePasswordRegexTemplate();
     } else {
-      regex = String.format(COMPLEX_PASSWORD_REGEX, minLength);
+      template = getComplexPasswordRegexTemplate();
     }
-    return regex;
+    if (containsPlaceholderForMinAndMaxLength(template)) {
+      return String.format(template, minLength, maxLength);
+    }
+    return template;
   }
 
+  /**
+   * Gets password pattern.
+   *
+   * @return the password pattern
+   */
   @Hidden
   @JsonIgnore
   public Pattern getPasswordPattern() {
@@ -190,6 +228,17 @@ public class PasswordInformation implements Serializable {
   public void setMinimumPasswordLength(Integer minimumPasswordLength) {
     if (minimumPasswordLength != null) {
       this.minimumPasswordLength = minimumPasswordLength;
+    }
+  }
+
+  /**
+   * Sets maximum password length.
+   *
+   * @param maximumPasswordLength the minimum password length
+   */
+  public void setMaximumPasswordLength(Integer maximumPasswordLength) {
+    if (maximumPasswordLength != null) {
+      this.maximumPasswordLength = maximumPasswordLength;
     }
   }
 
@@ -246,5 +295,69 @@ public class PasswordInformation implements Serializable {
     if (resetAccountLockoutAfter != null) {
       this.resetAccountLockoutAfter = resetAccountLockoutAfter;
     }
+  }
+
+  /**
+   * Gets simple password regex template.
+   *
+   * @return the simple password regex template
+   */
+  @Hidden
+  @JsonIgnore
+  public String getSimplePasswordRegexTemplate() {
+    return simplePasswordRegexTemplate;
+  }
+
+  /**
+   * Sets simple password regex template.
+   *
+   * @param simplePasswordRegexTemplate the simple password regex template
+   */
+  @Hidden
+  @JsonIgnore
+  public void setSimplePasswordRegexTemplate(String simplePasswordRegexTemplate) {
+    if (simplePasswordRegexTemplate != null) {
+      this.simplePasswordRegexTemplate = simplePasswordRegexTemplate;
+    }
+  }
+
+  /**
+   * Gets complex password regex template.
+   *
+   * @return the complex password regex template
+   */
+  @Hidden
+  @JsonIgnore
+  public String getComplexPasswordRegexTemplate() {
+    return complexPasswordRegexTemplate;
+  }
+
+  /**
+   * Sets complex password regex template.
+   *
+   * @param complexPasswordRegexTemplate the complex password regex template
+   */
+  @Hidden
+  @JsonIgnore
+  public void setComplexPasswordRegexTemplate(String complexPasswordRegexTemplate) {
+    if (complexPasswordRegexTemplate != null) {
+      this.complexPasswordRegexTemplate = complexPasswordRegexTemplate;
+    }
+  }
+
+  private static boolean containsPlaceholderForMinAndMaxLength(String passwordRegexTemplate) {
+    return containsPlaceholderForMinAndMaxLength(passwordRegexTemplate, "%d")
+        || containsPlaceholderForMinAndMaxLength(passwordRegexTemplate, "%s");
+  }
+
+  private static boolean containsPlaceholderForMinAndMaxLength(
+      String passwordRegexTemplate, String placeholder) {
+    int index = passwordRegexTemplate.indexOf(placeholder);
+    if (index < 0) {
+      return false;
+    }
+    int from = index + placeholder.length();
+    index = passwordRegexTemplate.indexOf(placeholder, from);
+    return index > 0;
   }
 }
