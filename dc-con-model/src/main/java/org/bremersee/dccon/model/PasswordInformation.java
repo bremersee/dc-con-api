@@ -16,11 +16,15 @@
 
 package org.bremersee.dccon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.regex.Pattern;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,6 +46,12 @@ public class PasswordInformation implements Serializable {
 
   @Serial
   private static final long serialVersionUID = 1L;
+
+  private static final String SIMPLE_PASSWORD_REGEX = "^(?=.{%d,75}$).*";
+
+  private static final String COMPLEX_PASSWORD_REGEX = "(?=^.{%d,75}$)"
+      + "((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])"
+      + "|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
 
   @Schema(description = "The password complexity.")
   @JsonProperty("passwordComplexity")
@@ -127,6 +137,27 @@ public class PasswordInformation implements Serializable {
     if (passwordComplexity != null) {
       this.passwordComplexity = passwordComplexity;
     }
+  }
+
+  @Schema(description = "The password regex.", accessMode = AccessMode.READ_ONLY)
+  @JsonProperty("passwordRegex")
+  public String getPasswordRegex() {
+    final int minLength = getMinimumPasswordLength() != null
+        ? getMinimumPasswordLength()
+        : 7;
+    final String regex;
+    if (PasswordComplexity.OFF == getPasswordComplexity()) {
+      regex = String.format(SIMPLE_PASSWORD_REGEX, minLength);
+    } else {
+      regex = String.format(COMPLEX_PASSWORD_REGEX, minLength);
+    }
+    return regex;
+  }
+
+  @Hidden
+  @JsonIgnore
+  public Pattern getPasswordPattern() {
+    return Pattern.compile(getPasswordRegex());
   }
 
   /**

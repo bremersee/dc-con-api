@@ -16,7 +16,10 @@
 
 package org.bremersee.dccon.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -213,6 +216,38 @@ class PasswordInformationTest {
     assertEquals(model, model.toBuilder().storePlaintextPasswords(true).build());
 
     assertTrue(model.toString().contains("true"));
+  }
+
+  /**
+   * Gets password regex with complexity is off.
+   */
+  @Test
+  void getPasswordRegexWithComplexityIsOff() {
+    PasswordInformation target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.OFF)
+        .minimumPasswordLength(8)
+        .build();
+    String actual = target.getPasswordRegex();
+    String expected = "^(?=.{8,75}$).*";
+    assertEquals(expected, actual);
+    assertNotNull(target.getPasswordPattern());
+  }
+
+  /**
+   * Gets password regex with complexity is on.
+   */
+  @Test
+  void getPasswordRegexWithComplexityIsOn() {
+    PasswordInformation target = PasswordInformation.builder()
+        .passwordComplexity(PasswordComplexity.ON)
+        .minimumPasswordLength(12)
+        .build();
+    String actual = target.getPasswordRegex();
+    String expected = "(?=^.{12,75}$)"
+        + "((?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])"
+        + "|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*";
+    assertEquals(expected, actual);
+    assertNotNull(target.getPasswordPattern());
   }
 
 }
